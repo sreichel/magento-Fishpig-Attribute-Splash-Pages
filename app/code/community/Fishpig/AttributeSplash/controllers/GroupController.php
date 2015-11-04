@@ -16,6 +16,29 @@ class Fishpig_AttributeSplash_GroupController extends Mage_Core_Controller_Front
 			if ($rootBlock = $this->getLayout()->getBlock('root')) {
 				$rootBlock->addBodyClass('splash-group-' . $splashGroup->getId());
 			}
+			
+			if ($title = $splashGroup->getPageTitle()) {			
+				$this->_title($title);
+			}
+			
+			if ($headBlock = $this->getLayout()->getBlock('head')) {
+				if ($description = $splashGroup->getMetaDescription()) {
+					$headBlock->setDescription($description);
+				}
+				
+				if ($keywords = $splashGroup->getMetaKeywords()) {
+					$headBlock->setKeywords($keywords);
+				}
+				
+				if (Mage::helper('attributeSplash')->canUseCanonical()) {
+					$headBlock->addItem('link_rel', $splashGroup->getUrl(), 'rel="canonical"');
+				}
+			}
+			
+			if ($breadBlock = $this->getLayout()->getBlock('breadcrumbs')) {
+				$breadBlock->addCrumb('home', array('label' => $this->__('Home'), 'title' => $this->__('Home'), 'link' => Mage::getUrl()));
+				$breadBlock->addCrumb('splash_group', array('label' => $splashGroup->getName(), 'title' => $splashGroup->getName()));
+			}
 
 			$this->renderLayout();
 		}

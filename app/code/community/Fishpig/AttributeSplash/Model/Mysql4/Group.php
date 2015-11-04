@@ -61,9 +61,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Group extends Fishpig_AttributeSplash
 			$splashPages->addStoreIdFilter($group->getStoreId());
 		}
 		else {
-			$storeId = Mage::app()->getStore()->getId();
-			
-			if ($storeId > 0) {
+			if (($storeId = Mage::app()->getStore()->getId()) > 0) {
 				$splashPages->addStoreIdFilter($storeId);
 			}
 		}

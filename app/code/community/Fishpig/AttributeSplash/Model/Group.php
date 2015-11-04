@@ -88,7 +88,7 @@ class Fishpig_AttributeSplash_Model_Group extends Mage_Core_Model_Abstract
 	public function canDisplay()
 	{
 		return Mage::helper('attributeSplash')->splashGroupPagesEnabled()
-			&& $this->getId() && $this->getIsEnabled() && $this->hasSplashPages();
+			&& $this->getId() && $this->getIsEnabled();// && $this->hasSplashPages();
 	}
 	
 	/**
@@ -126,11 +126,7 @@ class Fishpig_AttributeSplash_Model_Group extends Mage_Core_Model_Abstract
 	 */
 	public function getSplashPages()
 	{
-		if (!$this->hasData('splash_pages')) {
-			$this->setSplashPages($this->getResource()->getSplashPages($this));
-		}
-		
-		return $this->getData('splash_pages');
+		return $this->getResource()->getSplashPages($this);
 	}
 	
 	/**

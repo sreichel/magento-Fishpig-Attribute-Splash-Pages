@@ -7,10 +7,9 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
-TODO/BUGS
-- Look into Store View scoped attributes
-- Order products per splash page
-- Look into report that 'Sort By' doesn't work
+05/03/2013 - v2.2.0.1
+- Fixed issue that broke pager on group pages
+- Added page title suffix to group pages
 
 24/01/2013 - v2.2.0.0
 - Added flat catalog fixed (props to http://www.xtreme-vision.net/magento/magento-fishpig-attribute-splash-pages-and-flat-catalog)

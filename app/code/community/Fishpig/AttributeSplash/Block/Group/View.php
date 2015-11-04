@@ -54,34 +54,8 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 	{
 		parent::_prepareLayout();
 
-		if ($splashGroup = $this->getSplashGroup()) {
-			if ($headBlock = $this->getLayout()->getBlock('head')) {
-				if ($title = $splashGroup->getPageTitle()) {
-					$headBlock->setTitle($title);
-				}
-	
-				if ($description = $splashGroup->getMetaDescription()) {
-					$headBlock->setDescription($description);
-				}
-				
-				if ($keywords = $splashGroup->getMetaKeywords()) {
-					$headBlock->setKeywords($keywords);
-				}
-				
-				if ($this->helper('attributeSplash')->canUseCanonical()) {
-					$headBlock->addItem('link_rel', $splashGroup->getUrl(), 'rel="canonical"');
-				}
-			}
-			
-			if ($breadBlock = $this->getLayout()->getBlock('breadcrumbs')) {
-				$breadBlock->addCrumb('home', array('label' => $this->__('Home'), 'title' => $this->__('Home'), 'link' => $this->getUrl('')))
-					->addCrumb('splash_group', array('label' => $splashGroup->getName(), 'title' => $splashGroup->getName()));
-			}
-			
-			$this->_setTemplateFromConfig();
-
-			$this->getPagerHtml();
-		}
+		$this->_setTemplateFromConfig();
+//		$this->getPagerHtml();
 		
         return $this;
     }
@@ -160,10 +134,16 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
     {
     	if (!$this->hasPagerHtml()) {
 	    	if ($block = $this->getPagerBlock()) {
-    			$block->setLimit($this->getLimit());
-    			$block->setAvailableLimit(array($this->getLimit() => $this->getLimit()));
+	    		$limit = $this->getLimit();
 
-				$this->setPagerHtml($block->setCollection($this->getSplashPages())->toHtml());
+    			$block->setDefaultLimit($limit);
+    			$block->setLimit($limit);
+    			$block->setAvailableLimit(array($limit => $limit));	    		
+
+    			$block->setCollection($this->getSplashPages());
+
+
+				$this->setPagerHtml($block->toHtml());
 			}
     	}
     	
@@ -177,7 +157,6 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 	 */
 	protected function getLimit()
 	{
-	return 2;
 		if (!$this->hasLimit()) {
 			if ($this->isListMode()) {
 				$key = 'list';
@@ -192,23 +171,21 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 			$this->setLimit(Mage::getStoreConfig('attributeSplash/list_page/' . $key . '_per_page'));
 		}
 		
-		return $this->getData('limit');
+		return (int)$this->getData('limit');
 	}
     
     /**
      * Returns the block for the pager
      * If no block is set via the XML, one will NOT be created
      *
-     * @return null|Mage_Page_Block_Html_Pager
+     * @return false|Mage_Page_Block_Html_Pager
      */
     public function getPagerBlock()
     {
-    	if (!$this->hasPagerBlock()) {
-	    	if ($this->hasPagerBlockName()) {
-		  		$this->setPagerBlock($this->getChild($this->getPagerBlockName()));
-		  	}
-    	}
-
-		return $this->getData('pager_block');
+    	if ($blockName = $this->getPagerBlockName()) {
+	    	return $this->getChild($blockName);
+	    }
+	    
+	    return false;
     }
 }

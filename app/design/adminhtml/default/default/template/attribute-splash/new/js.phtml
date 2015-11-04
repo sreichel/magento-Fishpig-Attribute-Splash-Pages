@@ -1,0 +1,35 @@
+<?php
+/**
+ *
+ *
+ */
+?>
+<script type="text/javascript">
+	document.observe('dom:loaded', function() {
+		function populateAttributeOptions(pAttributeId) {
+			for (var attributeId in dJson) {
+				if (attributeId == pAttributeId) {
+					var attribute = dJson[attributeId];
+					for (valueId in attribute) {
+						$('splash_option_id').options[$('splash_option_id').options.length] = new Option(attribute[valueId], valueId, false, false);
+					}
+				}
+			}
+			setHiddenOptionValueInput($('splash_option_id'));
+		}
+		function setHiddenOptionValueInput(sel) {
+			$('option_value').value = sel.options[sel.selectedIndex].innerHTML;
+		}
+		$('splash_attribute_id').observe('change', function() {
+			$('splash_option_id').options.length = 0;
+			populateAttributeOptions(this.value);
+		});
+		$('splash_option_id').observe('change', function() {
+			setHiddenOptionValueInput(this);
+		});
+		$('splash_continue').observe('click', function() {
+			editForm.submit();
+		});
+		populateAttributeOptions($('splash_attribute_id').value);
+	});
+</script>

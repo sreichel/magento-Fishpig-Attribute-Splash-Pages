@@ -7,6 +7,9 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+15/03/2013 - v2.2.0.6
+- Added display mode functionality for Splash groups
+
 14/03/2013 - v2.2.0.5
 - Fix splash page order on group page (changed from DESC to ASC)
 - Removed setSaveParametersInSession

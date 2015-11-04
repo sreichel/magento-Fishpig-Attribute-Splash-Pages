@@ -8,6 +8,11 @@
 
 class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 {
+	/**
+	 * Splash page collection
+	 *
+	 * @var Fishpig_AttributeSplash_Model_Mysql4_Page_Collection
+	 */
 	protected $_splashPages = null;
 	
 	/**
@@ -35,6 +40,11 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 		return $this->_getData('splash_group');
 	}
 	
+	/**
+	 * Retrieve the splash page collection
+	 *
+	 * @return Fishpig_AttributeSplash_Model_Mysql4_Page_Collection
+	 */
 	public function getSplashPages()
 	{
 		if (is_null($this->_splashPages)) {
@@ -100,6 +110,53 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 	public function getMode()
 	{
 		return Mage::getStoreConfig('attributeSplash/list_page/display_mode');
+	}
+	
+	/**
+	 * Check if category display mode is "Products Only"
+	 *
+	 * @return bool
+	*/
+	public function isProductMode()
+	{
+		return $this->getSplashGroup()->getDisplayMode()==Mage_Catalog_Model_Category::DM_PRODUCT;
+	}
+	
+	/**
+	 * Check if category display mode is "Static Block and Products"
+	 *
+	 * @return bool
+	*/
+	public function isMixedMode()
+	{
+		return $this->getSplashGroup()->getDisplayMode()==Mage_Catalog_Model_Category::DM_MIXED;
+	}
+
+	/**
+	 * Determine whether it is content mode (Static Block)
+	 *
+	 * @return bool
+	 */
+	public function isContentMode()
+	{
+		return $this->getSplashGroup()->getDisplayMode()==Mage_Catalog_Model_Category::DM_PAGE;
+	}
+
+	/**
+	 * Retrieves the HTML for the CMS block
+	 *
+	 * @return string
+	 */
+	public function getCmsBlockHtml()
+	{
+		if (!$this->_getData('cms_block_html')) {
+			$html = $this->getLayout()->createBlock('cms/block')
+				->setBlockId($this->getSplashGroup()->getCmsBlock())->toHtml();
+
+			$this->setCmsBlockHtml($html);
+		}
+		
+		return $this->_getData('cms_block_html');
 	}
 	
 	/**

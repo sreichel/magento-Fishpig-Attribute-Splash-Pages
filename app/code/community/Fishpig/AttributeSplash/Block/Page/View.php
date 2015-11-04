@@ -47,6 +47,7 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 
 	/**
 	 * Check if category display mode is "Products Only"
+	 *
 	 * @return bool
 	*/
 	public function isProductMode()
@@ -56,6 +57,7 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 	
 	/**
 	 * Check if category display mode is "Static Block and Products"
+	 *
 	 * @return bool
 	*/
 	public function isMixedMode()
@@ -63,6 +65,11 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 		return $this->getSplashPage()->getDisplayMode()==Mage_Catalog_Model_Category::DM_MIXED;
 	}
 
+	/**
+	 * Determine whether it is content mode (Static Block)
+	 *
+	 * @return bool
+	 */
 	public function isContentMode()
 	{
 		return $this->getSplashPage()->getDisplayMode()==Mage_Catalog_Model_Category::DM_PAGE;
@@ -78,6 +85,11 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 		return $this->getProductListBlock()->toHtml();
 	}
 	
+	/**
+	 * Retrieve the product list block
+	 *
+	 * @return Mage_Catalog_Block_Product_List
+	 */
 	public function getProductListBlock()
 	{
 		if ($block = $this->getChild('product_list')) {
@@ -93,10 +105,16 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 		return false;
 	}
 	
+	/**
+	 * Retrieve the number of products per row
+	 *
+	 * @return int
+	 */
 	public function getSplashPageProductsPerRow()
 	{
 		return Mage::getStoreConfig('attributeSplash/frontend/grid_column_count');
 	}
+	
 	/**
 	 * Retrieves the HTML for the CMS block
 	 *

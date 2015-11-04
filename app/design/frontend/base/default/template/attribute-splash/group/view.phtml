@@ -12,62 +12,69 @@
 		<h1><?php echo $this->escapeHtml($splashGroup->getName()) ?></h1>
 	</div>
 	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-	<?php echo $this->getPagerHtml() ?>
-	<?php if ($this->isGridMode()): ?>
-		<?php $_columnCount = $this->getColumnCount() ?>
-		<?php $_collectionSize = $splashPages->count() ?>
-		<?php $i = 0; foreach($splashPages as $splashPage): ?>
-			<?php if ($i++%$_columnCount==0): ?>
-				<ul class="splash-group-grid">
-			<?php endif ?>
-			<li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
-				<?php if ($splashPage->getThumbnail()): ?>
-				<a href="<?php echo $splashPage->getUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" class="product-image">
-					<img src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'thumbnail')->keepFrame($splashPage->thumbnailShouldKeepFrame())->resize($splashPage->getThumbnailWidth(), $splashPage->getThumbnailHeight()) ?>" alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>" />
-				</a>
-				<?php endif; ?>
-				<h2 class="product-name">
-					<a href="<?php echo $splashPage->getUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>">
-						<?php echo $this->escapeHtml($splashPage->getName()) ?>
-					</a>
-				</h2>
-			</li>
-			<?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
-				</ul>
-			<?php endif ?>
-		<?php endforeach ?>
-        <script type="text/javascript">decorateGeneric($$('ul.splash-group-grid'), ['odd','even','first','last'])</script>
-	<?php elseif ($this->isListMode()): ?>
-		<ol id="splash-group-list" class="splash-group-list">
-			<?php foreach($splashPages as $splashPage): ?>
-				<li class="item">
+	<?php if($this->isContentMode()): ?>
+		<?php echo $this->getCmsBlockHtml() ?>
+	<?php elseif($this->isMixedMode()): ?>
+		<?php echo $this->getCmsBlockHtml() ?>
+	<?php endif; ?>
+	<?php if ($this->isProductMode() || $this->isMixedMode()): ?>
+		<?php echo $this->getPagerHtml() ?>
+		<?php if ($this->isGridMode()): ?>
+			<?php $_columnCount = $this->getColumnCount() ?>
+			<?php $_collectionSize = $splashPages->count() ?>
+			<?php $i = 0; foreach($splashPages as $splashPage): ?>
+				<?php if ($i++%$_columnCount==0): ?>
+					<ul class="splash-group-grid">
+				<?php endif ?>
+				<li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
 					<?php if ($splashPage->getThumbnail()): ?>
-					<a class="product-image" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" href="<?php echo $splashPage->getUrl() ?>">
-						<img alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>" src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'thumbnail')->keepFrame($splashPage->thumbnailShouldKeepFrame())->resize($splashPage->getThumbnailWidth(), $splashPage->getThumbnailHeight()) ?>"/>
+					<a href="<?php echo $splashPage->getUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" class="product-image">
+						<img src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'thumbnail')->keepFrame($splashPage->thumbnailShouldKeepFrame())->resize($splashPage->getThumbnailWidth(), $splashPage->getThumbnailHeight()) ?>" alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>" />
 					</a>
 					<?php endif; ?>
-					<div class="product-shop">
-						<div class="f-fix">
-							<h2 class="product-name"><a title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" href="<?php echo $splashPage->getUrl() ?>"><?php echo $this->escapeHtml($splashPage->getName()) ?></a></h2>
-							<?php if ($splashPage->getShortDescription()): ?>
-								<div class="desc std"><?php echo $splashPage->getShortDescription() ?> <a class="link-more" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" href="<?php echo $splashPage->getUrl() ?>"><?php echo $this->__('View Products') ?></a></div>
-							<?php endif; ?>
+					<h2 class="product-name">
+						<a href="<?php echo $splashPage->getUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>">
+							<?php echo $this->escapeHtml($splashPage->getName()) ?>
+						</a>
+					</h2>
+				</li>
+				<?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+					</ul>
+				<?php endif ?>
+			<?php endforeach ?>
+	        <script type="text/javascript">decorateGeneric($$('ul.splash-group-grid'), ['odd','even','first','last'])</script>
+		<?php elseif ($this->isListMode()): ?>
+			<ol id="splash-group-list" class="splash-group-list">
+				<?php foreach($splashPages as $splashPage): ?>
+					<li class="item">
+						<?php if ($splashPage->getThumbnail()): ?>
+						<a class="product-image" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" href="<?php echo $splashPage->getUrl() ?>">
+							<img alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>" src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'thumbnail')->keepFrame($splashPage->thumbnailShouldKeepFrame())->resize($splashPage->getThumbnailWidth(), $splashPage->getThumbnailHeight()) ?>"/>
+						</a>
+						<?php endif; ?>
+						<div class="product-shop">
+							<div class="f-fix">
+								<h2 class="product-name"><a title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" href="<?php echo $splashPage->getUrl() ?>"><?php echo $this->escapeHtml($splashPage->getName()) ?></a></h2>
+								<?php if ($splashPage->getShortDescription()): ?>
+									<div class="desc std"><?php echo $splashPage->getShortDescription() ?> <a class="link-more" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" href="<?php echo $splashPage->getUrl() ?>"><?php echo $this->__('View Products') ?></a></div>
+								<?php endif; ?>
+							</div>
 						</div>
-					</div>
-				</li>
-			<?php endforeach; ?>
-		</ol>
-		<script type="text/javascript">decorateList('splash-group-list', 'non-recursive');</script>
-	<?php elseif ($this->isSimpleMode()): ?>
-		<ul class="splash-group-simple">
-			<?php foreach($splashPages as $splashPage): ?>
-				<li>
-					<a href="<?php echo $splashPage->getUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>">
-						<?php echo $this->escapeHtml($splashPage->getName()) ?>
-					</a>
-				</li>
-			<?php endforeach; ?>
-		</ul>
+					</li>
+				<?php endforeach; ?>
+			</ol>
+			<script type="text/javascript">decorateList('splash-group-list', 'non-recursive');</script>
+		<?php elseif ($this->isSimpleMode()): ?>
+			<ul class="splash-group-simple">
+				<?php foreach($splashPages as $splashPage): ?>
+					<li>
+						<a href="<?php echo $splashPage->getUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>">
+							<?php echo $this->escapeHtml($splashPage->getName()) ?>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+		<?php echo $this->getPagerHtml() ?>
 	<?php endif; ?>
-	<?php echo $this->getPagerHtml() ?>
 <?php endif; ?>

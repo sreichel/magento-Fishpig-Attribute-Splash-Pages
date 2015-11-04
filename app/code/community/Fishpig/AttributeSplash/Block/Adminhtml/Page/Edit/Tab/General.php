@@ -44,8 +44,15 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_General extends Mage
 		
 		$fieldset->addField('image', 'image', array(
 			'name' 	=> 'image',
-			'label' => $this->__('Image'),
-			'title' => $this->__('Image'),
+			'label' => $this->__('Splash Page Image'),
+			'title' => $this->__('Splash Page Image'),
+			'note' 	=> $this->__('Upload a large image as this can be dynamically resized'),
+		));
+		
+		$fieldset->addField('thumbnail', 'image', array(
+			'name' 	=> 'thumbnail',
+			'label' => $this->__('Group Page Image'),
+			'title' => $this->__('Group Page Image'),
 			'note' 	=> $this->__('Upload a large image as this can be dynamically resized'),
 		));
 		

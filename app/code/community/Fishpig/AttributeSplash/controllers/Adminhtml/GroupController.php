@@ -15,7 +15,7 @@ class Fishpig_AttributeSplash_Adminhtml_GroupController extends Mage_Adminhtml_C
 	public function indexAction()
 	{
 		$this->loadLayout();
-		$this->_setActiveMenu('catalog');
+		$this->_setActiveMenu('attributeSplash');
 		$this->renderLayout();
 	}
 	
@@ -40,7 +40,7 @@ class Fishpig_AttributeSplash_Adminhtml_GroupController extends Mage_Adminhtml_C
 	{
 		$this->_initSplashGroup();
 		$this->loadLayout();
-		$this->_setActiveMenu('catalog');
+		$this->_setActiveMenu('attributeSplash');
 		
 		if ($splash) {
 			if ($headBlock = $this->getLayout()->getBlock('head')) {

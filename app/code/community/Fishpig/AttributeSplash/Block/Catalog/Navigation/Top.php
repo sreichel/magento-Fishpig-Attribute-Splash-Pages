@@ -98,7 +98,7 @@ class Fishpig_AttributeSplash_Block_Catalog_Navigation_Top extends Mage_Catalog_
 	 */
 	public function getSplashGroupSplashPages(Fishpig_AttributeSplash_Model_Group $group)
 	{
-		return $this->_getSplashPageCollection()->addAttributeIdFilter($group->getAttributeId());
+		return $group->getSplashPages()->addIncludeInMenuFilter();
 	}
 	
 	/**

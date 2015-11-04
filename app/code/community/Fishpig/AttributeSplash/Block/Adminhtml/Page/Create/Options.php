@@ -58,13 +58,6 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Create_Options extends Mage_A
 			'index'			=> 'default_value',
 			'filter_index'	=> 'store_default_value.value',
 		));
-		
-		$this->addColumn('store_value', array(
-			'header'		=> $this->__('Default Value'),
-			'align'			=> 'left',
-			'index'			=> 'store_value',
-			'filter_index'	=> 'store_value.value',
-		));
 
 		return parent::_prepareColumns();
 	}

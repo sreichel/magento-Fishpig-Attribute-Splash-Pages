@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>2.0.7</version>
+			<version>2.0.9</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -132,6 +132,14 @@
 				<simple_per_page>0</simple_per_page>
 				<grid_column_count>3</grid_column_count>
 			</list_page>
+			<images>
+				<splash_image_width>200</splash_image_width>
+				<splash_image_height>200</splash_image_height>
+				<splash_image_keep_frame>0</splash_image_keep_frame>
+				<splash_thumbnail_width>200</splash_thumbnail_width>
+				<splash_thumbnail_height>200</splash_thumbnail_height>
+				<splash_thumbnail_keep_frame>0</splash_thumbnail_keep_frame>
+			</images>
 			<product>
 				<inject_links>1</inject_links>
 			</product>

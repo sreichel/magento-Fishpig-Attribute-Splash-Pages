@@ -140,7 +140,16 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 	protected function _getRelativeResizedImagePath($filename, $width = null, $height = null)
 	{
 		if (!is_null($width) || !is_null($height)) {
-			return 'cache' . DS . trim($width.'x'.$height, 'x') . DS . $filename;
+			$cacheSettings = array(
+				(int)$this->_imageObject->keepFrame(),
+				(int)$this->_imageObject->keepTransparency(),
+				(int)$this->_imageObject->keepAspectRatio(),
+				(int)$this->_imageObject->constrainOnly(),
+			);
+			
+			$cacheKey = substr(md5(implode(',', $cacheSettings)), 0, 6);
+			
+			return 'cache' . DS . $cacheKey . '_' . trim($width.'x'.$height, 'x') . DS . $filename;
 		}
 		
 		return $filename;
@@ -163,7 +172,8 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 		if ($imagePath = $this->getImagePath($page->getData($attribute))) {
 			$this->_imageObject = new Varien_Image($imagePath);
 			$this->_filename = basename($imagePath);
-
+			
+			$this->constrainOnly(true);
 			$this->keepTransparency(true);			
 			$this->keepAspectRatio(true);
 		}

@@ -15,7 +15,7 @@ class Fishpig_AttributeSplash_Adminhtml_PageController extends Mage_Adminhtml_Co
 	public function indexAction()
 	{
 		$this->loadLayout();
-		$this->_setActiveMenu('catalog');
+		$this->_setActiveMenu('attributeSplash');
 		$this->renderLayout();
 	}
 	
@@ -84,7 +84,13 @@ class Fishpig_AttributeSplash_Adminhtml_PageController extends Mage_Adminhtml_Co
 			$this->_forward('edit');
 		}
 		else {
-			$this->_getSession()->addError($this->__('A splash page exists for that option/store combination'));
+			if ($storeId > 0) {
+				$this->_getSession()->addError($this->__('You have already created a global splash page for that attribute option. To create a store specific page, delete the global page and then create individual store pages'));	
+			}
+			else {
+				$this->_getSession()->addError($this->__('A splash page exists for that option/store combination'));
+			}
+
 			$this->_redirect('*/*');
 		}
 	}
@@ -102,7 +108,7 @@ class Fishpig_AttributeSplash_Adminhtml_PageController extends Mage_Adminhtml_Co
 		$this->_initOption();
 		
 		$this->loadLayout();
-		$this->_setActiveMenu('catalog');
+		$this->_setActiveMenu('attributeSplash');
 		
 		if ($splash) {
 			if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -111,6 +117,29 @@ class Fishpig_AttributeSplash_Adminhtml_PageController extends Mage_Adminhtml_Co
 		}
 		
 		$this->renderLayout();
+	}
+
+	/**
+	 * Display the grid of splash pages without the container (header, footer etc)
+	 * This is used to modify the grid via AJAX
+	 *
+	 */
+	public function productGridAction()
+	{
+		$this->_initSplashPage();
+		
+		if ($storeId = $this->getRequest()->getParam('store_id', false)) {
+			$store = Mage::getModel('core/store')->load($storeId);
+			
+			if ($store->getId()) {
+				$blockHtml = $this->getLayout()->createBlock('attributeSplash/adminhtml_page_edit_tab_products')
+					->setStoreId($store->getId())
+					->setStoreLabel($store->getName())
+					->toHtml();
+	
+				$this->getResponse()->setBody($blockHtml);
+			}
+		}
 	}
 	
 	/**
@@ -125,8 +154,8 @@ class Fishpig_AttributeSplash_Adminhtml_PageController extends Mage_Adminhtml_Co
 				->setId($this->getRequest()->getParam('id'));
 				
 			try {
-			
 				$this->_handleImageUpload($page, 'image');
+				$this->_handleImageUpload($page, 'thumbnail');
 				
 				$page->save();
 				$this->_getSession()->addSuccess($this->__('Splash page was saved'));

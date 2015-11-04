@@ -225,4 +225,75 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 		
 		return $this->getData('splash_group');
 	}
+	
+	/**
+	 * Retrieve the thumbnail width
+	 *
+	 * @return int|null
+	 */
+	public function getThumbnailWidth()
+	{
+		return $this->_convertSize(Mage::getStoreConfig('attributeSplash/images/splash_thumbnail_width'));
+	}
+	
+	/**
+	 * Retrieve the thumbnail height
+	 *
+	 * @return int|null
+	 */
+	public function getThumbnailHeight()
+	{
+		return $this->_convertSize(Mage::getStoreConfig('attributeSplash/images/splash_thumbnail_height'));
+	}
+	
+	/**
+	  * Determine whether the thumbnail should keep it's frame
+	  *
+	  * @return bool
+	  */
+	public function thumbnailShouldKeepFrame()
+	{
+		return Mage::getStoreConfigFlag('attributeSplash/images/splash_thumbnail_keep_frame');
+	}
+	
+	/**
+	 * Retrieve the image width
+	 *
+	 * @return int|null
+	 */
+	public function getImageWidth()
+	{
+		return $this->_convertSize(Mage::getStoreConfig('attributeSplash/images/splash_image_width'));
+	}
+	
+	/**
+	 * Retrieve the image height
+	 *
+	 * @return int|null
+	 */
+	public function getImageHeight()
+	{
+		return $this->_convertSize(Mage::getStoreConfig('attributeSplash/images/splash_image_height'));
+	}
+	
+	/**
+	  * Determine whether the thumbnail should keep it's frame
+	  *
+	  * @return bool
+	  */
+	public function imageShouldKeepFrame()
+	{
+		return Mage::getStoreConfigFlag('attributeSplash/images/splash_thumbnail_keep_frame');
+	}
+	
+	/**
+	 * Convert a size
+	 * If empty or 0, return null
+	 *
+	 * @return int|null
+	 */
+	protected function _convertSize($size)
+	{
+		return $size ? (int)$size : null;
+	}
 }

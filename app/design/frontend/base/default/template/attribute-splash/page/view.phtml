@@ -13,7 +13,7 @@
 	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 	<?php if ($splashPage->getImage()): ?>
 		<p class="category-image">
-			<img src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'image')->resize(200, 200) ?>" alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>"/>
+			<img src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'image')->keepFrame($splashPage->thumbnailShouldKeepFrame())->resize($splashPage->getImageWidth(), $splashPage->getImageHeight()) ?>" alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>"/>
 		</p>
 	<?php endif; ?>
 	<?php if ($shortDescription = $splashPage->getShortDescription()): ?>

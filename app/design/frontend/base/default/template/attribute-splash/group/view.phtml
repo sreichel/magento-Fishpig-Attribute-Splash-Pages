@@ -22,7 +22,7 @@
 			<?php endif ?>
 			<li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
 				<a href="<?php echo $splashPage->getUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" class="product-image">
-					<img src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'image')->resize(200, 200) ?>" alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>" />
+					<img src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'thumbnail')->keepFrame($splashPage->thumbnailShouldKeepFrame())->resize($splashPage->getThumbnailWidth(), $splashPage->getThumbnailHeight()) ?>" alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>" />
 				</a>
 				<h2 class="product-name">
 					<a href="<?php echo $splashPage->getUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>">
@@ -40,7 +40,7 @@
 			<?php foreach($splashPages as $splashPage): ?>
 				<li class="item">
 					<a class="product-image" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>" href="<?php echo $splashPage->getUrl() ?>">
-						<img alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>" src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'image')->resize(100, 100) ?>"/>
+						<img alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>" src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'thumbnail')->keepFrame($splashPage->thumbnailShouldKeepFrame())->resize($splashPage->getThumbnailWidth(), $splashPage->getThumbnailHeight()) ?>"/>
 					</a>
 					<div class="product-shop">
 						<div class="f-fix">

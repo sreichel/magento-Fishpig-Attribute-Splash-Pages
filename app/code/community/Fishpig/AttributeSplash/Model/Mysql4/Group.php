@@ -55,8 +55,18 @@ class Fishpig_AttributeSplash_Model_Mysql4_Group extends Fishpig_AttributeSplash
 	public function getSplashPages(Fishpig_AttributeSplash_Model_Group $group)
 	{
 		$splashPages = Mage::getResourceModel('attributeSplash/page_collection')
-			->addIsEnabledFilter()
-			->addStoreIdFilter($group->getStoreId());
+			->addIsEnabledFilter();
+			
+		if ($group->getStoreId() > 0) {
+			$splashPages->addStoreIdFilter($group->getStoreId());
+		}
+		else {
+			$storeId = Mage::app()->getStore()->getId();
+			
+			if ($storeId > 0) {
+				$splashPages->addStoreIdFilter($storeId);
+			}
+		}
 			
 		$splashPages->addAttributeIdFilter($group->getAttributeId());
 
@@ -78,7 +88,9 @@ class Fishpig_AttributeSplash_Model_Mysql4_Group extends Fishpig_AttributeSplash
 			catch (Exception $e) {
 				Mage::helper('attributeSplash')->log($e->getMessage());
 			}
-		}	
+		}
+		
+		
 	}
 	
 	public function updateUrlRewrite(Mage_Core_Model_Abstract $object)
@@ -86,9 +98,8 @@ class Fishpig_AttributeSplash_Model_Mysql4_Group extends Fishpig_AttributeSplash
 		parent::updateUrlRewrite($object);
 
 		$splashPages = Mage::getResourceModel('attributeSplash/page_collection')
-			->addStoreIdFilter($object->getStoreId())
+//			->addStoreIdFilter($object->getStoreId())
 			->addAttributeIdFilter($object->getAttributeId());
-
 
 		foreach($splashPages as $page) {
 			try {

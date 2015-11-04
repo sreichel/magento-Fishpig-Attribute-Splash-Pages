@@ -50,20 +50,40 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tabs extends Mage_Adminh
 			)
 		);
 		
-		/*
-		if (Mage::registry('splash_page')) {
-			$this->addTab('products',
-				array(
-					'label' => $this->__('Products'),
-					'title' => $this->__('Products'),
-					'content' => $this->getLayout()->createBlock('attributeSplash/adminhtml_page_edit_tab_products')->toHtml(),
-				)
-			);
+		if ($splashPage = Mage::registry('splash_page')) {
+			$stores = $this->_getStores();
+			$storesToDisplay = array();
+
+			if ($splashPage->getStoreId() == '0') {
+				foreach($stores as $storeId => $storeLabel) {
+					$this->addTab('products_' . $storeId, 'attributeSplash/adminhtml_page_edit_tab_products');
+					$this->_tabs['products_' . $storeId]->setStoreId($storeId)->setStoreLabel($storeLabel);
+				}
+			}
+			else {
+				if (isset($stores[$splashPage->getStoreId()])) {
+					$this->addTab('products', 'attributeSplash/adminhtml_page_edit_tab_products');
+					$this->_tabs['products']->setStoreId($splashPage->getStoreId());
+				}
+			}
 		}
-		*/
 		
 		$this->_activeTab = 'general';
 		
 		return parent::_beforeToHtml();
+	}
+	
+	protected function _getStores()
+	{
+		$stores = Mage::getSingleton('adminhtml/system_config_source_store')->toOptionArray();
+		$storeIds = array();
+		
+		foreach($stores as $store) {
+			if ($store['value']) {
+				$storeIds[$store['value']] = $this->__($store['label']);
+			}
+		}
+
+		return $storeIds;
 	}
 }

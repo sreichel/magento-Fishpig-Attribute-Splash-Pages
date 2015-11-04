@@ -92,7 +92,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_Option extends Mage_
 		if ($optionModel = Mage::registry('splash_page_option')) {
 			return array(
 				'option_id' => $optionModel->getId(),
-				'option_value' => $optionModel->getStoreValue()
+				'option_value' => $optionModel->getStoreDefaultValue() ? $optionModel->getStoreDefaultValue() : $optionModel->getValue()
 			);
 		}
 		

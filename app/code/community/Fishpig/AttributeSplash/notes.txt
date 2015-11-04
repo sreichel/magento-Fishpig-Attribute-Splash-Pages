@@ -7,6 +7,16 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+28/11/2011 - v2.0.9
+- Fixed issue that caused default store value to be empty while editing page
+- Fixed issue that caused a select few splash pages URL rewrites to not get updated
+- Added ability to set image dimensions via Magento config
+- Improved image caching
+- Improved multi-store functionality regarding groups
+- Fixed issue that caused wrong Admin menu to be marked as active
+- Add note to product inject links informing attributes must allow HTML on frontend
+- Added ability to view products per store for each Splash page in Admin using AJAX tabs
+
 28/11/2011 - v2.0.8
 - Improved feature that injects links into product attribute table. This now works with multiselect attributes
 - Added feature to inject splash pages link into top navigation (see configuration area for different options)

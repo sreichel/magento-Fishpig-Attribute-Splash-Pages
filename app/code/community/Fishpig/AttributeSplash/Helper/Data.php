@@ -143,10 +143,11 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 		$select = $this->_getReadAdapter()
 			->select()
 			->from(Mage::getSingleton('core/resource')->getTableName('attributeSplash/page'), 'page_id')
-			->where('option_id=?', $optionId)
-			->where('store_id=?', $storeId)
+			->where('option_id = ?', $optionId)
+			->where('store_id = 0 OR store_id = ?', $storeId)
+			->order('store_id DESC')
 			->limit(1);
-			
+
 		return $this->_getReadAdapter()->fetchOne($select) !== false;
 	}
 	

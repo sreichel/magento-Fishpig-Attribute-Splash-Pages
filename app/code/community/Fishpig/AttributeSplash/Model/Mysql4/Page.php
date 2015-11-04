@@ -26,6 +26,8 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Fishpig_AttributeSplash_
 		$select = $this->_getReadAdapter()->select()
 			->from(array('main_table' => $this->getMainTable()))
 			->where("`main_table`.`{$field}` = ?", $value)
+			->where('store_id = 0 OR store_id = ?', Mage::app()->getStore()->getId())
+			->order('store_id DESC')
 			->limit(1);
 		
 		$select->join(

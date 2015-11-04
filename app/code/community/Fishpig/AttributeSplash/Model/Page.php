@@ -33,7 +33,18 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	{
 		$this->_init('attributeSplash/page');
 	}
-	
+
+	/**
+	 * Load a splash page based on an option ID
+	 *
+	 * @param int $optionId
+	 * @return Fishpig_AttributeSplash_Model_Page
+	 */
+	public function loadByOptionId($optionId)
+	{
+		return $this->load($optionId, 'option_id');
+	}
+
 	/**
 	 * Retrieve the name of the splash page
 	 * If display name isn't set, option value label will be returned
@@ -53,11 +64,25 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	 */
 	public function getUrl()
 	{
-		if (!$this->hasUrl()) {
-			$this->setUrl($this->getResource()->getUrl($this));
+		if ($this->getUrlPath()) {
+			return Mage::getUrl('', array('_direct' => $this->getUrlPath()));
 		}
 		
-		return $this->getData('url');
+		return Mage::getUrl($this->getResource()->getTargetPath($this));
+	}
+	
+	/**
+	 * Retrieve the URL path for the splash page
+	 *
+	 * @return string
+	 */
+	public function getUrlPath()
+	{
+		if (!$this->hasUrlPath()) {
+			$this->setUrlPath($this->getResource()->getRequestPath($this));
+		}
+		
+		return $this->getData('url_path');
 	}
 	
 	/**

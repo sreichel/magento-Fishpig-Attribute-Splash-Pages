@@ -113,8 +113,7 @@
 	 * Delete old splash pages
 	 *
 	 */
-	$splashPages = Mage::getResourceModel('attributeSplash/page_collection')
-		->addAttributeOptionData();
+	$splashPages = Mage::getResourceModel('attributeSplash/page_collection');
 	
 	foreach($splashPages as $splashPage) {
 		if (!$splashPage->getAttributeId()) {

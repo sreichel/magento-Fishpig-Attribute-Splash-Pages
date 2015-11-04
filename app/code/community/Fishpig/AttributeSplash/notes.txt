@@ -1,0 +1,21 @@
+##
+# Fishpig's Attribute Splash Pages for Magento eCommerce
+#
+# Author:			Benn Tideswell
+# Documentation:	http://fishpig.co.uk/attribute-splash-pages/ (coming soon)
+# Email Support:	help@fishpig.co.uk
+# Bug Reports:		help@fishpig.co.uk
+# Donations:		http://www.amazon.co.uk/registry/wishlist/3AVRJAF921488
+##
+
+31/06/2011 - v1.9.18
+- Added small fix for Mysql4 install
+
+31/06/2011 - v1.9.17
+- Added catalog/layer_filter_item block override. This automatically adds splash page links into the layered navigation
+
+31/06/2011 - v1.9.16
+- Added group (list) functionality. This allows you to create custom pages to list splash pages on a per attribute basis.
+
+31/06/2011 - v1.9.5
+- Rewritten whole module. Includes same functionality, however is now more flexible and can easily accept new features

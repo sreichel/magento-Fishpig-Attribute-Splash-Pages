@@ -14,12 +14,12 @@ abstract class Fishpig_AttributeSplash_Model_Mysql4_Abstract extends Mage_Core_M
 	 * @param Mage_Core_Model_Abstract $object
 	 * @return string
 	 */
-	public function getUrl(Mage_Core_Model_Abstract $object)
+	public function getRequestPath(Mage_Core_Model_Abstract $object)
 	{
 		$urlRewrite = Mage::getModel('core/url_rewrite')->loadByIdPath($this->getIdPath($object));
 		
 		if ($urlRewrite->getId()) {
-			return Mage::getUrl('', array('_direct' => $urlRewrite->getRequestPath()));
+			return $urlRewrite->getRequestPath();
 		}
 		
 		return '';

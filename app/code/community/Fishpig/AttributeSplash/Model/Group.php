@@ -25,18 +25,32 @@ class Fishpig_AttributeSplash_Model_Group extends Mage_Core_Model_Abstract
 	}
 	
 	/**
-	 * Retrieve the URL for the splash page
+	 * Retrieve the URL for the splash group
 	 * If cannot find rewrite, return system URL
 	 *
 	 * @return string
 	 */
 	public function getUrl()
 	{
-		if (!$this->hasUrl()) {
-			$this->setUrl($this->getResource()->getUrl($this));
+		if ($this->getUrlPath()) {
+			return Mage::getUrl('', array('_direct' => $this->getUrlPath()));
 		}
 		
-		return $this->getData('url');
+		return Mage::getUrl($this->getResource()->getTargetPath($this));
+	}
+	
+	/**
+	 * Retrieve the URL path for the splash group
+	 *
+	 * @return string
+	 */
+	public function getUrlPath()
+	{
+		if (!$this->hasUrlPath()) {
+			$this->setUrlPath($this->getResource()->getRequestPath($this));
+		}
+		
+		return $this->getData('url_path');
 	}
 	
 	/**

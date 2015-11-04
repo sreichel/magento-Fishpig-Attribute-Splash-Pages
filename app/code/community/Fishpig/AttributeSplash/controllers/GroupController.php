@@ -69,6 +69,10 @@ class Fishpig_AttributeSplash_GroupController extends Mage_Core_Controller_Front
 
 		$this->generateLayoutXml()->generateLayoutBlocks();
 
+		if ($splashGroup->getPageLayout()) {
+			$this->getLayout()->helper('page/layout')->applyTemplate($splashGroup->getPageLayout());
+		}
+		
 		$this->_isLayoutLoaded = true;
 
 		return $this;	

@@ -16,7 +16,7 @@
 			<?php if ($splashPage->getImageUrl()): ?>
 				<a href="<?php echo $splashPage->getImageUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>">
 			<?php endif; ?>
-			<img src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'image')->keepFrame($splashPage->thumbnailShouldKeepFrame())->resize($splashPage->getImageWidth(), $splashPage->getImageHeight()) ?>" alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>"/>
+			<img src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'image')->resize(null, null) ?>" alt="<?php echo $this->escapeHtml($splashPage->getName()) ?>"/>
 			<?php if ($splashPage->getImageUrl()): ?>
 				</a>
 			<?php endif; ?>

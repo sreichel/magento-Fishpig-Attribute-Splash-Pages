@@ -3,7 +3,7 @@
  * Fishpig's Attribute Splash 
  *
  * @category    Fishpig
- * @package    Fishpig_AttributeSplash
+ * @package    	Fishpig_AttributeSplash
  * @author      Ben Tideswell <ben@fishpig.co.uk>
  */
 
@@ -16,56 +16,63 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Splash_Page_New_Tab_Form extends M
 		$this->setForm($form);
 		
 		$fieldset = $form->addFieldset('splash_form', array('legend'=> $this->__('Create Splash Page Settings')));
-	
-		$fieldset->addField('splash_attribute_id', 'select', array(
-			'label'     	=> $this->__('Attribute'),
-			'class'     	=> 'required-entry',
-			'required'  => true,
-			'name'      => 'attribute_id',
-			'values' => $this->_getAttributeOptions(),
-		));
-	
-		$fieldset->addField('splash_option_id', 'select', array(
-			'name'      => 'option_id',
-			'label'     => $this->__('Attribute Option'),
-			'title'     => $this->__('Attribute Option'),
-			'required'  => true,
-			'values' => array(),
-		));
-
-		$fieldset->addField('option_value', 'hidden', array(
-			'name' => 'option_value',
-			'title'     => $this->__('Option Value'),
-			'value' => '',
-		));
 		
-		if ($storeId = $this->_getSoleStoreId()) {
-			$fieldset->addField('splash_store_id', 'hidden', array(
-				'name' => 'store_id',
-				'title'     => $this->__('Store'),
-				'value' => $storeId,
+		if ($json = $this->_getAttributeJson()) {
+			$fieldset->addField('splash_attribute_id', 'select', array(
+				'label'     	=> $this->__('Attribute'),
+				'class'     	=> 'required-entry',
+				'required'  => true,
+				'name'      => 'attribute_id',
+				'values' => $this->_getAttributeOptions(),
+			));
+		
+			$fieldset->addField('splash_option_id', 'select', array(
+				'name'      => 'option_id',
+				'label'     => $this->__('Attribute Option'),
+				'title'     => $this->__('Attribute Option'),
+				'required'  => true,
+				'values' => array(),
+			));
+	
+			$fieldset->addField('option_value', 'hidden', array(
+				'name' => 'option_value',
+				'title'     => $this->__('Option Value'),
+				'value' => '',
+			));
+			
+			if ($storeId = $this->_getSoleStoreId()) {
+				$fieldset->addField('splash_store_id', 'hidden', array(
+					'name' => 'store_id',
+					'title'     => $this->__('Store'),
+					'value' => $storeId,
+				));
+			}
+			else {
+				$fieldset->addField('splash_store_id', 'select', array(
+					'name'      => 'store_id',
+					'label'     => $this->__('Store'),
+					'title'     => $this->__('Store'),
+					'required'  => true,
+					'values' => $this->_getStoreOptions(),
+				));
+			}
+			
+			$fieldset->addField('splash_continue', 'button',  array(
+				'name' => 'continue',
+				'label' => '&nbsp;',
+				'value' => $this->__('Continue'),
+				'class' => 'form-button scalable save',
+			));
+			
+			$fieldset->addField('buttons', 'note', array(
+				'text' => '<script type="text/javascript">var dJson = '.$json.';</script>',
 			));
 		}
 		else {
-			$fieldset->addField('splash_store_id', 'select', array(
-				'name'      => 'store_id',
-				'label'     => $this->__('Store'),
-				'title'     => $this->__('Store'),
-				'required'  => true,
-				'values' => $this->_getStoreOptions(),
-			));
+			$fieldset->addField('no_splash_pages', 'note', array(
+				'text' => "You have no splashable attributes. To start creating splash pages, create some splashable attributes and add option values to them."
+			));		
 		}
-		
-		$fieldset->addField('splash_continue', 'button',  array(
-			'name' => 'continue',
-			'label' => '&nbsp;',
-			'value' => $this->__('Continue'),
-			'class' => 'form-button scalable save',
-		));
-		
-		$fieldset->addField('buttons', 'note', array(
-			'text' => '<script type="text/javascript">var dJson = '.$this->_getAttributeJson().';</script>',
-		));
 		
 		return parent::_prepareForm();
 	}
@@ -73,7 +80,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Splash_Page_New_Tab_Form extends M
 	/**
 	 * Generates the JSON used to populate the dropdown boxes
 	 *
-	 * @return string - JSON encoded
+	 * @return false|string - JSON encoded
 	 */
 	protected function _getAttributeJson()
 	{
@@ -96,7 +103,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Splash_Page_New_Tab_Form extends M
 			}
 		}
 
-		return json_encode($json);
+		return count($json) > 0 ? json_encode($json) : false;
 	}
 	
 	/**

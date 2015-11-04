@@ -16,49 +16,31 @@ class Fishpig_AttributeSplash_Model_Observer_Config
 	public function checkRewrites(Varien_Event_Observer $observer)
 	{
 		try {
-			$this->_checkRewrites();
-		}
-		catch (Exception $e) {
-			Mage::log($e->getMessage(), null, 'attributeSplash.log', true);
-		}
-	}
-	
-	protected function _checkRewrites()
-	{
-		if ($post = Mage::app()->getRequest()->getPost()) {
-			if (isset($post['groups']['seo']['fields']['url_suffix']['value']) && isset($post['groups']['seo']['fields']['url_suffix_old']['value'])) {
-				$oldUrlSuffix = $post['groups']['seo']['fields']['url_suffix_old']['value'];
-				$newUrlSuffix = $post['groups']['seo']['fields']['url_suffix']['value'];
-				
-				if ($oldUrlSuffix != $newUrlSuffix) {
-					Mage::getResourceModel('attributeSplash/page')->updateAllUrlRewrites();
-					Mage::getResourceModel('attributeSplash/group')->updateAllUrlRewrites();
-				}
+			if ($this->_urlRewriteSettingHasChanged('seo', 'url_suffix') || $this->_urlRewriteSettingHasChanged('frontend', 'include_group_url_key')) {
+				Mage::getResourceModel('attributeSplash/group')->updateAllUrlRewrites();
 			}
 		}
+		catch (Exception $e) {
+			Mage::helper('attributeSplash')->log($e->getMessage());
+		}
 	}
 
 	/**
-	 * Retrieves the core resource object
+	 * Determine whether a config setting has changed
+	 *
+	 * @param string $group
+	 * @param string $field
+	 * @param string $fieldSuffix = '_old'
+	 * @return bool
 	 */
-	protected function getResource()
+	protected function _urlRewriteSettingHasChanged($group, $field, $fieldSuffix = '_old')
 	{
-		return Mage::getSingleton('core/resource');
-	}
-	
-	/**
-	 * Shortcut for the read adapter
-	 */
-	protected function getReadAdapter()
-	{
-		return $this->getResource()->getConnection('core_read');
-	}
-
-	/**
-	 * Shortcut for the write adapter
-	 */	
-	protected function getWriteAdapter()
-	{
-		return $this->getResource()->getConnection('core_write');
+		if ($post = Mage::app()->getRequest()->getPost()) {
+			if (isset($post['groups'][$group]['fields'][$field]['value']) && isset($post['groups'][$group]['fields'][$field . $fieldSuffix]['value'])) {
+				return $post['groups'][$group]['fields'][$field . $fieldSuffix]['value'] != $post['groups'][$group]['fields'][$field]['value'];
+			}
+		}
+		
+		return false;
 	}
 }

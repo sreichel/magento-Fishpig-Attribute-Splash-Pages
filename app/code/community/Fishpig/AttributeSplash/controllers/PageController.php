@@ -87,6 +87,10 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 		
 		Mage::register('splash_page', $splashPage);
 		
+		if ($group = $splashPage->getSplashGroup()) {
+			Mage::register('splash_group', $group);	
+		}
+
 		try {
 			Mage::dispatchEvent('attributeSplash_controller_page_init_after', array('page' => $splashPage, 'splash_page' => $splashPage, 'controller_action' => $this));		
 		}

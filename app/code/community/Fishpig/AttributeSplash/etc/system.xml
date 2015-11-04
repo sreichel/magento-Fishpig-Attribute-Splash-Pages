@@ -1,10 +1,16 @@
 <?xml version="1.0"?>
 <config>
+	<tabs>
+		<fishpig translate="label" module="attributeSplash">
+			<label>FishPig</label>
+			<sort_order>200</sort_order>
+		</fishpig>
+	</tabs>
     <sections>
         <attributeSplash translate="label" module="attributeSplash">
             <label>Attribute Splash Pages</label>
-            <tab>catalog</tab>
-            <sort_order>990</sort_order>
+            <tab>fishpig</tab>
+            <sort_order>10</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
@@ -82,6 +88,26 @@
             				<show_in_store>1</show_in_store>
             				<validate>validate-number</validate>
             			</default_category_id>
+            			<inject_group_into_breadcrumbs>
+            				<label>Add group link to page breadcrumbs</label>
+            				<comment>Group (Attribute) Pages must be enabled for this to work</comment>
+            				<frontend_type>select</frontend_type>
+            				<source_model>adminhtml/system_config_source_yesno</source_model>
+            				<sort_order>99</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</inject_group_into_breadcrumbs>
+            			<include_group_url_key>
+            				<label>Add Group URL Key to URL</label>
+            				<comment>If enabled, the URL Key used for the splash group (attribute) will be added to the start of the splash page URL.</comment>
+            				<frontend_type>select</frontend_type>
+            				<source_model>adminhtml/system_config_source_yesno</source_model>
+            				<sort_order>106</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</include_group_url_key>
             		</fields>
             	</frontend>
             	<list_page>
@@ -166,6 +192,7 @@
             				<validate>validate-number required-entry</validate>
             				<depends><enabled>1</enabled><display_mode>1</display_mode></depends>
             			</grid_column_count>
+            			
             		</fields>
             	</list_page>
             	<product>

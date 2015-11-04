@@ -7,6 +7,12 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+16/09/2011 - v2.0.4
+- Moved config section into FishPig tab
+- Moved menu item into it's own tab following complaints of being unable to find the links
+- Added config option to add group URL key into page URL.
+- Fixed issue which disallowed null values for width and height while resizing images
+
 13/08/2011 - v2.0.3
 - Added frontend_label field to loaded group model
 - Added keepTransparency call to image helper to maintain transparency on images

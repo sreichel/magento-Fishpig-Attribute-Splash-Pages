@@ -11,5 +11,9 @@
 		var oldSuffix = $('attributeSplash_seo_url_suffix');
 		
 		$('config_edit_form').insert({bottom: '<input type="hidden" name="groups[seo][fields][url_suffix_old][value]" value="' + oldSuffix.getValue() + '" />'});
+		
+		var oldGroupUrlKey = $('attributeSplash_frontend_include_group_url_key');
+		
+		$('config_edit_form').insert({bottom: '<input type="hidden" name="groups[frontend][fields][include_group_url_key_old][value]" value="' + oldGroupUrlKey.getValue() + '" />'});
 	</script>
 <?php endif; ?>

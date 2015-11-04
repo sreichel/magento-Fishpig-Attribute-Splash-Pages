@@ -184,7 +184,16 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 			$cachedFilename = $this->getResizedImagePath($this->_filename, $width, $height);
 				
 			if ($this->_forceRecreate || !is_file($cachedFilename)) {
-				$this->_imageObject->resize($width, $height);
+				if (is_null($width) && is_null($height)) {
+				
+				}
+				elseif (is_null($width)) {
+					$this->_imageObject->resize($height);
+				}
+				else {
+					$this->_imageObject->resize($width, $height);
+				}
+
 				$this->_imageObject->save($cachedFilename);
 			}
 			
@@ -277,7 +286,7 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 		
 		return $this;
 	}
-
+	
 	/**
 	 * Determine whether the image object has been initialised
 	 *

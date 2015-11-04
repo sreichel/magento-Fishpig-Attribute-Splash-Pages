@@ -86,6 +86,22 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	}
 	
 	/**
+	 * Retrieve the description
+	 * If $process is true, output will be filtered
+	 *
+	 * @param bool $process = true
+	 * @return string
+	 */
+	public function getDescription($process = true)
+	{
+		if ($process) {
+			return Mage::helper('cms')->getBlockTemplateProcessor()->filter($this->getData('description'));
+		}
+		
+		return $this->getData('description');
+	}
+
+	/**
 	 * Retrieve the page title
 	 * If empty, use display_name
 	 *

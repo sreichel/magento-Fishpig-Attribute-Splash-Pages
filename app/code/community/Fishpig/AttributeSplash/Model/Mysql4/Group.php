@@ -72,8 +72,34 @@ class Fishpig_AttributeSplash_Model_Mysql4_Group extends Fishpig_AttributeSplash
 		$objects = Mage::getResourceModel('attributeSplash/group_collection');
 		
 		foreach($objects as $object) {
-			$this->updateUrlRewrite($object);
+			try {
+				$this->updateUrlRewrite($object);
+			}
+			catch (Exception $e) {
+				Mage::helper('attributeSplash')->log($e->getMessage());
+			}
 		}	
+	}
+	
+	public function updateUrlRewrite(Mage_Core_Model_Abstract $object)
+	{
+		parent::updateUrlRewrite($object);
+
+		$splashPages = Mage::getResourceModel('attributeSplash/page_collection')
+			->addStoreIdFilter($object->getStoreId())
+			->addAttributeIdFilter($object->getAttributeId());
+
+
+		foreach($splashPages as $page) {
+			try {
+				$page->getResource()->updateUrlRewrite($page);
+			}
+			catch (Exception $e) {
+				Mage::helper('attributeSplash')->log($e->getMessage());
+			}
+		}
+
+		return $this;
 	}
 	
 	/**

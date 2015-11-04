@@ -31,13 +31,22 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 			}
 			
 			if ($this->helper('attributeSplash')->canUseCanonical()) {
-				$headBlock->addLinkRel('canonical', $splashPage->getUrl());
+				$headBlock->addItem('link_rel', $splashPage->getUrl(), 'rel="canonical"');
 			}
 		}
 		
 		if ($breadBlock = $this->getLayout()->getBlock('breadcrumbs')) {
-			$breadBlock->addCrumb('home', array('label' => $this->__('Home'), 'title' => $this->__('Home'), 'link' => $this->getUrl('')))
-				->addCrumb('splash_page', array('label' => $splashPage->getName(), 'title' => $splashPage->getName()));
+			$breadBlock->addCrumb('home', array('label' => $this->__('Home'), 'title' => $this->__('Home'), 'link' => $this->getUrl('')));
+			
+			if (Mage::getStoreConfigFlag('attributeSplash/frontend/inject_group_into_breadcrumbs')) {
+				if (Mage::getStoreConfigFlag('attributeSplash/list_page/enabled')) {
+					if ($splashGroup = $splashPage->getSplashGroup()) {
+						$breadBlock->addCrumb('splash_group', array('label' => $splashGroup->getName(), 'title' => $splashGroup->getName(), 'link' => $splashGroup->getUrl()));
+					}
+				}
+			}
+			
+			$breadBlock->addCrumb('splash_page', array('label' => $splashPage->getName(), 'title' => $splashPage->getName()));
 		}
 		
 		$this->_setTemplateFromConfig();

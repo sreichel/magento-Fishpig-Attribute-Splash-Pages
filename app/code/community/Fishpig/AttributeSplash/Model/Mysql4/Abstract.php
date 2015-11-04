@@ -147,6 +147,16 @@ abstract class Fishpig_AttributeSplash_Model_Mysql4_Abstract extends Mage_Core_M
 	public function getValidRequestPath(Mage_Core_Model_Abstract $object, $storeId)
 	{
 		$urlKey = $object->getUrlKey();
+		
+		
+		if ($object instanceof Fishpig_AttributeSplash_Model_Page) {
+			if (Mage::getStoreConfigFlag('attributeSplash/frontend/include_group_url_key', $storeId)) {
+				if ($object->getSplashGroup()) {
+					$urlKey = ltrim($object->getSplashGroup()->getUrlKey() . '/' . $urlKey, '/');
+				}
+			}
+		}
+		
 		$postFix = trim(Mage::getStoreConfig('attributeSplash/seo/url_suffix', $object->getStoreId()));
 
 		if ($this->_requestPathIsValid($urlKey . $postFix, $this->getIdPath($object), $storeId)) {

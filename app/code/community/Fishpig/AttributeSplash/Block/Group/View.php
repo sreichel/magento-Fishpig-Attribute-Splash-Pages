@@ -41,7 +41,7 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 			}
 			
 			if ($this->helper('attributeSplash')->canUseCanonical()) {
-				$headBlock->addLinkRel('canonical', $splashGroup->getUrl());
+				$headBlock->addItem('link_rel', $splashGroup->getUrl(), 'rel="canonical"');
 			}
 		}
 		

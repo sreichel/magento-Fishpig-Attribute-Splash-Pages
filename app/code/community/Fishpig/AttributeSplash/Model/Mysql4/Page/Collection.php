@@ -13,7 +13,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 	 *
 	 * @var bool
 	 */
-	protected $_attributeDataAdded = false
+	protected $_attributeDataAdded = false;
 	
 	public function _construct()
 	{

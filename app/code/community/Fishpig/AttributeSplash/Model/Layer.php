@@ -32,6 +32,20 @@ class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer
 	}
 
 	/**
+	 * Adds the store ID to the collection
+	 * This ensures the price index functions correctly in 1.4.2.0
+	 *
+	 * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
+	 *
+	 */
+	public function prepareProductCollection($collection)
+	{
+		$collection->addStoreFilter(Mage::app()->getStore()->getId());
+	
+		return parent::prepareProductCollection($collection);
+	}
+
+	/**
 	 * Stop the splash page attribute from dsplaying in the filter options
 	 *
 	 * @param   Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection $collection

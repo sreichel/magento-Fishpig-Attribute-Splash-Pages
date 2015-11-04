@@ -100,4 +100,28 @@ class Fishpig_AttributeSplash_Adminhtml_GroupController extends Mage_Adminhtml_C
 		
 		return false;
 	}
+	
+	/**
+	 * Thank you Michael!
+	 *
+	 */
+	public function deleteAction($id)
+	{
+		if ($id = $this->getRequest()->getParam('id')) {
+			try {
+				Mage::getModel('attributeSplash/group')
+					->setId($id)
+					->delete();
+
+				$this->_getSession()->addSuccess($this->__('Splash group was deleted'));
+			}
+			catch (Exception $e) {
+				$this->_getSession()->addError($this->__($e->getMessage()));
+			}
+
+			$this->_redirect('*/*');
+		}
+
+		$this->_redirect('*/*');
+	}
 }

@@ -7,6 +7,9 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+11/03/2013 - v2.2.0.3
+- Fix meta issue
+
 05/03/2013 - v2.2.0.2
 - Fixed issue that broke pager on group pages
 - Added page title suffix to group pages

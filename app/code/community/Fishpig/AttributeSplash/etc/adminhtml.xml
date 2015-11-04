@@ -15,11 +15,6 @@
 					<action>attributeSplash_admin/adminhtml_group</action>
 					<sort_order>6</sort_order>
 				</groups>
-				<settings translate="title">
-					<title>Settings</title>
-					<action>adminhtml/system_config/edit/section/attributeSplash</action>
-					<sort_order>99</sort_order>
-				</settings>
 			</children>
 		</attributeSplash>
 	</menu>

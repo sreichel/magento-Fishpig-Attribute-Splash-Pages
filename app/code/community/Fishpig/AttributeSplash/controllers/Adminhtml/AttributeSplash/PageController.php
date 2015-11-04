@@ -9,6 +9,16 @@
 class Fishpig_AttributeSplash_Adminhtml_AttributeSplash_PageController extends Mage_Adminhtml_Controller_Action
 {
 	/**
+	 * Forward the request to the dashboard
+	 *
+	 * @return $this
+	 */
+	public function indexAction()
+	{
+		return $this->_redirect('*/attributeSplash');
+	}
+
+	/**
 	 * Add a new splash page
 	 *
 	 * @return $this

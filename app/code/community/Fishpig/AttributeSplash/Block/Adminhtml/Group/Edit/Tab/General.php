@@ -30,7 +30,6 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_General extends Fis
 			'class'		=> 'required-entry',
 		));
 
-
 		$field = $fieldset->addField('url_key', 'text', array(
 			'name' => 'url_key',
 			'label' => $this->__('URL Key'),
@@ -42,17 +41,14 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_General extends Fis
 				->setSplashType('group')
 		);
 
-		if ($page = Mage::registry('splash_page')) {
-			$fieldset->addField('attribute_id', 'hidden', array(
-				'name' 		=> 'attribute_id',
-				'value' => $page->getAttributeId(),
-			));
-			
-			$fieldset->addField('option_id', 'hidden', array(
-				'name' 		=> 'option_id',
-				'value' => $page->getOptionId(),
-			));
-		}
+		$fieldset->addField('attribute_id', 'select', array(
+			'name' => 'attribute_id',
+			'label' => $this->__('Attribute'),
+			'title' => $this->__('Attribute'),
+			'values' => Mage::getSingleton('attributeSplash/system_config_source_attribute_splashable')->toOptionArray(true),
+			'required' => true,
+			'disabled' => !is_null(Mage::registry('splash_group')),
+		));
 		
 		if (!Mage::app()->isSingleStoreMode()) {
 			$field = $fieldset->addField('store_id', 'multiselect', array(

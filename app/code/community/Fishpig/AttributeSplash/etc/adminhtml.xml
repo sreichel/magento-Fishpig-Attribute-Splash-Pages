@@ -7,7 +7,7 @@
 			<children>
 				<dashboard translate="title">
 					<title>Manage Splash Pages</title>
-					<action>hq/attributeSplash</action>
+					<action>adminhtml/attributeSplash</action>
 					<sort_order>1</sort_order>
 				</dashboard>
 			</children>

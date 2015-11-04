@@ -6,5 +6,8 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+19/11/2013 - v3.0.0.1
+- Fixed Adminhtml link
+
 17/11/2013 - v3.0.0.0
 - Rewritten. Includes new routing system, speed improvements, UI improvements and much more.

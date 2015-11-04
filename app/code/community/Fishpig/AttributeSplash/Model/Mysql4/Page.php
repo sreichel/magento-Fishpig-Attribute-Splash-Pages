@@ -86,7 +86,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Fishpig_AttributeSplash_
 	public function getProductCollection(Fishpig_AttributeSplash_Model_Page $page)
 	{
 		$collection = Mage::getResourceModel('catalog/product_collection')
-			->setStoreId($page->getStoreId());
+			->addStoreFilter($page->getStoreId());
 
 		/**
 		 * Adds the splash page filter

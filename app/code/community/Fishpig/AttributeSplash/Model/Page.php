@@ -214,6 +214,20 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	}
 
 	/**
+	 * Retrieve the store id of the splash page
+	 *
+	 * @return int
+	 */
+	public function getStoreId()
+	{
+		if ($this->_getData('store_id') === '0') {
+			return Mage::app()->getStore()->getId();
+		}
+		
+		return $this->_getData('store_id');
+	}
+	
+	/**
 	 * Retrieve the store model associated with the splash page
 	 *
 	 * @return Mage_Core_Model_Store

@@ -66,6 +66,16 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 	{
 		return $this->addFieldToFilter('is_enabled', $value);
 	}
+
+	/**
+	 * Filter the collection so that only featured items are returned
+	 *
+	 * @param int $isFeatured
+	 */
+	public function addIsFeaturedFilter($isFeatured = 1)
+	{
+		return $this->addFieldToFilter('is_featured', $isFeatured ? 1 : 0);
+	}
 	
 	/**
 	 * Add a store ID filter to the collection

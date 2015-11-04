@@ -44,7 +44,7 @@ abstract class Fishpig_AttributeSplash_Model_Mysql4_Abstract extends Mage_Core_M
 			$object->setUrlKey($object->getname());
 		}
 		
-		$object->setUrlKey(Mage::getSingleton('catalog/product_url')->formatUrlKey($object->getUrlKey()));
+		$object->setUrlKey($this->formatUrlKey($object->getUrlKey()));
 		
 		return parent::_beforeSave($object);
 	}
@@ -204,5 +204,21 @@ abstract class Fishpig_AttributeSplash_Model_Mysql4_Abstract extends Mage_Core_M
 			->where('store_id <> ?', $adminStoreId);
 			
 		return $this->_getReadAdapter()->fetchCol($select);
+	}
+	
+	/**
+	 * Format a string to a valid URL key
+	 * Allow a-zA-Z0-9, hyphen and /
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	public function formatUrlKey($str)
+	{
+		$urlKey = preg_replace('#[^0-9a-z\/]+#i', '-', Mage::helper('catalog/product_url')->format($str));
+		$urlKey = strtolower($urlKey);
+		$urlKey = trim($urlKey, '-');
+		
+		return $urlKey;
 	}
 }

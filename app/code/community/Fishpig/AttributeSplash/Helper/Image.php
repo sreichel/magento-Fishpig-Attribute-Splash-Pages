@@ -163,7 +163,8 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 		if ($imagePath = $this->getImagePath($page->getData($attribute))) {
 			$this->_imageObject = new Varien_Image($imagePath);
 			$this->_filename = basename($imagePath);
-			
+
+			$this->keepTransparency(true);			
 			$this->keepAspectRatio(true);
 		}
 		
@@ -191,6 +192,20 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 		}
 	
 		return '';
+	}
+	
+	/**
+	 * Keep the transparency of the image
+	 *
+	 * @param bool $val
+	 */
+	public function keepTransparency($val)
+	{
+		if ($this->isActive()) {
+			$this->_imageObject->keepTransparency($val);
+		}
+		
+		return $this;
 	}
 	
 	/**

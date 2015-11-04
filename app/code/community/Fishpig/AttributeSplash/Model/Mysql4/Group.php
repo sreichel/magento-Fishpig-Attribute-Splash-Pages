@@ -31,7 +31,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Group extends Fishpig_AttributeSplash
 		$select->join(
 				array('_attribute_table' => $this->getTable('eav/attribute')),
 				'`_attribute_table`.`attribute_id` = `main_table`.`attribute_id`',
-				array('attribute_code')
+				array('attribute_code', 'frontend_label')
 			);
 		
 		return $select;

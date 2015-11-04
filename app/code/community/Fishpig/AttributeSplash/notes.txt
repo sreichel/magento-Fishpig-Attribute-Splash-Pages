@@ -12,7 +12,7 @@ TODO/BUGS
 - Order products per splash page
 - Look into report that 'Sort By' doesn't work
 
-21/06/2012 - v2.0.20
+21/06/2012 - v2.0.21
 - Bug fixes
 
 21/06/2012 - v2.0.19

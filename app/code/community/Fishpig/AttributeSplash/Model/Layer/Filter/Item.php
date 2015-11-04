@@ -60,7 +60,7 @@ class Fishpig_AttributeSplash_Model_Layer_Filter_Item extends Mage_Catalog_Model
 	 */
 	public function getSplashCategoryId()
 	{
-		if (!$this->hasSplashCategory()) 
+		if (!$this->hasSplashCategory()) {
 			$this->setSplashCategory(Mage::helper('attributeSplash')->getBaseSplashCategory());
 		}
 		

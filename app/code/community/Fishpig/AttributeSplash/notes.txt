@@ -7,9 +7,10 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
-05/03/2013 - v2.2.0.1
+05/03/2013 - v2.2.0.2
 - Fixed issue that broke pager on group pages
 - Added page title suffix to group pages
+- Added Name/ASC as the default product ordering as product position does not work
 
 24/01/2013 - v2.2.0.0
 - Added flat catalog fixed (props to http://www.xtreme-vision.net/magento/magento-fishpig-attribute-splash-pages-and-flat-catalog)

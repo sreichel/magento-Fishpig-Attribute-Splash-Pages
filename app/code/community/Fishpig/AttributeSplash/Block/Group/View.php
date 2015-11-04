@@ -39,8 +39,7 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 	public function getSplashPages()
 	{
 		if (is_null($this->_splashPages)) {
-			$this->_splashPages = $this->getSplashGroup()
-				->getSplashPages();
+			$this->_splashPages = $this->getSplashGroup()->getSplashPages();
 		}
 		
 		return $this->_splashPages;
@@ -54,18 +53,6 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 	{
 		parent::_prepareLayout();
 
-		$this->_setTemplateFromConfig();
-//		$this->getPagerHtml();
-		
-        return $this;
-    }
-
-	/**
-	 * Set the template based on the user defined config valur
-	 *
-	 */
-	protected function _setTemplateFromConfig()
-	{
 		if ($layoutCode = Mage::getStoreConfig('attributeSplash/list_page/template')) {
 			if ($templateData = Mage::getSingleton('page/config')->getPageLayout($layoutCode)) {
 				if (isset($templateData['template'])) {
@@ -73,7 +60,9 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 				}		
 			}
 		}
-	}
+
+        return $this;
+    }
 	
 	/**
 	 * Determine whether to use the list display mode

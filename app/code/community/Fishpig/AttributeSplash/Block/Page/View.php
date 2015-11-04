@@ -14,42 +14,14 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 	protected function _prepareLayout()
 	{
 		parent::_prepareLayout();
-
-		$splashPage = $this->getSplashPage();
-
-		if ($headBlock = $this->getLayout()->getBlock('head')) {
-			if ($title = $splashPage->getPageTitle()) {
-				$headBlock->setTitle($title);
-			}
-
-			if ($description = $splashPage->getMetaDescription()) {
-				$headBlock->setDescription($description);
-			}
-			
-			if ($keywords = $splashPage->getMetaKeywords()) {
-				$headBlock->setKeywords($keywords);
-			}
-			
-			if ($this->helper('attributeSplash')->canUseCanonical()) {
-				$headBlock->addItem('link_rel', $splashPage->getUrl(), 'rel="canonical"');
+		
+		if ($layoutCode = Mage::getStoreConfig('attributeSplash/frontend/template')) {
+			if ($templateData = Mage::getSingleton('page/config')->getPageLayout($layoutCode)) {
+				if (isset($templateData['template'])) {
+					$this->getLayout()->getBlock('root')->setTemplate($templateData['template']);
+				}		
 			}
 		}
-		
-		if ($breadBlock = $this->getLayout()->getBlock('breadcrumbs')) {
-			$breadBlock->addCrumb('home', array('label' => $this->__('Home'), 'title' => $this->__('Home'), 'link' => $this->getUrl('')));
-			
-			if (Mage::getStoreConfigFlag('attributeSplash/frontend/inject_group_into_breadcrumbs')) {
-				if (Mage::getStoreConfigFlag('attributeSplash/list_page/enabled')) {
-					if ($splashGroup = $splashPage->getSplashGroup()) {
-						$breadBlock->addCrumb('splash_group', array('label' => $splashGroup->getName(), 'title' => $splashGroup->getName(), 'link' => $splashGroup->getUrl()));
-					}
-				}
-			}
-			
-			$breadBlock->addCrumb('splash_page', array('label' => $splashPage->getName(), 'title' => $splashPage->getName()));
-		}
-		
-		$this->_setTemplateFromConfig();
 
         return $this;
     }
@@ -104,7 +76,6 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 	public function getProductListHtml()
 	{
 		return $this->getProductListBlock()->toHtml();
-		//$this->getChildHtml('product_list');
 	}
 	
 	public function getProductListBlock()
@@ -113,6 +84,8 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 			if (!$block->hasColumnCount()) {
 				$block->setColumnCount($this->getSplashPageProductsPerRow());
 			}
+			
+			$block->setSortBy('name')->setDirection('asc');
 			
 			return $block;
 		}
@@ -134,25 +107,10 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 		if (!$this->getData('cms_block_html')) {
 			$html = $this->getLayout()->createBlock('cms/block')
 				->setBlockId($this->getSplashPage()->getCmsBlock())->toHtml();
+
 			$this->setData('cms_block_html', $html);
 		}
 		
 		return $this->getData('cms_block_html');
-	}
-	
-	/**
-	 * Set the template based on the user defined config valur
-	 *
-	 */
-	protected function _setTemplateFromConfig()
-	{
-		if ($layoutCode = Mage::getStoreConfig('attributeSplash/frontend/template')) {
-			if ($templateData = Mage::getSingleton('page/config')->getPageLayout($layoutCode)) {
-				if (isset($templateData['template'])) {
-					$this->getLayout()->getBlock('root')
-						->setTemplate($templateData['template']);
-				}		
-			}
-		}
 	}
 }

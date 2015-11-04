@@ -19,8 +19,30 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_Display extends Mage
 		
 		$fieldset = $form->addFieldset('splash_display', array('legend'=> $this->__('Display Settings')));
 
+		$fieldset->addField('display_mode', 'select', array(
+			'name' => 'display_mode',
+			'label' => $this->__('Display Mode'),
+			'title' => $this->__('Display Mode'),
+			'values' => Mage::getModel('catalog/category_attribute_source_mode')->getAllOptions(),
+		));
+		
+		$fieldset->addField('cms_block', 'select', array(
+			'name' => 'cms_block',
+			'label' => $this->__('CMS Block'),
+			'title' => $this->__('CMS Block'),
+			'values' => Mage::getModel('catalog/category_attribute_source_page')->getAllOptions(),
+		));
 
-//		$form->setValues($this->_getFormData());
+		$fieldset->addField('layout_update_xml', 'editor', array(
+			'name' => 'layout_update_xml',
+			'label' => $this->__('Layout Update XML'),
+			'title' => $this->__('Layout Update XML'),
+			'style' => 'width:600px;',
+		));
+
+		if ($splashPage = Mage::registry('splash_page')) {
+			$form->setValues($splashPage->getData());
+		}
 
 		return parent::_prepareForm();
 	}

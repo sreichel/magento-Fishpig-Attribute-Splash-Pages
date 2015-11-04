@@ -126,6 +126,58 @@ class Fishpig_AttributeSplash_Adminhtml_PageController extends Mage_Adminhtml_Co
 	}
 	
 	/**
+	 * Delete a splash page
+	 *
+	 */
+	public function deleteAction()
+	{
+		if ($pageId = $this->getRequest()->getParam('id')) {
+			$splashPage = Mage::getModel('attributeSplash/page')->load($pageId);
+			
+			if ($splashPage->getId()) {
+				try {
+					$splashPage->delete();
+					$this->_getSession()->addSuccess($this->__('The Splash Page was deleted.'));
+				}
+				catch (Exception $e) {
+					$this->_getSession()->addError($e->getMessage());
+				}
+			}
+		}
+		
+		$this->_redirect('*/*');
+	}
+	
+	public function massDeleteAction()
+	{
+		$pageIds = $this->getRequest()->getParam('page');
+
+		if (!is_array($pageIds)) {
+			$this->_getSession()->addError($this->__('Please select page(s).'));
+		}
+		else {
+			if (!empty($pageIds)) {
+				try {
+					foreach ($pageIds as $pageId) {
+						$page = Mage::getSingleton('attributeSplash/page')->load($pageId);
+	
+						Mage::dispatchEvent('attributeSplash_controller_page_delete', array('splash_page' => $page, 'page' => $page));
+	
+						$page->delete();
+					}
+					
+					$this->_getSession()->addSuccess($this->__('Total of %d record(s) have been deleted.', count($pageIds)));
+				}
+				catch (Exception $e) {
+					$this->_getSession()->addError($e->getMessage());
+				}
+			}
+		}
+		
+		$this->_redirect('*/*/index');
+	}
+
+	/**
 	 * Initialise the splash page model
 	 *
 	 * @return false|Fishpig_AttributeSplash_Model_Page

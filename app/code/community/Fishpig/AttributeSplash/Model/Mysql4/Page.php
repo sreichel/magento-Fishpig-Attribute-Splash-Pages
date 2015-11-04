@@ -135,9 +135,32 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_A
 		
 		$object->setUrlKey(Mage::getSingleton('catalog/product_url')->formatUrlKey($object->getUrlKey()));
 		
-		$this->updateUrlRewrite($object);
+		return parent::_beforeSave();
 	}
 	
+	protected function _afterSave(Mage_Core_Model_Abstract $object)
+	{	
+		$this->updateUrlRewrite($object);
+		
+		return parent::_afterSave($object);
+	}
+	
+	/**
+	 * Delete the URL rewrite after object has been deleted
+	 *
+	 * @param Mage_Core_Model_Abstract $object
+	 */
+	protected function _afterDelete(Mage_Core_Model_Abstract $object)
+	{
+		$this->_getWriteAdapter()
+			->delete(
+				$this->getTable('core/url_rewrite'),
+				$this->_getWriteAdapter()->quoteInto('id_path=?', $this->getIdPath($object))
+			);
+	
+		return $this;
+	}
+
 	/**
 	 * Update/refresh the rewrites for every splash page
 	 *

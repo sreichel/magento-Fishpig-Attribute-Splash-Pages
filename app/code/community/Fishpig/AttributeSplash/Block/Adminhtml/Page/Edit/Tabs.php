@@ -50,6 +50,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tabs extends Mage_Adminh
 			)
 		);
 		
+		/*
 		if (Mage::registry('splash_page')) {
 			$this->addTab('products',
 				array(
@@ -59,6 +60,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tabs extends Mage_Adminh
 				)
 			);
 		}
+		*/
 		
 		$this->_activeTab = 'general';
 		

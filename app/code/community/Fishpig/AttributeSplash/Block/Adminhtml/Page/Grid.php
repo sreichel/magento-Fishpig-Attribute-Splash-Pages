@@ -45,13 +45,6 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Grid extends Mage_Adminhtml_B
 			'width'		=> '60px',
 			'index'		=> 'page_id',
 		));
-		
-		$this->addColumn('option_id', array(
-			'header'	=> $this->__('ID'),
-			'align'		=> 'left',
-			'width'		=> '60px',
-			'index'		=> 'option_id',
-		));
 
 		$this->addColumn('attribute_id', array(
 			'header'		=> $this->__('Attribute'),
@@ -89,7 +82,38 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Grid extends Mage_Adminhtml_B
 			),
 		));
 	
+		$this->addColumn('action',
+			array(
+				'width'     => '50px',
+				'type'      => 'action',
+				'getter'     => 'getId',
+				'actions'   => array(
+					array(
+						'caption' => Mage::helper('catalog')->__('Edit'),
+						'url'     => array(
+						'base'=>'*/*/edit',
+					),
+					'field'   => 'id'
+					)
+				),
+				'filter'    => false,
+				'sortable'  => false,
+				'align' 	=> 'center',
+			));
+
 		return parent::_prepareColumns();
+	}
+
+	protected function _prepareMassaction()
+	{
+		$this->setMassactionIdField('page_id');
+		$this->getMassactionBlock()->setFormFieldName('page');
+	
+		$this->getMassactionBlock()->addItem('delete', array(
+			'label'=> $this->__('Delete'),
+			'url'  => $this->getUrl('*/*/massDelete'),
+			'confirm' => Mage::helper('catalog')->__('Are you sure?')
+		));
 	}
 	
 	/**

@@ -21,6 +21,12 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit  extends Mage_Adminhtml
 			'onclick'   => 'editForm.submit(\''.$this->getSaveAndContinueUrl().'\')',
 			'class' => 'save'
 		));
+
+		if ($group = Mage::registry('splash_group')) {
+			if ($group->isGlobal()) {
+				$this->_removeButton('delete');
+			}
+		}
 	}
 	
 	/**

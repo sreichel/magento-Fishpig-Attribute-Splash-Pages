@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>2.2.0.8</version>
+			<version>3.0.0.0</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -15,33 +15,21 @@
 			<attributeSplash>
 				<class>Fishpig_AttributeSplash_Block</class>
 			</attributeSplash>
-			<catalog>
-				<rewrite>
-					<product_view_attributes>Fishpig_AttributeSplash_Block_Catalog_Product_View_Attributes</product_view_attributes>
-				</rewrite>
-			</catalog>
 		</blocks>
 		<models>
 			<attributeSplash>
 				<class>Fishpig_AttributeSplash_Model</class>
-				<resourceModel>attributeSplash_mysql4</resourceModel>
+				<resourceModel>attributeSplash_resource</resourceModel>
 			</attributeSplash>
-			<attributeSplash_mysql4>
-				<class>Fishpig_AttributeSplash_Model_Mysql4</class>
+			<attributeSplash_resource>
+				<class>Fishpig_AttributeSplash_Model_Resource</class>
 				<entities>
-					<group>
-						<table>attributesplash_group</table>
-					</group>
-					<page>
-						<table>attributesplash_page</table>
-					</page>
+					<group><table>attributesplash_group</table></group>
+					<group_store><table>attributesplash_group_store</table></group_store>
+					<page><table>attributesplash_page</table></page>
+					<page_store><table>attributesplash_page_store</table></page_store>
 				</entities>
-			</attributeSplash_mysql4>
-			<catalog>
-				<rewrite>
-					<layer_filter_item>Fishpig_AttributeSplash_Model_Layer_Filter_Item</layer_filter_item>
-				</rewrite>
-			</catalog>
+			</attributeSplash_resource>
 			<sitemap>
 				<rewrite>
 					<sitemap>Fishpig_AttributeSplash_Model_Sitemap</sitemap>
@@ -68,16 +56,26 @@
 				</connection>
 			</attributeSplash_write>
 		</resources>
+		<events>
+			<controller_front_init_routers>
+				<observers>
+					<attributeSplash>
+						<class>Fishpig_AttributeSplash_Controller_Router</class>
+						<method>initControllerRouters</method>
+					</attributeSplash>
+				</observers>
+			</controller_front_init_routers>
+		</events>
 	</global>
 	<admin>
 		<routers>
-			<attributeSplash_admin>
-				<use>admin</use>
+			<adminhtml>
 				<args>
-					<module>Fishpig_AttributeSplash</module>
-					<frontName>splash_admin</frontName>
+					<modules>
+						<attributeSplash before="Mage_Adminhtml">Fishpig_AttributeSplash_Adminhtml</attributeSplash>
+					</modules>
 				</args>
-			</attributeSplash_admin>
+			</adminhtml>
 		</routers>
 	</admin>
 	<adminhtml>
@@ -88,17 +86,6 @@
 				</attributeSplash>
 			</updates>
 		</layout>
-		<events>
-			<admin_system_config_changed_section_attributeSplash>
-				<observers>
-					<attributeSplash_rewrite_fix>
-						<type>singleton</type>
-						<class>attributeSplash/observer_config</class>
-						<method>checkRewrites</method>
-					</attributeSplash_rewrite_fix>
-				</observers>
-			</admin_system_config_changed_section_attributeSplash>
-		</events>
 	</adminhtml>
 	<frontend>
 		<routers>
@@ -117,56 +104,75 @@
 				</attributeSplash>
 			</updates>
 		</layout>
+		<events>
+			<page_block_html_topmenu_gethtml_before>
+				<observers>
+					<attributeSplash>
+						<type>singleton</type>
+						<class>attributeSplash/observer</class>
+						<method>injectTopmenuLinksObserver</method>
+					</attributeSplash>
+				</observers>
+			</page_block_html_topmenu_gethtml_before>
+		</events>
 	</frontend>
 	<default>
 		<attributeSplash>
-			<frontend>
-				<template/>
-				<navigation>1</navigation>
-				<inject_links>1</inject_links>
-				<navigation_container>left</navigation_container>
-				<navigation_template/>
-				<grid_column_count>3</grid_column_count>
-			</frontend>
-			<list_page>
-				<enabled>0</enabled>
-				<template/>
-				<display_mode>3</display_mode>
-				<list_per_page>0</list_per_page>
-				<grid_per_page>0</grid_per_page>
-				<simple_per_page>0</simple_per_page>
-				<grid_column_count>3</grid_column_count>
-			</list_page>
-			<images>
-				<splash_image_width>200</splash_image_width>
-				<splash_image_height>200</splash_image_height>
-				<splash_image_keep_frame>0</splash_image_keep_frame>
-				<splash_thumbnail_width>200</splash_thumbnail_width>
-				<splash_thumbnail_height>200</splash_thumbnail_height>
-				<splash_thumbnail_keep_frame>0</splash_thumbnail_keep_frame>
-			</images>
-			<product>
-				<inject_links>1</inject_links>
-				<image_attribute_code>small_image</image_attribute_code>
-			</product>
+			<page>
+				<column_count>4</column_count>
+				<add_to_sitemap>1</add_to_sitemap>
+			</page>
+			<group>
+				<column_count>4</column_count>
+				<add_to_sitemap>1</add_to_sitemap>
+			</group>
 			<navigation>
-				<inject>0</inject>
-				<inject_after>1</inject_after>
-				<inject_together>0</inject_together>
-				<inject_together_title>Shop By</inject_together_title>
+				<enabled>1</enabled>
 			</navigation>
 			<seo>
 				<url_suffix>.html</url_suffix>
-				<append_title_suffix>1</append_title_suffix>
-				<use_canonical>1</use_canonical>
 			</seo>
-			<sitemap>
-				<enabled>1</enabled>
-				<page_change_frequency>weekly</page_change_frequency>
-				<page_priority>0.8</page_priority>
-				<group_change_frequency>weekly</group_change_frequency>			
-				<group_priority>0.2</group_priority>
-			</sitemap>
 		</attributeSplash>
 	</default>
+	<attributeSplash>
+		<ads>
+			<Fishpig_Crosslink>
+				<url>http://fishpig.co.uk/magento/extensions/seo-internal-links/</url>
+				<image>attribute-splash/addons/crosslink.png</image>
+				<title>Crosslink</title>
+				<subtitle>SEO Internal Links</subtitle>
+				<description>Automatically cross link your products, categories, splash pages, CMS pages, blog posts and categories using Crosslinks.</description>
+			</Fishpig_Crosslink>
+			<Fishpig_Bolt>
+				<url>http://fishpig.co.uk/magento/extensions/bolt-full-page-cache/</url>
+				<image>attribute-splash/addons/bolt.png</image>
+				<title>Bolt</title>
+				<subtitle>Full Page Cache</subtitle>
+				<description>Add enterprise level caching to Magento community with Bolt, Magento's fastest Full Page Cache extension.</description>
+			</Fishpig_Bolt>
+			<Fishpig_AttributeSplashPro>
+				<url>http://fishpig.co.uk/magento/extensions/attribute-splash-pro/</url>
+				<image>attribute-splash/addons/splash-pro.png</image>
+				<title>Splash Pro</title>
+				<subtitle>SEO Landing Pages</subtitle>
+				<description>Create SEO landing pages quickly and easily using Splash Pro. Decide which products you want to display based on multiple attribute filters, category filters and price filters.</description>
+			</Fishpig_AttributeSplashPro>
+			<Fishpig_Wordpress_Addon_Multisite>
+				<is_multistore>1</is_multistore>
+				<url>http://fishpig.co.uk/magento/wordpress-integration/multisite/</url>
+				<image>attribute-splash/addons/wordpress-multisite.png</image>
+				<title>WordPress Integration</title>
+				<subtitle>Multi-Store Blog Integration</subtitle>
+				<description>Integrate a WordPress blog into your Magento theme in minutes with this free extension.</description>
+			</Fishpig_Wordpress_Addon_Multisite>
+			<Fishpig_Wordpress>
+				<is_singlestore>1</is_singlestore>
+				<url>http://fishpig.co.uk/magento/wordpress-integration/</url>
+				<image>attribute-splash/addons/wordpress.png</image>
+				<title>WordPress Integration</title>
+				<subtitle>WordPress blog integration</subtitle>
+				<description>Manage multiple blogs from a single WordPress Admin and integrate each blog with a different Magento store view</description>
+			</Fishpig_Wordpress>
+		</ads>
+	</attributeSplash>
 </config>

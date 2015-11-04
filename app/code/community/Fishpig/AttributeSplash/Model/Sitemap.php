@@ -36,15 +36,14 @@ class Fishpig_AttributeSplash_Model_Sitemap extends Mage_Sitemap_Model_Sitemap
 					}
 				}
 				
-				if (Mage::helper('attributeSplash')->splashGroupPagesEnabled()) {
-					$splashGroups = $this->_getSplashGroups();
-					
-					if (count($splashGroups) > 0) {
-						foreach($splashGroups as $group) {
-							if ($group->canDisplay()) {
-								$xml .= sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-											htmlspecialchars($group->getUrl()), $group->getUpdatedAt(false), $this->_getGroupChangeFrequency(), $this->_getGroupPriority());
-							}
+
+				$splashGroups = $this->_getSplashGroups();
+				
+				if (count($splashGroups) > 0) {
+					foreach($splashGroups as $group) {
+						if ($group->canDisplay()) {
+							$xml .= sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
+										htmlspecialchars($group->getUrl()), $group->getUpdatedAt(false), $this->_getGroupChangeFrequency(), $this->_getGroupPriority());
 						}
 					}
 				}

@@ -1,24 +1,17 @@
 <?xml version="1.0"?>
 <layout>
-
-	<default>
-		<reference name="catalog.topnav">
-			<action method="setTemplate" ifconfig="attributeSplash/navigation/inject"><template>attribute-splash/catalog/navigation/top.phtml</template></action>
-			<block type="attributeSplash/catalog_navigation_top" name="attributeSplash.topnav" as="splash.nav" template="attribute-splash/catalog/navigation/top/splash.phtml" />
-		</reference>
-	</default>
-	
+	<!--
+	/**
+	 *
+	 */
+	 -->
 	<attributesplash_page_view>
+		<reference name="head">
+			<action method="addCss"><style>css/attribute-splash.css</style></action>
+		</reference>
 		<reference name="left">
-			<!--
-				These blocks are added in the Controller
-				You can swap between the Layered Navigation and Category Navigation in the Magento Config (System > Config > Catalog > Attribute Splash Pages)
-				
-				If you want to add your own navigation, select 'No Navigation' in the Magento config and add your own blocks here
-
-				<block type="attributeSplash/layer_view" name="catalog.leftnav" as="catalog.leftnav.layered" before="-" template="catalog/layer/view.phtml" ifconfig="attributeSplash/frontend/use_layered_navigation"/>
-				<block type="catalog/navigation" name="catalog.leftnav" as="catalog.leftnav.catalog" before="-" template="catalog/navigation/left.phtml" ifconfig="attributeSplash/frontend/use_catalog_navigation"/>
-			-->
+			<block type="directory/currency" name="currency" before="-" template="directory/currency.phtml"/>
+			<block type="attributeSplash/layer_view" name="catalog.leftnav" after="currency" template="catalog/layer/view.phtml"/>
 		</reference>
 		<reference name="content">
 			<block type="attributeSplash/page_view" name="attributeSplash.view" template="attribute-splash/page/view.phtml">
@@ -31,14 +24,20 @@
 			</block>
 		</reference>
 	</attributesplash_page_view>
-	
+	<!--
+	/**
+	 *
+	 */
+	 -->
 	<attributesplash_group_view>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss"><style>css/attribute-splash.css</style></action>
+		</reference>
 		<reference name="content">
-			<block type="attributeSplash/group_view" name="attributeSplash.view.group" template="attribute-splash/group/view.phtml">
-				<block type="page/html_pager" name="splash_group.pager" />
-				<action method="setPagerBlockName"><pager_block_name>splash_group.pager</pager_block_name></action>
-			</block>
+			<block type="attributeSplash/group_view" name="attributeSplash.view.group" template="attribute-splash/group/view.phtml" />
 		</reference>
 	</attributesplash_group_view>
-
 </layout>

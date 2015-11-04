@@ -18,30 +18,21 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tabs extends Mage_Admin
 	
 	protected function _beforeToHtml()
 	{
-		$this->addTab('general',
-			array(
-				'label' => $this->__('General'),
-				'title' => $this->__('General'),
-				'content' => $this->getLayout()->createBlock('attributeSplash/adminhtml_group_edit_tab_general')->toHtml(),
-			)
+		$tabs = array(
+			'general' => 'Page Information',
+			'content' => 'Content',
+			'design' => 'Design',
+			'meta' => 'Meta Data',
 		);
 		
-		$this->addTab('seo',
-			array(
-				'label' => $this->__('SEO'),
-				'title' => $this->__('SEO'),
-				'content' => $this->getLayout()->createBlock('attributeSplash/adminhtml_group_edit_tab_seo')->toHtml(),
-			)
-		);
-		
-		$this->addTab('display',
-			array(
-				'label' => $this->__('Display Settings'),
-				'title' => $this->__('Display Settings'),
-				'content' => $this->getLayout()->createBlock('attributeSplash/adminhtml_group_edit_tab_display')->toHtml(),
-			)
-		);
-		
+		foreach($tabs as $alias => $label) {
+			$this->addTab($alias, array(
+				'label' => $this->__($label),
+				'title' => $this->__($label),
+				'content' => $this->getLayout()->createBlock('attributeSplash/adminhtml_group_edit_tab_' . $alias)->toHtml(),
+			));
+		}
+
 		return parent::_beforeToHtml();
 	}
 }

@@ -17,11 +17,14 @@ class Fishpig_AttributeSplash_GroupController extends Mage_Core_Controller_Front
 				$rootBlock->addBodyClass('splash-group-' . $splashGroup->getId());
 			}
 			
-			if ($title = $splashGroup->getPageTitle()) {			
-				$this->_title($title);
-			}
-			
 			if ($headBlock = $this->getLayout()->getBlock('head')) {
+				if ($title = $splashGroup->getPageTitle()) {			
+					$headBlock->setTitle($title);
+				}
+				else {
+					$this->_title($splashGroup->getDisplayName());
+				}
+
 				if ($description = $splashGroup->getMetaDescription()) {
 					$headBlock->setDescription($description);
 				}
@@ -30,9 +33,7 @@ class Fishpig_AttributeSplash_GroupController extends Mage_Core_Controller_Front
 					$headBlock->setKeywords($keywords);
 				}
 				
-				if (Mage::helper('attributeSplash')->canUseCanonical()) {
-					$headBlock->addItem('link_rel', $splashGroup->getUrl(), 'rel="canonical"');
-				}
+				$headBlock->addItem('link_rel', $splashGroup->getUrl(), 'rel="canonical"');
 			}
 			
 			if ($breadBlock = $this->getLayout()->getBlock('breadcrumbs')) {
@@ -80,30 +81,20 @@ class Fishpig_AttributeSplash_GroupController extends Mage_Core_Controller_Front
 	 */
 	protected function _initSplashGroup()
 	{
-		Mage::dispatchEvent('attributeSplash_controller_group_init_before', array('controller_action' => $this));
+		if (($group = Mage::registry('splash_group')) !== null) {
+			return $group;
+		}
 		
-		$splashGroupId = (int) $this->getRequest()->getParam('id', false);
+		$group = Mage::getModel('attributeSplash/group')->load(
+			(int) $this->getRequest()->getParam('id', false)
+		);
+		
+		if (!$group->getId()) {
+			return false;
+		}
+		
+		Mage::register('splash_group', $group);
 
-		if (!$splashGroupId) {
-			return false;
-		}
-		
-		$splashGroup = Mage::getModel('attributeSplash/group')->load($splashGroupId);
-		
-		if (!$splashGroup->canDisplay()) {
-			return false;
-		}
-		
-		Mage::register('splash_group', $splashGroup);
-		
-		try {
-			Mage::dispatchEvent('attributeSplash_controller_group_init_after', array('group' => $splashGroup, 'splash_group' => $splashGroup, 'controller_action' => $this));		
-		}
-		catch(Mage_Core_Exception $e) {
-			Mage::helper('attributeSplash')->log($e->getMessage());
-			return false;
-		}
-
-		return $splashGroup;
+		return $group;
 	}
 }

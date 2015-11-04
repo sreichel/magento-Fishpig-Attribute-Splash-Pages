@@ -7,12 +7,12 @@
  */
  ?>
 <?php if ($splashPage = $this->getSplashPage()): ?>
-	<div class="page-title category-title">
+	<div class="page-title category-title splash-title">
 		<h1><?php echo $this->escapeHtml($splashPage->getName()) ?></h1>
 	</div>
 	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 	<?php if ($splashPage->getImage()): ?>
-		<p class="category-image">
+		<p class="splash-image">
 			<?php if ($splashPage->getImageUrl()): ?>
 				<a href="<?php echo $splashPage->getImageUrl() ?>" title="<?php echo $this->escapeHtml($splashPage->getName()) ?>">
 			<?php endif; ?>
@@ -23,7 +23,7 @@
 		</p>
 	<?php endif; ?>
 	<?php if ($shortDescription = $splashPage->getShortDescription()): ?>
-		<div class="category-description std"><?php echo $shortDescription ?></div>
+		<div class="splash-description std"><?php echo $shortDescription ?></div>
 	<?php endif; ?>
 	<?php if($this->isContentMode()): ?>
 		<?php echo $this->getCmsBlockHtml() ?>
@@ -34,6 +34,6 @@
 		<?php echo $this->getProductListHtml() ?>
 	<?php endif; ?>
 	<?php if ($description = $splashPage->getDescription()): ?>
-		<div class="category-description-full std"><?php echo $description ?></div>
+		<div class="splash-description-full std"><?php echo $description ?></div>
 	<?php endif; ?>
 <?php endif; ?>

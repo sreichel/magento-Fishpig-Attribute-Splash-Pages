@@ -12,26 +12,85 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Grid extends Mage_Adminhtml_
 	{
 		parent::__construct();
 		
-		$this->setId('splash_grid');
-//		$this->setDefaultSort();
-//		$this->setDefaultDir();
+		$this->setId('splash_group_grid');
+		$this->setDefaultSort('group_id');
+		$this->setDefaultDir('asc');
 		$this->setSaveParametersInSession(false);
 		$this->setUseAjax(true);
 	}
+
+	/**
+	 * Insert the Add New button
+	 *
+	 * @return $this
+	 */
+	protected function _prepareLayout()
+	{
+		$this->setChild('add_button',
+			$this->getLayout()->createBlock('adminhtml/widget_button')
+				->setData(array(
+					'label'     => Mage::helper('adminhtml')->__('Add New Group'),
+					'class' => 'add',
+					'onclick'   => "setLocation('" . $this->getUrl('*/attributeSplash_group/new') . "');",
+				))
+		);
+				
+		return parent::_prepareLayout();
+	}
 	
+	/**
+	 * Retrieve the main buttons html
+	 *
+	 * @return string
+	 */
+	public function getMainButtonsHtml()
+	{
+		return parent::getMainButtonsHtml()
+			. $this->getChildHtml('add_button');
+	}
+
 	/**
 	 * Initialise and set the collection for the grid
 	 *
+	 * @return $this
 	 */
 	protected function _prepareCollection()
 	{
-		$collection = Mage::getResourceModel('attributeSplash/group_collection');
-
-		$this->setCollection($collection);
+		$this->setCollection(
+			Mage::getResourceModel('attributeSplash/group_collection')
+		);
 	
 		return parent::_prepareCollection();
 	}
+
+	/**
+	 * Add store information to pages
+	 *
+	 * @return $this
+	 */
+	protected function _afterLoadCollection()
+	{
+		$this->getCollection()->walk('afterLoad');
+
+		parent::_afterLoadCollection();
+	}
 	
+	/**
+	 * Apply the store filter
+	 *
+	 * @param $collection
+	 * @param $column
+	 * @return void
+	 */
+    protected function _filterStoreCondition($collection, $column)
+    {
+        if (!$value = $column->getFilter()->getValue()) {
+            return;
+        }
+
+        $this->getCollection()->addStoreFilter($value);
+    }
+    	
 	/**
 	 * Add the columns to the grid
 	 *
@@ -40,21 +99,41 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Grid extends Mage_Adminhtml_
 	{
 		$this->addColumn('group_id', array(
 			'header'	=> $this->__('ID'),
-			'align'		=> 'left',
-			'width'		=> '60px',
+			'align'		=> 'right',
+			'width'		=> 1,
 			'index'		=> 'group_id',
 		));
-
-		$this->addColumn('display_name', array(
-			'header'		=> $this->__('Name'),
+		
+		$this->addColumn('attribute_id', array(
+			'header'		=> $this->__('Attribute'),
 			'align'			=> 'left',
-			'index'			=> 'display_name',
+			'index'			=> 'attribute_id',
+			'filter_index' 	=> '_attribute_table.attribute_code',
+			'type'			=> 'options',
+			'options' 		=> Mage::getSingleton('attributeSplash/system_config_source_attribute_splashed')->setLabelField('attribute_code')->toOptionHash(),
 		));
 		
-		$this->addColumn('attribute_code', array(
-			'header'	=> $this->__('Attribute Code'),
+		$this->addColumn('display_name', array(
+			'header'	=> $this->__('Name'),
 			'align'		=> 'left',
-			'index'		=> 'attribute_code',
+			'index'		=> 'display_name',
+		));
+		
+		$this->addColumn('url_key', array(
+			'header'	=> $this->__('URL Key'),
+			'align'		=> 'left',
+			'index'		=> 'url_key',
+		));
+		
+		$this->addColumn('include_in_menu', array(
+			'header'	=> $this->__('Include in Menu'),
+			'align'		=> 'left',
+			'index'		=> 'include_in_menu',
+			'type'		=> 'options',
+			'options'	=> array(
+				1 => $this->__('Enabled'),
+				0 => $this->__('Disabled'),
+			),
 		));
 		
 		if (!Mage::app()->isSingleStoreMode()) {
@@ -62,44 +141,34 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Grid extends Mage_Adminhtml_
 				'header'	=> $this->__('Store'),
 				'align'		=> 'left',
 				'index'		=> 'store_id',
-				'type'		=> 'options',
+                'type'          => 'store',
+                'store_all'     => true,
+                'store_view'    => true,
+                'sortable'      => false,
+                'filter_condition_callback' => array($this, '_filterStoreCondition'),
 				'options' 	=> $this->getStores(),
 			));
 		}
-		
-		$this->addColumn('is_enabled', array(
-			'header'	=> $this->__('Enabled'),
-			'width'		=> '90px',
-			'index'		=> 'is_enabled',
-			'type'		=> 'options',
-			'options'	=> array(
-				1 => $this->__('Enabled'),
-				0 => $this->__('Disabled'),
-			),
-		));
 	
-		$this->addColumn('action',
-			array(
-				'width'     => '50px',
-				'type'      => 'action',
-				'getter'     => 'getId',
-				'actions'   => array(
-					array(
-						'caption' => Mage::helper('catalog')->__('Edit'),
-						'url'     => array(
-						'base'=>'*/*/edit',
-					),
-					'field'   => 'id'
-					)
+		$this->addColumn('action', array(
+			'type'      => 'action',
+			'getter'     => 'getId',
+			'actions'   => array(
+				array(
+					'caption' => Mage::helper('catalog')->__('Edit'),
+					'url'     => array(
+					'base'=>'*/attributeSplash_group/edit',
 				),
-				'filter'    => false,
-				'sortable'  => false,
-				'align' 	=> 'center',
-			));
+				'field'   => 'id'
+			)),
+			'filter'    => false,
+			'sortable'  => false,
+			'align' 	=> 'center',
+		));
 
 		return parent::_prepareColumns();
 	}
-	
+		
 	/**
 	 * Retrieve the URL used to modify the grid via AJAX
 	 *
@@ -107,7 +176,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Grid extends Mage_Adminhtml_
 	 */
 	public function getGridUrl()
 	{
-		return $this->getUrl('*/*/grid');
+		return $this->getUrl('*/*/groupGrid');
 	}
 	
 	/**
@@ -116,7 +185,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Grid extends Mage_Adminhtml_
 	 */
 	public function getRowUrl($row)
 	{
-		return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+		return $this->getUrl('*/attributeSplash_group/edit', array('id' => $row->getId()));
 	}
 
 	/**
@@ -126,11 +195,11 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Grid extends Mage_Adminhtml_
 	 */
 	protected function getStores()
 	{
-		$stores = Mage::getResourceModel('core/store_collection');
 		$options = array(0 => $this->__('Global'));
+		$stores = Mage::getResourceModel('core/store_collection')->load();
 		
 		foreach($stores as $store) {
-			$options[$store->getId()] = $store->getWebsite()->getName() . ': ' . $store->getName();
+			$options[$store->getId()] = $store->getWebsite()->getName() . ' &gt; ' . $store->getName();
 		}
 
 		return $options;

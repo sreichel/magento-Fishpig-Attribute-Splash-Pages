@@ -9,46 +9,31 @@
 class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer 
 {
 	/**
-	 * Defines the product collection used
+	 * Retrieve the current category for use when generating product collections
+	 * As we are using splash pages and not categories, this returns the splash page
 	 *
-	 * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+	 * @return false|Fishpig_AttributeSplashPro_Model_Page
 	 */
-	public function getProductCollection()
+	public function getCurrentCategory()
 	{
-		if (isset($this->_productCollections[0])) {
-			$collection = $this->_productCollections[0];
-		}
-		else {
-			$collection = $this->getSplashPage()->getProductCollection();
-			
-			Mage::dispatchEvent(
-				'attributeSplash_splash_page_product_collection', 
-				array(
-					'splash_page' => $this->getSplashPage(), 
-					'collection' => $collection, 
-					'layer' => $this
-				)
-			);
-
-			$this->prepareProductCollection($collection);
-			$this->_productCollections[0] = $collection;
-		}
-		
-		return $collection;
+		return $this->getSplashPage();
 	}
 
 	/**
-	 * Adds the store ID to the collection
-	 * This ensures the price index functions correctly in 1.4.2.0
+	 * Retrieve the splash page
+	 * We add an array to children_categories so that it can act as a category
 	 *
-	 * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
-	 *
+	 * @return false|Fishpig_AttributeSplashPro_Model_Page
 	 */
-	public function prepareProductCollection($collection)
+	public function getSplashPage()
 	{
-		$collection->addStoreFilter(Mage::app()->getStore()->getId());
-	
-		return parent::prepareProductCollection($collection);
+		if (($page = Mage::registry('splash_page')) !== null) {
+			$page->setChildrenCategories(array());
+
+			return $page;
+		}
+		
+		return false;
 	}
 
 	/**
@@ -66,34 +51,5 @@ class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer
 		}
 		
 		return $collection;
-	}
-	
-	/**
-	 * Returns the ID of the current category being filtered by
-	 *
-	 * @return int|null
-	 */
-	public function getFilteredCategoryId()
-	{
-		return Mage::app()->getRequest()->getParam(Mage::getSingleton('catalog/layer_filter_category')->getRequestVar());
-	}
-
-    /**
-     * Retrieves the current Splash model
-     *
-     * @return Fishpig_AttributeSplash_Model_Splash|null
-     */
-	public function getSplashPage()
-	{
-		if (!$this->hasSplashPage()) {
-			if ($this->hasSplashPageId()) {
-				$this->setSplashPage(Mage::getModel('attributeSplash/splash')->load($this->getSplashPageId()));
-			}
-			else {
-				$this->setSplashPage(Mage::registry('splash_page'));
-			}
-		}
-		
-		return $this->getData('splash_page');
 	}
 }

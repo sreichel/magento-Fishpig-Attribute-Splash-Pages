@@ -6,54 +6,16 @@
  * @author      Ben Tideswell <help@fishpig.co.uk>
  */
 
-class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
+class Fishpig_AttributeSplash_Model_Page extends Fishpig_AttributeSplash_Model_Abstract
 {
 	/**
-	 * value used when attributes use grid mode
+	 * Setup the model's resource
 	 *
-	 * @var int
+	 * @return void
 	 */
-	const ATTRIBUTE_MODE_GRID = 1;
-	
-	/**
-	 * value used when attributes use list mode
-	 *
-	 * @var int
-	 */
-	const ATTRIBUTE_MODE_LIST = 2;
-
-	/**
-	 * value used when attributes use simple mode
-	 *
-	 * @var int
-	 */
-	const ATTRIBUTE_MODE_SIMPLE = 3;
-
 	public function _construct()
 	{
 		$this->_init('attributeSplash/page');
-	}
-
-	/**
-	 * Load a splash page based on an option ID
-	 *
-	 * @param int $optionId
-	 * @return Fishpig_AttributeSplash_Model_Page
-	 */
-	public function loadByOptionId($optionId)
-	{
-		return $this->load($optionId, 'option_id');
-	}
-
-	/**
-	 * Retrieve the name of the splash page
-	 * If display name isn't set, option value label will be returned
-	 *
-	 * @return string
-	 */
-	public function getName()
-	{
-		return $this->getDisplayName() ? $this->getDisplayName() : $this->getFrontendLabel();
 	}
 	
 	/**
@@ -64,68 +26,26 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	 */
 	public function getUrl()
 	{
-		if ($this->getUrlPath()) {
-			return Mage::getUrl('', array(
-				'_direct' => $this->getUrlPath(),
-				'_secure' 	=> false,
-				'_nosid' 	=> true,
-				'_store' => $this->getStoreId() ? $this->getStoreId() : Mage::helper('attributeSplash')->getCurrentFrontendStore()->getId(),
-			));
-		}
-
-		return Mage::getUrl($this->getResource()->getTargetPath($this));
-	}
-	
-	/**
-	 * Retrieve the URL path for the splash page
-	 *
-	 * @return string
-	 */
-	public function getUrlPath()
-	{
-		if (!$this->hasUrlPath()) {
-			$this->setUrlPath($this->getResource()->getRequestPath($this));
+		if ($this->hasUrl()) {
+			return $this->_getData('url');
 		}
 		
-		return $this->getData('url_path');
-	}
-	
-	/**
-	 * Retrieve the description
-	 * If $process is true, output will be filtered
-	 *
-	 * @param bool $process = true
-	 * @return string
-	 */
-	public function getDescription($process = true)
-	{
-		if ($process) {
-			return Mage::helper('cms')->getBlockTemplateProcessor()->filter($this->getData('description'));
-		}
+		$uri = (Mage::getStoreConfigFlag('attributeSplash/page/include_group_url_key')
+			? $this->getSplashGroup()->getUrlKey() . '/' : '')
+			. $this->getUrlKey() . $this->getUrlSuffix();
 		
-		return $this->getData('description');
+		return $this->_getUrl($uri);
 	}
 
 	/**
-	 * Retrieve the page title
-	 * If empty, use display_name
+	 * Determine whether the model is active
 	 *
-	 * @return string
+	 * @return bool
 	 */
-	public function getPageTitle()
+	public function isActive()
 	{
-		return $this->getData('page_title') ? $this->getData('page_title') : $this->getName();
-	}
-	
-	/**
-	 * Retrieve the Meta description.
-	 * If empty, use the short description
-	 *
-	 * @return string
-	 */
-	public function getMetaDescription()
-	{
-		return $this->getData('meta_description') ? $this->getData('meta_description') : strip_tags($this->getShortDescription());
+		return (($page = Mage::registry('splash_page')) !== null)
+			&& $page->getId() === $this->getId();
 	}
 
 	/**
@@ -166,16 +86,6 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	}
 	
 	/**
-	 * Determine whether the splash page can be displayed
-	 *
-	 * @return bool
-	 */
-	public function canDisplay()
-	{
-		return $this->getId() && $this->getIsEnabled();
-	}
-	
-	/**
 	 * Retrieve the attribute model for the page
 	 *
 	 * @return Mage_Eav_Model_Entity_Attribute
@@ -183,62 +93,12 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	public function getAttributeModel()
 	{
 		if (!$this->hasAttributeModel()) {
-			$this->setAttributeModel($this->getResource()->getAttributeModel($this));
+			$this->setAttributeModel(
+				Mage::getModel('eav/entity_attribute')->load($this->getAttributeId())
+			);
 		}
 		
 		return $this->getData('attribute_model');
-	}
-
-	/**
-	 * Retrieve the option model for the page
-	 *
-	 * @return Mage_Eav_Model_Entity_Attribute_Option
-	 */
-	public function getOptionModel()
-	{
-		if (!$this->hasOptionModel()) {
-			$this->setOptionModel($this->getResource()->getOptionModel($this));
-		}
-		
-		return $this->getData('option_model');
-	}
-	
-	/**
-	 * Retrieve the option value for the spash page
-	 *
-	 * @return string
-	 */
-	public function getOptionValue()
-	{
-		return $this->getOptionModel()->getValue();
-	}
-
-	/**
-	 * Retrieve the store id of the splash page
-	 *
-	 * @return int
-	 */
-	public function getStoreId()
-	{
-		if ($this->_getData('store_id') === '0') {
-			return Mage::app()->getStore()->getId();
-		}
-		
-		return $this->_getData('store_id');
-	}
-	
-	/**
-	 * Retrieve the store model associated with the splash page
-	 *
-	 * @return Mage_Core_Model_Store
-	 */
-	public function getStore()
-	{
-		if (!$this->hasStore()) {
-			$this->setStore(Mage::getModel('core/store')->load($this->getStoreId()));
-		}
-		
-		return $this->getData('store');
 	}
 	
 	/**
@@ -269,106 +129,5 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 		}
 		
 		return $this->getData('splash_group');
-	}
-	
-	/**
-	 * Retrieve the thumbnail width
-	 *
-	 * @return int|null
-	 */
-	public function getThumbnailWidth()
-	{
-		return $this->_convertSize(Mage::getStoreConfig('attributeSplash/images/splash_thumbnail_width'));
-	}
-	
-	/**
-	 * Retrieve the thumbnail height
-	 *
-	 * @return int|null
-	 */
-	public function getThumbnailHeight()
-	{
-		return $this->_convertSize(Mage::getStoreConfig('attributeSplash/images/splash_thumbnail_height'));
-	}
-	
-	/**
-	  * Determine whether the thumbnail should keep it's frame
-	  *
-	  * @return bool
-	  */
-	public function thumbnailShouldKeepFrame()
-	{
-		return Mage::getStoreConfigFlag('attributeSplash/images/splash_thumbnail_keep_frame');
-	}
-	
-	/**
-	 * Retrieve the image width
-	 *
-	 * @return int|null
-	 */
-	public function getImageWidth()
-	{
-		return $this->_convertSize(Mage::getStoreConfig('attributeSplash/images/splash_image_width'));
-	}
-	
-	/**
-	 * Retrieve the image height
-	 *
-	 * @return int|null
-	 */
-	public function getImageHeight()
-	{
-		return $this->_convertSize(Mage::getStoreConfig('attributeSplash/images/splash_image_height'));
-	}
-	
-	/**
-	  * Determine whether the thumbnail should keep it's frame
-	  *
-	  * @return bool
-	  */
-	public function imageShouldKeepFrame()
-	{
-		return Mage::getStoreConfigFlag('attributeSplash/images/splash_thumbnail_keep_frame');
-	}
-	
-	/**
-	 * Convert a size
-	 * If empty or 0, return null
-	 *
-	 * @return int|null
-	 */
-	protected function _convertSize($size)
-	{
-		return $size ? (int)$size : null;
-	}
-	
-	/**
-	 * Retrieve the date/time the item was updated
-	 *
-	 * @param bool $includeTime = true
-	 * @return string
-	 */
-	public function getUpdatedAt($includeTime = true)
-	{
-		if ($str = $this->_getData('updated_at')) {
-			return $includeTime ? $str : trim(substr($str, 0, strpos($str, ' ')));
-		}
-		
-		return '';
-	}
-
-	/**
-	 * Retrieve the date/time the item was created
-	 *
-	 * @param bool $includeTime = true
-	 * @return string
-	 */
-	public function getCreatedAt($includeTime = true)
-	{
-		if ($str = $this->_getData('created_at')) {
-			return $includeTime ? $str : trim(substr($str, 0, strpos($str, ' ')));
-		}
-		
-		return '';
 	}
 }

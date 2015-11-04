@@ -5,16 +5,11 @@
 			<title>Splash</title>
 			<sort_order>31</sort_order>
 			<children>
-				<pages translate="title">
-					<title>Manage Pages</title>
-					<action>attributeSplash_admin/adminhtml_page</action>
-					<sort_order>11</sort_order>
-				</pages>
-				<groups translate="title">
-					<title>Manage Groups</title>
-					<action>attributeSplash_admin/adminhtml_group</action>
-					<sort_order>6</sort_order>
-				</groups>
+				<dashboard translate="title">
+					<title>Manage Splash Pages</title>
+					<action>hq/attributeSplash</action>
+					<sort_order>1</sort_order>
+				</dashboard>
 			</children>
 		</attributeSplash>
 	</menu>
@@ -26,18 +21,10 @@
 						<title>Attribute Splash Pages</title>
 						<sort_order>120</sort_order>
 						<children>
-							<groups translate="title">
-								<title>Manage Splash Groups</title>
-								<sort_order>6</sort_order>
-							</groups>
-							<pages translate="title">
+							<dashboard translate="title">
 								<title>Manage Splash Pages</title>
-								<sort_order>11</sort_order>
-							</pages>
-							<settings translate="title">
-								<title>Attribute Splash Settings</title>
-								<sort_order>99</sort_order>
-							</settings>
+								<sort_order>6</sort_order>
+							</dashboard>
 						</children>
 					</attributeSplash>
 					<system>

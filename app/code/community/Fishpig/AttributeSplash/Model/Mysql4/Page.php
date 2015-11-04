@@ -111,7 +111,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Fishpig_AttributeSplash_
 		}
 		
 		if (Mage::getStoreConfigFlag('attributeSplash/product/hide_no_image', $page->getStoreId())) {
-			$imageAttributeCode = Mage::getStoreConfigFlag('attributeSplash/product/image_attribute_code', $page->getStoreId());
+			$imageAttributeCode = Mage::getStoreConfig('attributeSplash/product/image_attribute_code', $page->getStoreId());
 			
 			if ($imageAttributeCode) {
 				$collection->addAttributeToFilter($imageAttributeCode, array(

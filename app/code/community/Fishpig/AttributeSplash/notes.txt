@@ -12,8 +12,9 @@ TODO/BUGS
 - Order products per splash page
 - Look into report that 'Sort By' doesn't work
 
-01/08/2012 - v2.0.24
+01/08/2012 - v2.0.25
 - Added option to automatically hide out of sock products and products with no images
+
 29/07/2012 - v2.0.23
 - Fixed issue that caused the top navigation to cause a fatal error when using a version of Magento older than 1.7.0.0
 

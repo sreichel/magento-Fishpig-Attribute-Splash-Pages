@@ -51,7 +51,6 @@ class Fishpig_AttributeSplash_Model_Sitemap extends Mage_Sitemap_Model_Sitemap
 			}
 			
 			$xml .= '</urlset>';
-			header('Content-Type:text/xml;charset=utf8');
 
 			$this->_saveSitemapContent($xml);
 		}

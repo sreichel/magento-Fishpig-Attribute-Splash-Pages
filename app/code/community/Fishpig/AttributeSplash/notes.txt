@@ -7,6 +7,11 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+28/12/2011 - v2.0.13
+- Add body class for splash page 'splash-page-{{attribute_code}}'
+- Improved image caching system
+- Added ability to add URL to splash page banner image
+
 16/12/2011 - v2.0.12
 - Finally fixed issue with uploading images in Magento 1.4.*.*
 

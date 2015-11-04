@@ -17,6 +17,10 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 
 			if ($rootBlock = $this->getLayout()->getBlock('root')) {
 				$rootBlock->addBodyClass('splash-page-' . $splashPage->getId());
+
+				if ($splashPage->getAttributeCode()) {
+					$rootBlock->addBodyClass('splash-page-' . $splashPage->getAttributeCode());
+				}
 			}
 
 			$this->renderLayout();

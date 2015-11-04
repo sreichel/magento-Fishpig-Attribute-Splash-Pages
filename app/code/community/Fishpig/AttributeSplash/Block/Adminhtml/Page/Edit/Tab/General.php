@@ -48,6 +48,14 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_General extends Mage
 			'title' => $this->__('Splash Page Image'),
 			'note' 	=> $this->__('Upload a large image as this can be dynamically resized'),
 		));
+
+		$fieldset->addField('image_url', 'text', array(
+			'name' 		=> 'image_url',
+			'label' 	=> $this->__('Image URL'),
+			'title' 	=> $this->__('Image URL'),
+			'note' 		=> $this->__('If set, will be used as the anchor for the splash image - this works well if the image is a banner advertising a specific product.'),
+			'required'	=> false,
+		));
 		
 		$fieldset->addField('thumbnail', 'image', array(
 			'name' 	=> 'thumbnail',

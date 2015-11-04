@@ -38,6 +38,14 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 	const IMAGE_FOLDER = 'attributesplash';
 
 	/**
+	 * Store for current image settings
+	 * Used to cache image
+	 *
+	 * @var array
+	 */
+	protected $_settings = array();
+	
+	/**
 	 * Retrieve the image URL where images are stored
 	 *
 	 * @return string
@@ -140,12 +148,11 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 	protected function _getRelativeResizedImagePath($filename, $width = null, $height = null)
 	{
 		if (!is_null($width) || !is_null($height)) {
-			$cacheSettings = array(
-				(int)$this->_imageObject->keepFrame(),
-				(int)$this->_imageObject->keepTransparency(),
-				(int)$this->_imageObject->keepAspectRatio(),
-				(int)$this->_imageObject->constrainOnly(),
-			);
+			$cacheSettings = array();
+		
+			foreach($this->_settings as $key => $value) {
+				$cacheSettings[] = $key . '__' . (int)$value;
+			}
 			
 			$cacheKey = substr(md5(implode(',', $cacheSettings)), 0, 6);
 			
@@ -168,7 +175,8 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 		$this->_imageObject = null;
 		$this->_forceRecreate = false;
 		$this->_filename = null;
-		
+		$this->_settings = array();
+
 		if ($imagePath = $this->getImagePath($page->getData($attribute))) {
 			$this->_imageObject = new Varien_Image($imagePath);
 			$this->_filename = basename($imagePath);
@@ -235,6 +243,7 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 	public function keepFrame($val)
 	{
 		if ($this->isActive()) {
+			$this->_settings['keep_frame'] = $val;
 			$this->_imageObject->keepFrame($val);
 		}
 		
@@ -249,6 +258,7 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 	public function keepAspectRatio($val)
 	{
 		if ($this->isActive()) {
+			$this->_settings['keep_aspect_ratio'] = $val;
 			$this->_imageObject->keepAspectRatio($val);
 		}
 		
@@ -263,6 +273,7 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 	public function constrainOnly($val)
 	{
 		if ($this->isActive()) {
+			$this->_settings['constrain_only'] = $val;
 			$this->_imageObject->constrainOnly($val);
 		}
 		
@@ -291,6 +302,7 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 	public function backgroundColor($rgb = null)
 	{
 		if ($this->isActive()) {
+			$this->_settings['background_color'] = is_array($rgb) ? implode(',', $rgb) : $rgb;
 			$this->_imageObject->backgroundColor($rgb);
 		}
 		

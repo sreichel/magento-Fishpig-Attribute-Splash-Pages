@@ -67,8 +67,8 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 	public function addAttributeCodeFilter($attributeCode)
 	{
 		$this->addAttributeOptionData();
-		$this->addFieldToFilter('attribute_code=?', $attributeCode);
-		
+		$this->getSelect()->where('`_attribute_table`.`attribute_code` = ?', $attributeCode);
+
 		return $this;
 	}
 }

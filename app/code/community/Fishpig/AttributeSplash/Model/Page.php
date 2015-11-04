@@ -159,6 +159,12 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 		return $this->getData('option_model');
 	}
 	
+	public function getOptionValue()
+	{
+	echo '<pre>'; print_r($this->getOptionModel()->getData()); echo '</pre>'; exit;
+		return $this->getOptionModel()->getStoreValue();
+	}
+
 	/**
 	 * Retrieve the store model associated with the splash page
 	 *

@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>1.9.19</version>
+			<version>1.9.20</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -113,6 +113,7 @@
 			<frontend>
 				<template/>
 				<navigation>1</navigation>
+				<inject_links>1</inject_links>
 				<navigation_container>left</navigation_container>
 				<navigation_template/>
 				<grid_column_count>3</grid_column_count>

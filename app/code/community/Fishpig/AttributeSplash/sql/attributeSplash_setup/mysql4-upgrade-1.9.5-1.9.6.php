@@ -118,7 +118,7 @@
 	foreach($splashPages as $splashPage) {
 		if (!$splashPage->getAttributeId()) {
 			try {
-				$splashPage->delete();
+//				$splashPage->delete();
 			}
 			catch (Exception $e) {
 				Mage::log($e->getMessage(), false, 'attributeSplash.log', true);

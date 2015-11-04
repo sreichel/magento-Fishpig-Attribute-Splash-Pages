@@ -172,6 +172,16 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 	
 	/**
+	 * Determine whether group pages are enabled
+	 *
+	 * @return bool
+	 */
+	public function splashGroupPagesEnabled()
+	{
+		return Mage::getStoreConfigFlag('attributeSplash/list_page/enabled');
+	}
+	
+	/**
 	 * Log an error message
 	 *
 	 * @param string $msg

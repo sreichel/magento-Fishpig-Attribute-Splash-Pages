@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>2.0.9</version>
+			<version>2.0.10</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -42,6 +42,11 @@
 					<layer_filter_item>Fishpig_AttributeSplash_Model_Layer_Filter_Item</layer_filter_item>
 				</rewrite>
 			</catalog>
+			<sitemap>
+				<rewrite>
+					<sitemap>Fishpig_AttributeSplash_Model_Sitemap</sitemap>
+				</rewrite>
+			</sitemap>
 		</models>
 		<resources>
 			<attributeSplash_setup>
@@ -154,6 +159,13 @@
 				<append_title_suffix>1</append_title_suffix>
 				<use_canonical>1</use_canonical>
 			</seo>
+			<sitemap>
+				<enabled>1</enabled>
+				<page_change_frequency>weekly</page_change_frequency>
+				<page_priority>0.5</page_priority>
+				<group_change_frequency>weekly</group_change_frequency>			
+				<group_priority>0.2</group_priority>
+			</sitemap>
 		</attributeSplash>
 	</default>
 </config>

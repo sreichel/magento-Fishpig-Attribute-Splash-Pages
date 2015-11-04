@@ -32,6 +32,15 @@ class Fishpig_AttributeSplash_Block_Catalog_Product_View_Attributes extends Mage
 						if ($splash->getId()) {
 							$buffer[] = sprintf('<a href="%s" title="%s">%s</a>', $splash->getUrl(), $this->escapeHtml($splash->getName()), $this->escapeHtml($splash->getName()));
 						}
+						else {
+							$option = Mage::helper('attributeSplash')->getOptionById($optionId, Mage::app()->getStore()->getId());
+							
+							if ($option) {
+								$value = $option->getStoreDefaultValue() ?  $option->getStoreDefaultValue() : $option->getValue();
+								
+								$buffer[] = $this->escapeHtml($value);
+							}
+						}
 					}
 					
 					$additionalData[$attributeCode]['value'] = implode(', ', $buffer);

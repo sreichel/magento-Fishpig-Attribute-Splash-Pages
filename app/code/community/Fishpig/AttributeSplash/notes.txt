@@ -7,6 +7,13 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+
+
+02/12/2011 - v2.0.10
+- Fixed issue that stopped group URL being injected into navigation
+- Fixed issue that caused attribute values with no splash page to be removed from product attribute box
+- Added Google XML Sitemap compatibility. If enabled, each time you generate the sitemap, the splash pages (and groups if enabled) will be added.
+
 28/11/2011 - v2.0.9
 - Fixed issue that caused default store value to be empty while editing page
 - Fixed issue that caused a select few splash pages URL rewrites to not get updated

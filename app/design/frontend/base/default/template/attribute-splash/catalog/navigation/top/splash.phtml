@@ -30,7 +30,7 @@
 			<?php $groupIt = 1 ?>
 			<?php foreach($splashGroups as $splashGroup): ?>
 				<li class="level0 nav-<?php echo $groupIt + $this->getCategoryIndexOffset() ?> level-top parent">
-					<a href="<?php echo $splashGroup->getUrl() ?>" class="level-top"><span><?php echo $this->escapeHtml($splashGroup->getName()) ?></span></a>
+					<a href="<?php echo $splashGroup->canDisplay() ? $splashGroup->getUrl() : '#' ?>" class="level-top"><span><?php echo $this->escapeHtml($splashGroup->getName()) ?></span></a>
 					<?php $splashPages = $this->getSplashGroupSplashPages($splashGroup) ?>
 					<?php $pageCount = count($splashPages) ?>
 					<?php $pageIt = 1; ?>

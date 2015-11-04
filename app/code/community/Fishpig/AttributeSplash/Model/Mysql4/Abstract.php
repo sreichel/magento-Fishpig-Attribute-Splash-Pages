@@ -46,6 +46,12 @@ abstract class Fishpig_AttributeSplash_Model_Mysql4_Abstract extends Mage_Core_M
 		
 		$object->setUrlKey($this->formatUrlKey($object->getUrlKey()));
 		
+		$object->setUpdatedAt(now());
+		
+		if (!$object->getCreatedAt()) {
+			$object->setCreatedAt(now());
+		}
+		
 		return parent::_beforeSave($object);
 	}
 	

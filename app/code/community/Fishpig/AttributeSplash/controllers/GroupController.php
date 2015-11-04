@@ -67,7 +67,7 @@ class Fishpig_AttributeSplash_GroupController extends Mage_Core_Controller_Front
 		
 		$splashGroup = Mage::getModel('attributeSplash/group')->load($splashGroupId);
 		
-		if (!$splashGroup->getId() || !$splashGroup->getIsEnabled()) {
+		if (!$splashGroup->canDisplay()) {
 			return false;
 		}
 		

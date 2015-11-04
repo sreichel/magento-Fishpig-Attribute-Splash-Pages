@@ -103,6 +103,9 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Fishpig_AttributeSplash_
 				''
 			);
 
+		$collection->addAttributeToFilter('visibility', array('in' => array(2, 4)));
+		$collection->addAttributeToFilter('status', 1);
+		
 		return $collection;
 	}
 	

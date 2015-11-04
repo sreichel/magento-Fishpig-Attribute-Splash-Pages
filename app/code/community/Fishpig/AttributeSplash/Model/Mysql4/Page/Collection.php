@@ -87,11 +87,12 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 	 *
 	 * @param Mage_Catalog_Model_Product $product
 	 */
-	public function addProductFilter(Mage_Catalog_Model_Product $product)
+	public function addProductFilter(Mage_Catalog_Model_Product $product, $storeId = null)
 	{
-		$storeId = Mage::app()->getStore()->getId();
-		
-		$this->addAttributeOptionData();
+		if (is_null($storeId)) {
+			$storeId = Mage::app()->getStore()->getId();
+		}
+
 		$this->getSelect()
 			->join(
 				array('_product_filter' => $this->getTable('catalog/product_index_eav')),

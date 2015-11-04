@@ -7,7 +7,10 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
-20/12/2011 - v2.0.14
+30/01/2012 - v2.0.16
+- Changed 'Additional Information' splash page name to attribute name
+
+20/12/2011 - v2.0.15
 - Allow relative URL's in image_url field
 - Fixed issue for product attributes block when attribute had value 'No' or 'N/A'
 - Fixed issue with index.php in Google XML Sitemap (sitemap.xml) URL's

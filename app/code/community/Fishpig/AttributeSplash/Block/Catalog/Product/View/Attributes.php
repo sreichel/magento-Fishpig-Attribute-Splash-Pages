@@ -32,7 +32,8 @@ class Fishpig_AttributeSplash_Block_Catalog_Product_View_Attributes extends Mage
 							$splash = Mage::getModel('attributeSplash/page')->loadByOptionId($optionId);
 						
 							if ($splash->getId()) {
-								$buffer[] = sprintf('<a href="%s" title="%s">%s</a>', $splash->getUrl(), $this->escapeHtml($splash->getName()), $this->escapeHtml($splash->getName()));
+								$name = $splash->getOptionModel() ? $splash->getOptionModel()->getValue() : $splash->getName();
+								$buffer[] = sprintf('<a href="%s" title="%s">%s</a>', $splash->getUrl(), $this->escapeHtml($splash->getName()), $this->escapeHtml($name));
 							}
 							else {
 								$option = Mage::helper('attributeSplash')->getOptionById($optionId, Mage::app()->getStore()->getId());

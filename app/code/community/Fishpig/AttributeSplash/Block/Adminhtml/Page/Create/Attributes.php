@@ -15,7 +15,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Create_Attributes extends Mag
 		$this->setId('splash_attributes_grid');
 		$this->setDefaultSort('frontend_label');
 		$this->setDefaultDir('asc');
-		$this->setSaveParametersInSession(true);
+		$this->setSaveParametersInSession(false);
 		$this->setUseAjax(true);
 		$this->setRowClickCallback('getAttributeValueGrid');
 	}

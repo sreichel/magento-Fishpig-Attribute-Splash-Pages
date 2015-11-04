@@ -38,7 +38,7 @@ class Fishpig_AttributeSplash_Adminhtml_GroupController extends Mage_Adminhtml_C
 	 */
 	public function editAction()
 	{
-		$this->_initSplashGroup();
+		$splash = $this->_initSplashGroup();
 		$this->loadLayout();
 		$this->_setActiveMenu('attributeSplash');
 		

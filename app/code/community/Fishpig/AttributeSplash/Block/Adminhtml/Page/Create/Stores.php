@@ -13,7 +13,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Create_Stores extends Mage_Ad
 		parent::__construct();
 		
 		$this->setId('splash_stores_grid');
-		$this->setSaveParametersInSession(true);
+		$this->setSaveParametersInSession(false);
 		$this->setUseAjax(true);
 	}
 	
@@ -102,6 +102,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Create_Stores extends Mage_Ad
 			'header'		=> $this->__('Store'),
 			'align'			=> 'left',
 			'index'			=> 'name',
+			'filter_index' => 'main_table.name',
 		));
 
 		return parent::_prepareColumns();

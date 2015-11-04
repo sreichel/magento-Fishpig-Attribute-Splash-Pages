@@ -7,13 +7,25 @@
  */
 ?>
 <?php if ($this->getRequest()->getParam('section') == 'attributeSplash'): ?>
-	<script type="text/javascript">		
-		var oldSuffix = $('attributeSplash_seo_url_suffix');
-		
-		$('config_edit_form').insert({bottom: '<input type="hidden" name="groups[seo][fields][url_suffix_old][value]" value="' + oldSuffix.getValue() + '" />'});
-		
-		var oldGroupUrlKey = $('attributeSplash_frontend_include_group_url_key');
-		
-		$('config_edit_form').insert({bottom: '<input type="hidden" name="groups[frontend][fields][include_group_url_key_old][value]" value="' + oldGroupUrlKey.getValue() + '" />'});
+	<script type="text/javascript">
+		//<![CDATA[
+		(function() {
+			var oldSuffix = $('attributeSplash_seo_url_suffix').getValue();
+			var oldGroupUrlKey = $('attributeSplash_frontend_include_group_url_key').getValue();
+			
+			configForm.oldSubmit = configForm.submit;
+			
+			configForm.submit = function() {
+				var newSuffix = $('attributeSplash_seo_url_suffix').getValue();
+				var newGroupUrlKey = $('attributeSplash_frontend_include_group_url_key').getValue();
+				
+				if (oldSuffix !== newSuffix || oldGroupUrlKey !== newGroupUrlKey) {
+					$('config_edit_form').insert({bottom: '<input type="hidden" name="reindex_urls" value="1" />'});
+				}
+			
+				this.oldSubmit();
+			};
+		})();
+		//]]>
 	</script>
 <?php endif; ?>

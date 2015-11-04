@@ -1,10 +1,9 @@
 <?php
 /**
- * Fishpig's Attribute Splash 
- *
  * @category    Fishpig
- * @package    Fishpig_AttributeSplash
- * @author      Ben Tideswell <ben@fishpig.co.uk>
+ * @package     Fishpig_AttributeSplash
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
  */
 
 class Fishpig_AttributeSplash_Block_Layer_View extends Mage_Catalog_Block_Layer_View

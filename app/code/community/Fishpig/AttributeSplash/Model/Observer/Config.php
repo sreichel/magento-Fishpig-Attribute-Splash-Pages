@@ -1,4 +1,10 @@
 <?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_AttributeSplash
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
 
 class Fishpig_AttributeSplash_Model_Observer_Config
 {
@@ -13,43 +19,19 @@ class Fishpig_AttributeSplash_Model_Observer_Config
 			$this->_checkRewrites();
 		}
 		catch (Exception $e) {
-			Mage::log($e->getMessage(), null, 'attributeSplash.log');
+			Mage::log($e->getMessage(), null, 'attributeSplash.log', true);
 		}
 	}
 	
 	protected function _checkRewrites()
 	{
 		if ($post = Mage::app()->getRequest()->getPost()) {
-			if (isset($post['groups']['seo']['fields']['url_suffix']['value'])) {
-			
-				$helper = Mage::helper('attributeSplash/rewrite');
-				$urlSuffix = trim($post['groups']['seo']['fields']['url_suffix']['value']);
-
-				$select = $this->getReadAdapter()
-					->select()
-					->from($this->getResource()->getTableName('core/url_rewrite'), array('url_rewrite_id', 'request_path', 'description'))
-					->where('target_path LIKE ?', "splash/%");
-
-				if ($results = $this->getReadAdapter()->fetchAll($select)) {
-					foreach($results as $result) {
-						$data = new Varien_Object(unserialize($result['description']));
-
-						if (!$data->getResource()) {
-							$data->setResource('attributeSplash/attribute_option_extra');
-						}
-						
-						$object = Mage::getModel($data->getResource())->setUrlKey($data->getUrlKey());
-						$requestPath = $helper->getRequestPath($object);
-
-						if ($requestPath != $result['request_path']) {
-							$this->getWriteAdapter()
-								->update(
-									$this->getResource()->getTableName('core/url_rewrite'),
-									array('request_path'=>$requestPath, 'description'=>$helper->getRewriteDescription($object)),
-									$this->getWriteAdapter()->quoteInto('url_rewrite_id=?', $result['url_rewrite_id'])
-								);
-						}
-					}
+			if (isset($post['groups']['seo']['fields']['url_suffix']['value']) && isset($post['groups']['seo']['fields']['url_suffix_old']['value'])) {
+				$oldUrlSuffix = $post['groups']['seo']['fields']['url_suffix_old']['value'];
+				$newUrlSuffix = $post['groups']['seo']['fields']['url_suffix']['value'];
+				
+				if ($oldUrlSuffix != $newUrlSuffix) {
+					Mage::getResourceModel('attributeSplash/page')->updateAllUrlRewrites();
 				}
 			}
 		}

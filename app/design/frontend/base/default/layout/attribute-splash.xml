@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <layout>
 
-	<attributesplash_view_index>
+	<attributesplash_page_view>
 		<reference name="left">
 			<!--
 				These blocks are added in the Controller
@@ -14,8 +14,8 @@
 			-->
 		</reference>
 		<reference name="content">
-			<block type="attributeSplash/view" name="attributeSplash.view" template="attribute-splash/view.phtml">
-				<block type="attributeSplash/product_list" name="product_list" template="catalog/product/list.phtml">
+			<block type="attributeSplash/page_view" name="attributeSplash.view" template="attribute-splash/page/view.phtml">
+				<block type="attributeSplash/page_view_product_list" name="product_list" template="catalog/product/list.phtml">
 					<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
 						<block type="page/html_pager" name="product_list_toolbar_pager"/>
 					</block>
@@ -23,14 +23,6 @@
 				</block>
 			</block>
 		</reference>
-	</attributesplash_view_index>
-	
-	<attributesplash_list_index>
-		<reference name="content">
-			<block type="attributeSplash/list" name="attributeSplash.list" template="attribute-splash/list.phtml">
-				<block type="page/html_pager" name="pager" />
-			</block>
-		</reference>
-	</attributesplash_list_index>
+	</attributesplash_page_view>
 
 </layout>

@@ -1,0 +1,30 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_AttributeSplash
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+ ?>
+<?php if ($splashPage = $this->getSplashPage()): ?>
+	<div class="page-title category-title">
+		<h1><?php echo $this->escapeHtml($splashPage->getName()) ?></h1>
+	</div>
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+	<?php if ($splashPage->getImage()): ?>
+		<p class="category-image">
+			<img src="<?php echo $this->helper('attributeSplash/image')->init($splashPage, 'image')->resize(200, 200) ?>" alt="<?php echo $this->htmlEscape($splashPage->getName()) ?>"/>
+		</p>
+	<?php endif; ?>
+	<?php if ($shortDescription = $splashPage->getShortDescription()): ?>
+		<div class="category-description std"><?php echo $shortDescription ?></div>
+	<?php endif; ?>
+	<?php if($this->isContentMode()): ?>
+		<?php echo $this->getCmsBlockHtml() ?>
+	<?php elseif($this->isMixedMode()): ?>
+		<?php echo $this->getCmsBlockHtml() ?>
+		<?php echo $this->getProductListHtml() ?>
+	<?php else: ?>
+		<?php echo $this->getProductListHtml() ?>
+	<?php endif; ?>
+<?php endif; ?>

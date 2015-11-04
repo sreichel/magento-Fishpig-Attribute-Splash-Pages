@@ -1,36 +1,30 @@
 <?xml version="1.0"?>
 <layout>
 
-	<attributesplash_adminhtml_splash_page_index>
-		<reference name="left">
-			<block type="attributeSplash/adminhtml_splash_page_grid_tabs" name="attributeSplash.grid.tabs"/>
-		</reference>
+	<attributesplash_admin_adminhtml_page_index>
 		<reference name="content">
-			<block type="attributeSplash/adminhtml_splash_page" name="attributeSplash.splash_page"/>
+			<block type="attributeSplash/adminhtml_page" name="splash_page.grid" />
 		</reference>
-	</attributesplash_adminhtml_splash_page_index>
-	
-	<attributesplash_adminhtml_splash_page_new>
-		<reference name="left">
-			<block type="attributeSplash/adminhtml_splash_page_new_tabs" name="attributeSplash.new.tabs"/>
-		</reference>
-		<reference name="content">
-			<block type="attributeSplash/adminhtml_splash_page_new" name="attributeSplash.new">
-				<block type="attributeSplash/adminhtml_splash_page_new_form" name="form"/>
-			</block>
-			<block type="attributeSplash/adminhtml_template" name="attributeSplash.new.js" after="-" template="attribute-splash/new/js.phtml"/>
-		</reference>
-	</attributesplash_adminhtml_splash_page_new>
-	
-	<attributesplash_adminhtml_splash_page_edit>
-		<reference name="left">
-			<block type="attributeSplash/adminhtml_splash_page_edit_tabs" name="attributeSplash.edit.tabs"/>
-		</reference>
-		<reference name="content">
-			<block type="attributeSplash/adminhtml_splash_page_edit" name="attributeSplash.edit">
-				<block type="attributeSplash/adminhtml_splash_page_edit_form" name="form"/>
+		<reference name="before_body_end">
+			<block type="attributeSplash/adminhtml_page_create" name="splash_page.create" template="attribute-splash/add-js.phtml">
+				<block type="attributeSplash/adminhtml_page_create_attributes" name="attributes" />
 			</block>
 		</reference>
-	</attributesplash_adminhtml_splash_page_edit>
+	</attributesplash_admin_adminhtml_page_index>
 	
+	<attributesplash_admin_adminhtml_page_edit>
+		<update handle="editor" />
+		<reference name="left">
+			<block type="attributeSplash/adminhtml_page_edit_tabs" name="splash_page.edit.tabs" />
+		</reference>
+		<reference name="content">
+			<block type="attributeSplash/adminhtml_page_edit" name="splash_page.edit" />
+		</reference>
+	</attributesplash_admin_adminhtml_page_edit>
+
+	<adminhtml_system_config_edit>
+		<reference name="before_body_end">
+			<block type="adminhtml/template" name="attributeSplash.config.js" template="attribute-splash/config/js.phtml" />
+		</reference>
+	</adminhtml_system_config_edit>
 </layout>

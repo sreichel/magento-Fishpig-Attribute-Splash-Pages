@@ -1,0 +1,15 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_AttributeSplash
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+?>
+<?php if ($this->getRequest()->getParam('section') == 'attributeSplash'): ?>
+	<script type="text/javascript">		
+		var oldSuffix = $('attributeSplash_seo_url_suffix');
+		
+		$('config_edit_form').insert({bottom: '<input type="hidden" name="groups[seo][fields][url_suffix_old][value]" value="' + oldSuffix.getValue() + '" />'});
+	</script>
+<?php endif; ?>

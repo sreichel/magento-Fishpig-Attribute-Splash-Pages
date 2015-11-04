@@ -1,12 +1,11 @@
 <?php
 /**
- * Fishpig's Attribute Splash 
- *
  * @category    Fishpig
- * @package    Fishpig_AttributeSplash
- * @author      Ben Tideswell <ben@fishpig.co.uk>
+ * @package     Fishpig_AttributeSplash
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
  */
- 
+
 class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer 
 {
 	/**
@@ -20,9 +19,16 @@ class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer
 			$collection = $this->_productCollections[0];
 		}
 		else {
-			$collection = $this->getSplash()->getProductCollection();
+			$collection = $this->getSplashPage()->getProductCollection();
 			
-			Mage::dispatchEvent('attributeSplash_splash_page_product_collection', array('splash' => $this->getSplash(), 'collection' => $collection, 'layer' => $this));
+			Mage::dispatchEvent(
+				'attributeSplash_splash_page_product_collection', 
+				array(
+					'splash_page' => $this->getSplashPage(), 
+					'collection' => $collection, 
+					'layer' => $this
+				)
+			);
 
 			$this->prepareProductCollection($collection);
 			$this->_productCollections[0] = $collection;
@@ -55,7 +61,7 @@ class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer
 	{
 		parent::_prepareAttributeCollection($collection);
 		
-		if ($splash = $this->getSplash()) {
+		if ($splash = $this->getSplashPage()) {
 			$collection->addFieldToFilter('attribute_code', array('neq' => $splash->getAttributeCode()));
 		}
 		
@@ -72,22 +78,22 @@ class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer
 		return Mage::app()->getRequest()->getParam(Mage::getSingleton('catalog/layer_filter_category')->getRequestVar());
 	}
 
-	/**
-	 * Retrieve the Splash Page model
-	 *
-	 * @return Fishpig_AttributeSplash_Model_Splash|null
-	 */
-	public function getSplash()
+    /**
+     * Retrieves the current Splash model
+     *
+     * @return Fishpig_AttributeSplash_Model_Splash|null
+     */
+	public function getSplashPage()
 	{
-		if (!$this->hasData('splash')) {
-			if ($this->hasData('splash_id')) {
-				$this->setSplash(Mage::getModel('attributeSplash/splash')->load($this->getSplashId()));
+		if (!$this->hasSplashPage()) {
+			if ($this->hasSplashPageId()) {
+				$this->setSplashPage(Mage::getModel('attributeSplash/splash')->load($this->getSplashPageId()));
 			}
 			else {
-				$this->setSplash(Mage::registry('splash_page'));
+				$this->setSplashPage(Mage::registry('splash_page'));
 			}
 		}
 		
-		return $this->getData('splash');
+		return $this->getData('splash_page');
 	}
 }

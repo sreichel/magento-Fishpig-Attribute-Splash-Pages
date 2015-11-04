@@ -1,91 +1,287 @@
 <?php
 /**
- * Fishpig's Attribute Splash 
- *
  * @category    Fishpig
- * @package    Fishpig_AttributeSplash
- * @author      Ben Tideswell <ben@fishpig.co.uk>
+ * @package     Fishpig_AttributeSplash
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
  */
-
-class Fishpig_AttributeSplash_Helper_Image extends Fishpig_AttributeSplash_Helper_Abstract
+ 
+class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 {
-	public function getImageUrl()
-	{
-		return Mage::getBaseUrl('media') . 'splash/';
-	}
+	/**
+	 * Storeage for image object, used for resizing images
+	 *
+	 * @var null/Varien_Image
+	 */
+	protected $_imageObject = null;
 	
-	public function getImagePath()
-	{
-		return Mage::getBaseDir('media') . DS . 'splash' . DS;
-	}
+	/**
+	 * Flag used to determine wether to recreate already cached image
+	 *
+	 * @var bool
+	 */
+	protected $_forceRecreate = false;
 	
-	public function getImageCacheUrl()
-	{
-		return $this->getImageUrl() . 'cache/';
-	}
-	
-	public function getImageCachePath()
-	{
-		return $this->getImagePath() . 'cache' . DS;
-	}
-	
-	public function getImageUrlIfExists($file)
-	{
-		if ($this->imageExists($file)) {
-			return $this->getImageUrl() . $file;
-		}
-	}
+	/**
+	 * Filename currently initialized in the image object
+	 *
+	 * @var null|string
+	 */
+	protected $_filename = '';
 
 	/**
-	 * Determine whether the given image exists
+	 * The folder name used to store images
+	 * This is relative to the media directory
 	 *
+	 * @var const string
 	 */
-	public function imageExists($filename)
-	{
-		return $filename && file_exists($this->getImagePath() . $filename) && !is_dir($this->getImagePath() . $filename);
-	}
-	
+	const IMAGE_FOLDER = 'attributesplash';
+
 	/**
-	 * Resize an image based on the URL. The URL must be on the current domain
+	 * Retrieve the image URL where images are stored
 	 *
-	 * @param string $imageUrl
-	 * @param int $width
-	 * @param int $height
 	 * @return string
 	 */
-	public function resize($imageUrl, $width, $height)
+	public function getBaseImageUrl()
 	{
-		if ($imageUrl) {
-			if(!file_exists($this->getImageCachePath())) {
-				@mkdir($this->getImageCachePath(), 0777);
-			}
+		return Mage::getBaseUrl('media') . self::IMAGE_FOLDER . '/';
+	}
 	
-			$filename = trim(substr($imageUrl, strrpos($imageUrl, DS)), DS);
-			
-			if ($filename) {
-				$ext = substr($filename, strrpos($filename, '.'));
-				$filename = "{$width}x{$height}__" . substr($filename, 0, -(strlen($ext))) . $ext;
+	/**
+	 * Retrieve the directory/path where images are stored
+	 *
+	 * @return string
+	 */
+	public function getBaseImagePath()
+	{
+		return Mage::getBaseDir('media') . DS . self::IMAGE_FOLDER . DS;
+	}
+	
+	/**
+	 * Retrieve the full image URL
+	 * Null returned if image does not exist
+	 *
+	 * @param string $image
+	 * @return string|null
+	 */
+	public function getImageUrl($image)
+	{
+		if ($this->imageExists($image)) {
+			return $this->getBaseImageUrl() . $image;
+		}
 		
-				$new = $this->getImageCachePath() . $filename;
-				$original = str_replace(Mage::getBaseUrl(), Mage::getBaseDir() . DS, $imageUrl);
-				
-				try {
-					if (!file_exists($new) && file_exists($original)) {
-						$image = new Varien_Image($original);
-						$image->constrainOnly(true);
-						$image->keepAspectRatio(false);
-						$image->keepFrame(false);
-						$image->resize($width, $height);
-						$image->save($new);
-					}
+		return null;
+	}
 	
-					return $this->getImageCacheUrl() . $filename;
-				}
-				catch (Exception $e) {
-					Mage::log($this->__('Error with image (%s -- %s)', $imageUrl, $filename));
-					Mage::logException($e);
-				}
+	/**
+	 * Retrieve the full image path
+	 * Null returned if image does not exist
+	 *
+	 * @param string $image
+	 * @return string|null
+	 */
+	public function getImagePath($image)
+	{
+		if ($this->imageExists($image)) {
+			return $this->getBaseImagePath() . $image;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * determine whether the image exists
+	 *
+	 * @param string $image
+	 * @return bool
+	 */
+	public function imageExists($image)
+	{
+		return is_file($this->getBaseImagePath() . $image);
+	}
+
+	/**
+	 * Converts a filename, width and height into it's resized uri path
+	 * returned path does not include base path
+	 *
+	 * @param string $filename
+	 * @param int $width = null
+	 * @param int $height = null
+	 * @return string
+	 */
+	public function getResizedImageUrl($filename, $width = null, $height = null)
+	{
+		return $this->getBaseImageUrl() . $this->_getRelativeResizedImagePath($filename, $width, $height);
+	}
+	
+	/**
+	 * Converts a filename, width and height into it's resized path
+	 * returned path does not include base path
+	 *
+	 * @param string $filename
+	 * @param int $width = null
+	 * @param int $height = null
+	 * @return string
+	 */
+	public function getResizedImagePath($filename, $width = null, $height = null)
+	{
+		return $this->getBaseImagePath() . $this->_getRelativeResizedImagePath($filename, $width, $height);
+	}
+
+	/**
+	 * Converts a filename, width and height into it's resized path
+	 * returned path does not include base path
+	 *
+	 * @param string $filename
+	 * @param int $width = null
+	 * @param int $height = null
+	 * @return string
+	 */	
+	protected function _getRelativeResizedImagePath($filename, $width = null, $height = null)
+	{
+		if (!is_null($width) || !is_null($height)) {
+			return 'cache' . DS . trim($width.'x'.$height, 'x') . DS . $filename;
+		}
+		
+		return $filename;
+	}
+
+	/**
+	 * Initialize the image object
+	 * This sets up the image object for resizing and caching
+	 *
+	 * @param Fishpig_AttributeSplash_Model_Page $page
+	 * @param string $attribute
+	 * @return Fishpig_AttributeSplash_Helper_Image
+	 */
+	public function init(Fishpig_AttributeSplash_Model_Page $page, $attribute = 'image')
+	{
+		$this->_imageObject = null;
+		$this->_forceRecreate = false;
+		$this->_filename = null;
+		
+		if ($imagePath = $this->getImagePath($page->getData($attribute))) {
+			$this->_imageObject = new Varien_Image($imagePath);
+			$this->_filename = basename($imagePath);
+			
+			$this->keepAspectRatio(true);
+		}
+		
+		return $this;
+	}
+
+	/**
+	 * Resize the image loaded into the image object
+	 *
+	 * @param int $width = null
+	 * @param int $height = null
+	 * @return string
+	 */
+	public function resize($width = null, $height = null)
+	{
+		if ($this->isActive()) {
+			$cachedFilename = $this->getResizedImagePath($this->_filename, $width, $height);
+				
+			if ($this->_forceRecreate || !is_file($cachedFilename)) {
+				$this->_imageObject->resize($width, $height);
+				$this->_imageObject->save($cachedFilename);
+			}
+			
+			return $this->getResizedImageUrl($this->_filename, $width, $height);;
+		}
+	
+		return '';
+	}
+	
+	/**
+	 * Keep the frame or add a white space
+	 *
+	 * @param bool $val
+	 */
+	public function keepFrame($val)
+	{
+		if ($this->isActive()) {
+			$this->_imageObject->keepFrame($val);
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Keep the aspect ratio of an image
+	 *
+	 * @param bool $val
+	 */
+	public function keepAspectRatio($val)
+	{
+		if ($this->isActive()) {
+			$this->_imageObject->keepAspectRatio($val);
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Don't increase the size of an image, only decrease
+	 *
+	 * @param bool $val
+	 */
+	public function constrainOnly($val)
+	{
+		if ($this->isActive()) {
+			$this->_imageObject->constrainOnly($val);
+		}
+		
+		return $this;
+	}
+
+	/**
+	 * Determine whether to recreate image that already exists
+	 *
+	 * @param bool $val
+	 */	
+	public function forceRecreate($val)
+	{
+		if ($this->isActive()) {
+			$this->_forceRecreate = $val;
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Determine whether the image object has been initialised
+	 *
+	 * @return bool
+	 */
+	public function isActive()
+	{
+		return is_object($this->_imageObject);
+	}
+	
+	/**
+	 * Upload an image based on the $fileKey
+	 *
+	 * @param string $fileKey
+	 * @param string|null $filename - set a custom filename
+	 * @return null|string - returns saved filename
+	 */
+	public function uploadImage($fileKey, $filename = null)
+	{
+		try {
+			$uploader = new Varien_File_Uploader($fileKey);
+			$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
+			$uploader->setAllowRenameFiles(true);
+			$result = $uploader->save($this->getBaseImagePath());
+			
+			return $result['file'];
+		}
+		catch (Exception $e) {
+			if ($e->getCode() != Mage_Core_Model_File_Uploader::TMP_NAME_EMPTY) {
+				throw $e;
 			}
 		}
+		
+		return null;
 	}
 }

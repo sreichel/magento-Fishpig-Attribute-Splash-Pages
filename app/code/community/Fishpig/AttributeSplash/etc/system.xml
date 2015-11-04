@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config>
     <sections>
-        <attributeSplash>
+        <attributeSplash translate="label" module="attributeSplash">
             <label>Attribute Splash Pages</label>
             <tab>catalog</tab>
             <sort_order>990</sort_order>

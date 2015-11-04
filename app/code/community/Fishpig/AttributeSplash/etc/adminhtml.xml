@@ -1,17 +1,29 @@
 <?xml version="1.0"?>
-<adminhtml>
+<config>
+	<menu>
+		<catalog>
+			<children>
+				<attributes>
+					<children>
+						<splash_pages translate="title" module="attributeSplash">
+							<title>Manage Splash Pages</title>
+							<action>attributeSplash_admin/adminhtml_page</action>
+							<sort_order>999</sort_order>
+						</splash_pages>
+					</children>
+				</attributes>
+			</children>
+		</catalog>
+	</menu>
 	<acl>
 		<resources>
-			<all>
-				<title>Allow Everything</title>
-			</all>
 			<admin>
 				<children>
 					<system>
 						<children>
 							<config>
 								<children>
-									<attributeSplash>
+									<attributeSplash translate="title" module="attributeSplash">
 										<title>Attribute Splash Pages</title>
 										<sort_order>990</sort_order>
 									</attributeSplash>
@@ -23,4 +35,4 @@
 			</admin>
 		</resources>
 	</acl>
-</adminhtml>
+</config>

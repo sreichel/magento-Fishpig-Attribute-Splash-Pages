@@ -2,20 +2,20 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>1.0.6</version>
+			<version>1.9.7</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
+		<helpers>
+			<attributeSplash>
+				<class>Fishpig_AttributeSplash_Helper</class>
+			</attributeSplash>		
+		</helpers>
 		<blocks>
 			<attributeSplash>
 				<class>Fishpig_AttributeSplash_Block</class>
 			</attributeSplash>
 		</blocks>
-		<helpers>
-			<attributeSplash>
-				<class>Fishpig_AttributeSplash_Helper</class>
-			</attributeSplash>
-		</helpers>
 		<models>
 			<attributeSplash>
 				<class>Fishpig_AttributeSplash_Model</class>
@@ -24,18 +24,9 @@
 			<attributeSplash_mysql4>
 				<class>Fishpig_AttributeSplash_Model_Mysql4</class>
 				<entities>
-					<attribute>
-						<table>eav_attribute</table>
-					</attribute>
-					<attribute_option>
-						<table>eav_attribute_option</table>
-					</attribute_option>
-					<attribute_option_extra>
-						<table>attributesplash_attribute_option_extra</table>
-					</attribute_option_extra>
-					<splash>
-						<table>attributesplash_attribute_option_extra</table>
-					</splash>
+					<page>
+						<table>attributesplash_page</table>
+					</page>
 				</entities>
 			</attributeSplash_mysql4>
 		</models>
@@ -48,18 +39,49 @@
 					<use>core_setup</use>
 				</connection>
 			</attributeSplash_setup>
-			<attributeSplash_write>
-				<connection>
-					<use>core_write</use>
-				</connection>
-			</attributeSplash_write>
 			<attributeSplash_read>
 				<connection>
 					<use>core_read</use>
 				</connection>
 			</attributeSplash_read>
+			<attributeSplash_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</attributeSplash_write>
 		</resources>
 	</global>
+	<admin>
+		<routers>
+			<attributeSplash_admin>
+				<use>admin</use>
+				<args>
+					<module>Fishpig_AttributeSplash</module>
+					<frontName>splash_admin</frontName>
+				</args>
+			</attributeSplash_admin>
+		</routers>
+	</admin>
+	<adminhtml>
+		<layout>
+			<updates>
+				<attributeSplash>
+					<file>attribute-splash.xml</file>
+				</attributeSplash>
+			</updates>
+		</layout>
+		<events>
+			<admin_system_config_changed_section_attributeSplash>
+				<observers>
+					<attributeSplash_rewrite_fix>
+						<type>singleton</type>
+						<class>attributeSplash/observer_config</class>
+						<method>checkRewrites</method>
+					</attributeSplash_rewrite_fix>
+				</observers>
+			</admin_system_config_changed_section_attributeSplash>
+		</events>
+	</adminhtml>
 	<frontend>
 		<routers>
 			<attributeSplash>
@@ -78,52 +100,6 @@
 			</updates>
 		</layout>
 	</frontend>
-	<admin>
-		<routers>
-			<attributeSplash>
-				<use>admin</use>
-				<args>
-					<module>Fishpig_AttributeSplash</module>
-					<frontName>attributesplash</frontName>
-				</args>
-			</attributeSplash>
-		</routers>
-	</admin>
-	<adminhtml>
-		<layout>
-			<updates>
-				<attributeSplash>
-					<file>attribute-splash.xml</file>
-				</attributeSplash>
-			</updates>
-		</layout>
-		<menu>
-			<catalog>
-				<children>
-					<attributes>
-						<children>
-							<attributeSplash>
-								<title>Manage Splash Pages</title>
-								<action>attributeSplash/adminhtml_splash_page</action>
-								<sort_order>999</sort_order>
-							</attributeSplash>
-						</children>
-					</attributes>
-				</children>
-			</catalog>
-		</menu>
-		<events>
-			<admin_system_config_changed_section_attributeSplash>
-				<observers>
-					<attributeSplash_rewrite_fix>
-						<type>singleton</type>
-						<class>attributeSplash/observer_config</class>
-						<method>checkRewrites</method>
-					</attributeSplash_rewrite_fix>
-				</observers>
-			</admin_system_config_changed_section_attributeSplash>
-		</events>
-	</adminhtml>
 	<default>
 		<attributeSplash>
 			<frontend>
@@ -134,7 +110,7 @@
 				<grid_column_count>3</grid_column_count>
 			</frontend>
 			<list_page>
-				<enabled>1</enabled>
+				<enabled>0</enabled>
 				<template/>
 				<display_mode>3</display_mode>
 				<list_per_page>0</list_per_page>

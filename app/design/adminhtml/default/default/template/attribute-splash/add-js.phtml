@@ -1,0 +1,133 @@
+<?php
+/**
+ *
+ */
+?>
+<?php $idPrefix = 'splash-create' ?>
+<script type="text/javascript">
+
+function getAttributeValueGrid(grid, event) {
+	document.fire('splash:attribute_selected', {gridUrl: Event.findElement(event, 'tr').title});
+}
+
+	
+	var AttributeSplash_CreateForm = Class.create({
+		initialize: function(idPrefix, triggerSelector) {
+			this.wrapper = $(idPrefix);
+			this.shadow = $(idPrefix + '-shadow');
+			this.container = $(idPrefix + '-container');
+			this.gridWrapper = $(idPrefix + '-grid-wrapper');
+			this.attributeGridWrapper = $(idPrefix + '-grid-attributes');
+			this.optionGridWrapper = $(idPrefix + '-grid-options');
+
+			this.hideEverything();
+			
+			$$(triggerSelector)
+				.invoke('writeAttribute', 'onclick', '')
+				.invoke('observe', 'click', this.displayAttributeBox.bind(this));
+			
+			this.shadow.observe('click', this.hideEverything.bind(this));
+			
+			document.observe('splash:attribute_selected', this.reactToAttributeSelect.bindAsEventListener(this));
+		},
+		shadowIsPresent: function() {
+			return this.wrapper.visible() && this.shadow.visible();
+		},
+		containerIsPresent: function() {
+			return this.shadowIsPresent() && this.container.visible();
+		},
+		displayShadow: function(callback) {
+			if (!this.shadowIsPresent()) {
+				this.wrapper.show();
+				Effect.Appear(this.shadow, {
+					from: 0,
+					to: 0.4,
+					duration: 0.4,
+					afterFinish: callback.bind(this)
+				});
+			}
+			else {
+				callback.bind(this);
+			}
+		},
+		hideShadow: function(callback) {
+		
+		
+		},
+		displayContainer: function(callback) {
+			Effect.Appear(this.container, {
+				from: 0.0,
+				to: 1.0,
+				duration: 0.4,
+				afterFinish: callback.bind(this)
+			});
+		},
+		hideContainer: function(callback) {
+		
+		
+		},
+		displayAttributeBox: function() {
+			
+			this.displayShadow(function() {
+				this.displayContainer(function() {
+					Effect.SlideDown(this.attributeGridWrapper, {
+						duration: 0.3
+					});
+				});
+			}.bind(this));
+		},
+		hideAttributeGridWrapper: function(callback) {
+			Effect.SlideUp(this.attributeGridWrapper, {
+				duration: 0.3,
+				afterFinish: callback.bind(this)
+			});
+		},
+		hideEverything: function() {
+			this.wrapper.hide();
+			this.shadow.hide();
+			this.container.hide();
+			this.attributeGridWrapper.hide();
+			this.optionGridWrapper.hide();
+			this.optionGridWrapper.innerHTML = '';
+		},
+		reactToAttributeSelect: function(event) {
+			if (event.memo.gridUrl) {
+				this.hideAttributeGridWrapper(function() {
+					this.optionGridWrapper.show();
+					new Ajax.Updater(this.optionGridWrapper, event.memo.gridUrl, {
+						evalScripts: true
+					});
+				}.bind(this));
+			}
+		}
+	});
+	
+
+	
+</script>
+<div id="<?php echo $idPrefix ?>" style="display:none;">
+	<div id="<?php echo $idPrefix ?>-shadow"></div>
+	<div id="<?php echo $idPrefix ?>-container">
+		<h2><span><?php echo $this->__('Create a New Splash Page') ?></span></h2>
+		<div id="<?php echo $idPrefix ?>-grid-wrapper">
+			<div id="<?php echo $idPrefix ?>-grid-attributes"><?php echo $this->getChildHtml('attributes') ?></div>
+			<div id="<?php echo $idPrefix ?>-grid-options" style="display: none;"></div>
+		</div>
+	</div>
+</div>
+
+<script type-"text/javascript">
+
+	new AttributeSplash_CreateForm('<?php echo $idPrefix ?>', 'button.add');
+	
+</script>
+
+<style type="text/css">
+
+	#splash-create { height: 100%; left: 0; position: fixed; top: 0; width: 100%; z-index: 101; }
+	#splash-create-shadow { background:#FFF; height: 100%; left: 0; position: fixed; top: 0; width: 100%; z-index: 102; }
+	#splash-create-container { background:#FFF; border: 1px solid #eaeaea; margin: 40px auto 0; padding: 20px 30px; position: relative; width: 800px; z-index: 105; }
+	#splash-create-container h2 { border-bottom: 1px solid #E26703; font-family: Lucida Grande, Helvetica, Arial; padding: 0 2px; }
+
+</style>
+

@@ -46,24 +46,6 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 	}
 	
 	/**
-	 * Adds the META information to the resulting page
-	 */
-	protected function _prepareLayout()
-	{
-		parent::_prepareLayout();
-
-		if ($layoutCode = Mage::getStoreConfig('attributeSplash/group/template')) {
-			if ($templateData = Mage::getSingleton('page/config')->getPageLayout($layoutCode)) {
-				if (isset($templateData['template'])) {
-					$this->getLayout()->getBlock('root')->setTemplate($templateData['template']);
-				}		
-			}
-		}
-
-        return $this;
-    }
-	
-	/**
 	 * Check if category display mode is "Products Only"
 	 *
 	 * @return bool

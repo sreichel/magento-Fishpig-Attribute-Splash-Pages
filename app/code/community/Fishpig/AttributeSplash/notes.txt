@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+20/11/2013 - v3.0.0.4
+- Setting a page layout from the config now works for Groups and Pages
+
 19/11/2013 - v3.0.0.3
 - Setting a custom template for a group now works again
 - Fixed Splash Page banner image error

@@ -9,6 +9,8 @@
 
 class Fishpig_AttributeSplash_Model_Mysql4_Splash_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
+	protected $_storeId = null;
+
 	public function _construct()
 	{
 		$this->_init('attributeSplash/splash');
@@ -91,7 +93,31 @@ class Fishpig_AttributeSplash_Model_Mysql4_Splash_Collection extends Mage_Core_M
 			$storeId = Mage::app()->getStore()->getId();
 		}
 		
+		$this->_storeId = $storeId;
+		
 		$this->getSelect()->where('main_table.store_id=0 OR main_table.store_id=?', $storeId);
+		return $this;
+	}
+	
+	/**
+	 * Filter the collection by a product ID
+	 *
+	 * @param Mage_Catalog_Model_Product $product
+	 */
+	public function addProductFilter(Mage_Catalog_Model_Product $product)
+	{
+		$storeId = is_null($this->_storeId) ? Mage::app()->getStore()->getId() : $this->_storeId;
+
+		$this->getSelect()
+			->join(
+				array('_product_filter' => $this->_getTableName('catalog/product_index_eav')),
+				"`_product_filter`.`attribute_id`=attribute_table.attribute_id"
+				. $this->getConnection()->quoteInto(" AND `_product_filter`.`value` = main_table.option_id")
+				. $this->getConnection()->quoteInto(" AND `_product_filter`.`entity_id` = ?", $product->getId())
+				. $this->getConnection()->quoteInto(" AND `_product_filter`.`store_id`=? ", $storeId),
+				''
+			);
+
 		return $this;
 	}
 	

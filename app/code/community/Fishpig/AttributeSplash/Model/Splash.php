@@ -71,16 +71,11 @@ class Fishpig_AttributeSplash_Model_Splash extends Mage_Core_Model_Abstract
 	
 	public function getImageUrl()
 	{
-		return $this->_getImageUrl($this->getImage());
+		return Mage::helper('attributeSplash/image')->getImageUrlIfExists($this->getImage());
 	}
 	
 	public function getThumbnailUrl()
 	{
-		return $this->_getImageUrl($this->getThumbnail());
-	}
-	
-	protected function _getImageUrl($filename)
-	{
-		return Mage::getBaseUrl('media') . DS . 'splash' . DS . $filename;
+		return Mage::helper('attributeSplash/image')->getImageUrlIfExists($this->getThumbnail());
 	}
 }

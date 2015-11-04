@@ -9,8 +9,6 @@
 
 class Fishpig_AttributeSplash_Model_Mysql4_Splash extends Mage_Core_Model_Mysql4_Abstract
 {
-
-	
 	public function _construct()
 	{
 		$this->_init('attributeSplash/splash', 'entity_id');

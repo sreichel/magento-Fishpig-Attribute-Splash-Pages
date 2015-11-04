@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <layout>
 
+	<default>
+		<reference name="catalog.topnav">
+			<action method="setTemplate" ifconfig="attributeSplash/navigation/inject"><template>attribute-splash/catalog/navigation/top.phtml</template></action>
+			<block type="attributeSplash/catalog_navigation_top" name="attributeSplash.topnav" as="splash.nav" template="attribute-splash/catalog/navigation/top/splash.phtml" />
+		</reference>
+	</default>
+	
 	<attributesplash_page_view>
 		<reference name="left">
 			<!--
@@ -34,9 +41,4 @@
 		</reference>
 	</attributesplash_group_view>
 
-	<catalog_product_view>
-		<reference name="product.attributes">
-			<action method="setTemplate" ifconfig="attributeSplash/product/inject_links"><template>attribute-splash/product/view/attributes.phtml</template></action>
-		</reference>
-	</catalog_product_view>
 </layout>

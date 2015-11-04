@@ -52,4 +52,23 @@ class Fishpig_AttributeSplash_Model_Mysql4_Group_Collection extends Mage_Core_Mo
 
 		return $this;
 	}
+
+	/**
+	 * Filter the collection so only enabled pages are returned
+	 *
+	 */
+	public function addIsEnabledFilter($value = 1)
+	{
+		return $this->addFieldToFilter('is_enabled', $value);
+	}
+
+	/**
+	 * Filter the collection so that only featured items are returned
+	 *
+	 * @param int $isFeatured
+	 */
+	public function addIncludeInMenuFilter($include = 1)
+	{
+		return $this->addFieldToFilter('include_in_menu', $include ? 1 : 0);
+	}
 }

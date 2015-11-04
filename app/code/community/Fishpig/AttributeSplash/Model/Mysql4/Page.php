@@ -102,7 +102,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Fishpig_AttributeSplash_
 				. $read->quoteInto(" AND `{$alias}`.`value` = ?", $page->getOptionId()),
 				''
 			);
-			
+
 		return $collection;
 	}
 	

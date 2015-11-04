@@ -195,6 +195,57 @@
             			
             		</fields>
             	</list_page>
+            	<navigation>
+            		<label>Navigation</label>
+            		<sort_order>19</sort_order>
+            		<show_in_default>1</show_in_default>
+            		<show_in_website>1</show_in_website>
+            		<show_in_store>1</show_in_store>
+            		<fields>
+            			<inject>
+            				<label>Inject Links in Top Navigation</label>
+            				<comment>Depends on your theme</comment>
+            				<frontend_type>select</frontend_type>
+            				<source_model>adminhtml/system_config_source_yesno</source_model>
+            				<sort_order>1</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</inject>
+            			<inject_after>
+            				<label>Inject After Categories</label>
+            				<comment>If false, will inject before categories</comment>
+            				<frontend_type>select</frontend_type>
+            				<source_model>adminhtml/system_config_source_yesno</source_model>
+            				<sort_order>6</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<depends><inject>1</inject></depends>
+            			</inject_after>
+            			<inject_together>
+            				<label>Group Splash Pages</label>
+            				<comment>If false, splash pages will be listed under their attribute</comment>
+            				<frontend_type>select</frontend_type>
+            				<source_model>adminhtml/system_config_source_yesno</source_model>
+            				<sort_order>11</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<depends><inject>1</inject></depends>
+            			</inject_together>
+            			<inject_together_title>
+            				<label>Grouped Title</label>
+            				<comment>Title used when attributes are grouped</comment>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>16</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<depends><inject>1</inject><inject_together>1</inject_together></depends>
+            			</inject_together_title>
+            		</fields>
+            	</navigation>
             	<product>
             		<label>Products</label>
 					<sort_order>16</sort_order>

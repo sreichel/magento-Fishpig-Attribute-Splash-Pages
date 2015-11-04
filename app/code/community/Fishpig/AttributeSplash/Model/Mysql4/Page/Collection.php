@@ -80,6 +80,16 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 	}
 	
 	/**
+	 * Filter the collection so that only featured items are returned
+	 *
+	 * @param int $isFeatured
+	 */
+	public function addIncludeInMenuFilter($include = 1)
+	{
+		return $this->addFieldToFilter('include_in_menu', $include ? 1 : 0);
+	}
+	
+	/**
 	 * Add a store ID filter to the collection
 	 * If $includeAdmin is true, global pages will be returned also
 	 *

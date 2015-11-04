@@ -53,6 +53,14 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_General extends Mag
 			'config' => Mage::getSingleton('cms/wysiwyg_config')->getConfig(array('add_widgets' => false, 'add_variables' => false, 'add_image' => false, 'files_browser_window_url' => $this->getUrl('adminhtml/cms_wysiwyg_images/index')))
 		));
 
+		$fieldset->addField('include_in_menu', 'select', array(
+			'name' => 'include_in_menu',
+			'title' => $this->__('Include In Menu'),
+			'label' => $this->__('Include In Menu'),
+			'required' => true,
+			'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
+		));
+		
 		$fieldset->addField('is_enabled', 'select', array(
 			'name' => 'is_enabled',
 			'title' => $this->__('Enabled'),

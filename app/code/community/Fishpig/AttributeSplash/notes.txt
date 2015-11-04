@@ -1,11 +1,16 @@
 ##
 # Fishpig's Attribute Splash Pages for Magento eCommerce
 #
-# Author:			Benn Tideswell
+# Author:				Benn Tideswell
 # Documentation:	http://fishpig.co.uk/attribute-splash-pages/ (coming soon)
 # Email Support:	help@fishpig.co.uk
 # Bug Reports:		help@fishpig.co.uk
 ##
+
+28/11/2011 - v2.0.8
+- Improved feature that injects links into product attribute table. This now works with multiselect attributes
+- Added feature to inject splash pages link into top navigation (see configuration area for different options)
+- Added new attribute to groups and pages: include_in_menu
 
 02/09/2011 - v2.0.6
 - Added position to page collection to match attribute option position

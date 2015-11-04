@@ -71,6 +71,14 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_General extends Mage
 			'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
 		));
 		
+		$fieldset->addField('include_in_menu', 'select', array(
+			'name' => 'include_in_menu',
+			'title' => $this->__('Include In Menu'),
+			'label' => $this->__('Include In Menu'),
+			'required' => true,
+			'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
+		));
+		
 		$fieldset->addField('is_enabled', 'select', array(
 			'name' => 'is_enabled',
 			'title' => $this->__('Enabled'),

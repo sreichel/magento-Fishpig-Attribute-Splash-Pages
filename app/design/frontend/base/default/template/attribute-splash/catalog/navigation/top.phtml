@@ -1,0 +1,23 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_AttributeSplash
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+?>
+<?php $_menu 				= $this->renderCategoriesMenuHtml(0,'level-top') ?>
+<?php $_splashMenu 	= $this->getChildHtml('splash.nav') ?>
+<?php if($_menu || $_splashMenu): ?>
+	<div class="nav-container">
+		<ul id="nav">
+			<?php if ($this->getChild('splash.nav')->displaySplashPagesAfterCategories()): ?>
+				<?php echo $_menu ?>
+				<?php echo $_splashMenu ?>
+			<?php else: ?>
+				<?php echo $_splashMenu ?>
+				<?php echo $_menu ?>
+			<?php endif; ?>
+		</ul>
+</div>
+<?php endif ?>

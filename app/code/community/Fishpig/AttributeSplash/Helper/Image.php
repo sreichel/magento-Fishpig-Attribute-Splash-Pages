@@ -248,7 +248,21 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 		
 		return $this;
 	}
-	
+
+	/**
+	 * Set the image background colour
+	 *
+	 * @param array $rgb
+	 */
+	public function backgroundColor($rgb = null)
+	{
+		if ($this->isActive()) {
+			$this->_imageObject->backgroundColor($rgb);
+		}
+		
+		return $this;
+	}
+
 	/**
 	 * Determine whether the image object has been initialised
 	 *

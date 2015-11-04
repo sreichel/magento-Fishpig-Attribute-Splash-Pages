@@ -96,8 +96,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 		$this->getSelect()
 			->join(
 				array('_product_filter' => $this->getTable('catalog/product_index_eav')),
-				"`_product_filter`.`attribute_id`= `_attribute_table`.`attribute_id`"
-				. $this->getConnection()->quoteInto(" AND `_product_filter`.`value` = `main_table`.`option_id`")
+				"`_product_filter`.`attribute_id`= `_attribute_table`.`attribute_id` AND `_product_filter`.`value` = `main_table`.`option_id`"
 				. $this->getConnection()->quoteInto(" AND `_product_filter`.`entity_id` = ?", $product->getId())
 				. $this->getConnection()->quoteInto(" AND `_product_filter`.`store_id`=? ", $storeId),
 				''

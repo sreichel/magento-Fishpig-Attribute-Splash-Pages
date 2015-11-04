@@ -46,7 +46,7 @@ abstract class Fishpig_AttributeSplash_Model_Mysql4_Abstract extends Mage_Core_M
 		
 		$object->setUrlKey(Mage::getSingleton('catalog/product_url')->formatUrlKey($object->getUrlKey()));
 		
-		return parent::_beforeSave();
+		return parent::_beforeSave($object);
 	}
 	
 	protected function _afterSave(Mage_Core_Model_Abstract $object)

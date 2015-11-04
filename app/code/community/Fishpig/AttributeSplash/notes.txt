@@ -8,6 +8,15 @@
 # Donations:		http://www.amazon.co.uk/registry/wishlist/3AVRJAF921488
 ##
 
+
+08/07/2011 - v2.0.0
+- Fixed missing attribute in page collection
+- Added backgroundColor(array) function to Image helper
+- Added link injection to product attributes block. Can be disabled via the config (enabled by default)
+
+20/06/2011 - v1.9.23
+- Fixed _beforeSave issue
+
 31/06/2011 - v1.9.19
 - Added improvements to layered navigation URL integration
 

@@ -111,8 +111,10 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Fishpig_AttributeSplash_
 		);
 
 		if (Mage::getStoreConfigFlag('catalog/frontend/flat_catalog_product')) {
+			$flatTable = Mage::getResourceSingleton('catalog/product_flat')->getFlatTableName($storeId);
+
 			$collection->getSelect()
-				->joinLeft(array('cpl' => $collection->getResource()->getFlatTableName()), "e.entity_id = cpl.entity_id")
+				->joinLeft(array('cpl' => $flatTable), "e.entity_id = cpl.entity_id")
 				->where("cpl.visibility IN (?)", $visibilities);
 		}
 		else {

@@ -7,6 +7,10 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+15/03/2013 - v2.2.0.7
+- Fixed flat catalog issue
+- Fixed upload issue on Magento 1.4.*
+
 15/03/2013 - v2.2.0.6
 - Added display mode functionality for Splash groups
 

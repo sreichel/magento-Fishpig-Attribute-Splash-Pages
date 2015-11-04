@@ -338,7 +338,7 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 		}
 		catch (Exception $e) {
 			if (version_compare(Mage::getVersion(), '1.5.0.0', '<')) {
-				if ($e->getCode() != 'File was not uploaded.') {
+				if ($e->getMessage() != 'File was not uploaded.') {
 					throw $e;
 				}
 			}

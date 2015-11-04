@@ -152,7 +152,7 @@ class Fishpig_AttributeSplash_Model_Group extends Mage_Core_Model_Abstract
 	public function getUpdatedAt($includeTime = true)
 	{
 		if ($str = $this->_getData('updated_at')) {
-			return $includeTime ? $str : trim(substr($str, strpos($str, ' ')));
+			return $includeTime ? $str : trim(substr($str, 0, strpos($str, ' ')));
 		}
 		
 		return '';
@@ -167,7 +167,7 @@ class Fishpig_AttributeSplash_Model_Group extends Mage_Core_Model_Abstract
 	public function getCreatedAt($includeTime = true)
 	{
 		if ($str = $this->_getData('created_at')) {
-			return $includeTime ? $str : trim(substr($str, strpos($str, ' ')));
+			return $includeTime ? $str : trim(substr($str, 0, strpos($str, ' ')));
 		}
 		
 		return '';

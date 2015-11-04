@@ -7,6 +7,9 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+30/01/2012 - v2.0.17
+- Fixed issue that caused page/group time to display in XML sitemap instead of date
+
 30/01/2012 - v2.0.16
 - Changed 'Additional Information' splash page name to attribute name
 

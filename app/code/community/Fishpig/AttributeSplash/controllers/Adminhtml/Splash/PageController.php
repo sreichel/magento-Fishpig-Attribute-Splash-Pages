@@ -80,7 +80,11 @@ class Fishpig_AttributeSplash_Adminhtml_Splash_PageController extends Mage_Admin
 				->setId($id)->setData($post)->setEntityId($id);
 
 			try {
+			
 				$optionExtra->save();
+				
+				Mage::dispatchEvent('attributeSplash_option_extra_save_after', array('option_extra' => $optionExtra, 'action' => $this));
+				
 				Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The Splash page was saved successfully'));
 			}
 			catch (Exception $e) {

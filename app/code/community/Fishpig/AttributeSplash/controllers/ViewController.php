@@ -51,7 +51,7 @@ class Fishpig_AttributeSplash_ViewController extends Fishpig_AttributeSplash_Con
 	 * Custom loadLayout() allows the injection of the custom layout update XML
 	 *
 	 */
-	public function loadLayout()
+	public function loadLayout($handles=null, $generateBlocks=true, $generateXml=true)
 	{
 		$update = $this->getLayout()->getUpdate();
 		$update->addHandle('default');
@@ -89,9 +89,10 @@ class Fishpig_AttributeSplash_ViewController extends Fishpig_AttributeSplash_Con
 		if ($navContainer = $this->_getNavigationContainer()) {
 			if ($navContainerBlock = $this->getLayout()->getBlock($navContainer)) {
 				$template = ($configTemplate = Mage::getStoreConfig('attributeSplash/frontend/navigation_template')) ? $configTemplate : $defaultTemplate;
-				$block = $this->getLayout()->createBlock($blockType, 'catalog.leftnav', array('template' => $template, 'before' => '-'))->setTemplate($template);
+				$block = $this->getLayout()->createBlock($blockType, 'catalog.leftnav', array('template' => $template, 'before' => '-'));
 
 				if ($block) {
+					$block->setTemplate($template);
 					$navContainerBlock->insert($block);
 				}
 			}

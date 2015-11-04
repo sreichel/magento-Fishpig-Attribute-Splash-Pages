@@ -70,6 +70,17 @@ class Fishpig_AttributeSplash_Model_Mysql4_Splash_Collection extends Mage_Core_M
 	}
 	
 	/**
+	 * Filters the collection by an option id
+	 *
+	 * @param string $attributeId
+	 */
+	public function addOptionIdFilter($optionId)
+	{
+		$this->getSelect()->where('main_table.option_id=?', $optionId);
+		return $this;
+	}
+	
+	/**
 	 * Filters the collection by a store ID
 	 *
 	 * @param int|null $storeId - if NULL uses current store

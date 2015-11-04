@@ -55,6 +55,19 @@ class Fishpig_AttributeSplash_Model_Attribute_Option_Extra extends Mage_Core_Mod
 		return $this->_attributeOptionModel;
 	}
 	
+	public function getSplashPage()
+	{
+		$collection = Mage::getResourceModel('attributeSplash/splash_collection')
+			->addStoreIdFilter($this->getStoreId())
+			->addOptionIdFilter($this->getOptionId());
+		
+		if (count($collection) > 0) {
+			return $collection->getFirstItem();
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Adds attribute information to the data array
 	 */

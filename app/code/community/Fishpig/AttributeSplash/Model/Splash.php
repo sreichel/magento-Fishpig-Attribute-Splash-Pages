@@ -19,6 +19,35 @@ class Fishpig_AttributeSplash_Model_Splash extends Mage_Core_Model_Abstract
 		$this->_init('attributeSplash/splash');
 	}
 	
+	public function getProductCollection()
+	{
+		if (is_null($this->_productCollection)) {
+			$collection = Mage::getResourceModel('catalog/product_collection')
+					->setStoreId($this->getStoreId());;
+
+			/**
+			 * Adds the splash page filter
+			 * This uses the EAV index so ensure indexes are always up to date
+			 */
+				$alias = $this->getAttributeCode().'_idx';
+				$write = Mage::getSingleton('core/resource')->getConnection('write');
+				$storeId = ($this->getStoreId() == 0) ? Mage::app()->getStore()->getId() : $this->getStoreId();
+				$collection->getSelect()
+					->join(
+						array($alias => Mage::getSingleton('core/resource')->getTableName('catalog/product_index_eav')),
+						"`{$alias}`.`entity_id` = `e`.`entity_id`"
+						. $write->quoteInto(" AND `{$alias}`.`attribute_id`=? ", $this->getAttributeId())
+						. $write->quoteInto(" AND `{$alias}`.`store_id`=? ", $storeId)
+						. $write->quoteInto(" AND `{$alias}`.`value`=?", $this->getOptionId()),
+						''
+					);
+			
+			$this->_productCollection = $collection;
+		}
+		
+		return $this->_productCollection;
+	}
+	
 	/**
 	 * Retrieves the model name
 	 * If the model isn't set, the option label is returned

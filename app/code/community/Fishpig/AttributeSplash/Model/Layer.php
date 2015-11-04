@@ -20,38 +20,11 @@ class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer
 			$collection = $this->_productCollections[0];
 		}
 		else {
-			$attributes = Mage::getSingleton('catalog/config')->getProductAttributes();
-			$collection = Mage::getResourceModel('catalog/product_collection')
-				->setStoreId(Mage::app()->getStore()->getId())
-				->addAttributeToSelect($attributes)
-				->addMinimalPrice()
-				->addFinalPrice()
-				->addTaxPercents();
+			$collection = $this->getSplash()->getProductCollection();
 			
-			$collection->addUrlRewrite($this->getCurrentCategory()->getId());
+			Mage::dispatchEvent('attributeSplash_splash_page_product_collection', array('splash' => $this->getSplash(), 'collection' => $collection, 'layer' => $this));
 
-			/**
-			 * Adds the splash page filter
-			 * This uses the EAV index so ensure indexes are always up to date
-			 */
-			if ($splash = $this->getSplash()) {
-				$alias = $splash->getAttributeCode().'_idx';
-				$write = Mage::getSingleton('core/resource')->getConnection('write');
-				$storeId = ($splash->getStoreId() == 0) ? Mage::app()->getStore()->getId() : $splash->getStoreId();
-				$collection->getSelect()
-					->join(
-						array($alias => Mage::getSingleton('core/resource')->getTableName('catalog/product_index_eav')),
-						"`{$alias}`.`entity_id` = `e`.`entity_id`"
-						. $write->quoteInto(" AND `{$alias}`.`attribute_id`=? ", $splash->getAttributeId())
-						. $write->quoteInto(" AND `{$alias}`.`store_id`=? ", $storeId)
-						. $write->quoteInto(" AND `{$alias}`.`value`=?", $splash->getOptionId()),
-						''
-					);
-			}
-
-			Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
-			Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
-			
+			$this->prepareProductCollection($collection);
 			$this->_productCollections[0] = $collection;
 		}
 		

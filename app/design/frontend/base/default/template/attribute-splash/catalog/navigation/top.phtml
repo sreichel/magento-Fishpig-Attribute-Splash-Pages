@@ -6,7 +6,11 @@
  * @author      Ben Tideswell <help@fishpig.co.uk>
  */
 ?>
-<?php $_menu 				= $this->renderCategoriesMenuHtml(0,'level-top') ?>
+<?php if (version_compare(Mage::getVersion(), '1.7.0.0') === -1): ?>
+	<?php $_menu	= $this->renderCategoriesMenuHtml(0,'level-top') ?>
+<?php else: ?>
+	<?php $_menu = $this->getHtml('level-top') ?>
+<?php endif; ?>
 <?php $_splashMenu 	= $this->getChildHtml('splash.nav') ?>
 <?php if($_menu || $_splashMenu): ?>
 	<div class="nav-container">

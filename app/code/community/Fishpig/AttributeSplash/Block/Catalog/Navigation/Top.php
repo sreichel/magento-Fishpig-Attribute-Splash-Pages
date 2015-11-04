@@ -6,7 +6,7 @@
  * @author      Ben Tideswell <help@fishpig.co.uk>
  */
 
-class Fishpig_AttributeSplash_Block_Catalog_Navigation_Top extends Mage_Catalog_Block_Navigation
+class Fishpig_AttributeSplash_Block_Catalog_Navigation_Top extends Mage_Page_Block_Html_Topmenu
 {
 	/**
 	 * Determine whether to inject links or not

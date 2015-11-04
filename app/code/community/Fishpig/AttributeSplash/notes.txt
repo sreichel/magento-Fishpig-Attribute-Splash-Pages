@@ -7,6 +7,9 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+16/12/2011 - v2.0.12
+- Finally fixed issue with uploading images in Magento 1.4.*.*
+
 13/12/2011 - v2.0.11
 - Fixed issue with uploading images
 - Improved Splash group view block to allow custom inclusion via XML

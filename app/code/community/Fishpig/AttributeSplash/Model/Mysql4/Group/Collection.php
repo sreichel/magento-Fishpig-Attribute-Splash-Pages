@@ -20,7 +20,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Group_Collection extends Mage_Core_Mo
 	*/
 	protected function _initSelect()
 	{
-		$this->getSelect()->from(array('main_table' => $this->getMainTable()));
+		$this->getSelect()->from(array('main_table' => $this->getResource()->getMainTable()));
 		
 		$this->getSelect()->join(
 				array('_attribute_table' => $this->getTable('eav/attribute')),

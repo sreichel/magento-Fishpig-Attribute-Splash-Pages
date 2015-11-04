@@ -7,7 +7,7 @@
  */
 ?>
 <?php if ($splashGroup = $this->getSplashGroup()): ?>
-	<?php $splashPages = $splashGroup->getSplashPages() ?>
+	<?php $splashPages = $this->getSplashPages() ?>
 	<div class="page-title category-title">
 		<h1><?php echo $this->escapeHtml($splashGroup->getName()) ?></h1>
 	</div>

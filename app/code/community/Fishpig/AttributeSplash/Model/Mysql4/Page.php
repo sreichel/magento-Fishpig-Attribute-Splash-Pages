@@ -78,6 +78,8 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Fishpig_AttributeSplash_
 	 
 	/**
 	 * Retrieve a collection of products associated with the splash page
+	 * @thanks Flat catalog fix:
+	 *   http://www.xtreme-vision.net/magento/magento-fishpig-attribute-splash-pages-and-flat-catalog
 	 *
 	 * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 	 */	
@@ -103,7 +105,20 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Fishpig_AttributeSplash_
 				''
 			);
 
-		$collection->addAttributeToFilter('visibility', array('in' => array(2, 4)));
+		$visibilities = array(
+			Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG,
+			Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH
+		);
+
+		if (Mage::getStoreConfigFlag('catalog/frontend/flat_catalog_product')) {
+			$collection->getSelect()
+				->joinLeft(array('cpl' => $collection->getResource()->getFlatTableName()), "e.entity_id = cpl.entity_id")
+				->where("cpl.visibility IN (?)", $visibilities);
+		}
+		else {
+			$collection->addAttributeToFilter('visibility', array('in' => $visibilities));
+		}
+						
 		$collection->addAttributeToFilter('status', 1);
 		
 		if (Mage::getStoreConfigFlag('attributeSplash/product/hide_out_of_stock', $page->getStoreId())) {

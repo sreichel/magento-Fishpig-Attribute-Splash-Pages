@@ -12,6 +12,9 @@ TODO/BUGS
 - Order products per splash page
 - Look into report that 'Sort By' doesn't work
 
+24/01/2013 - v2.2.0.0
+- Added flat catalog fixed (props to http://www.xtreme-vision.net/magento/magento-fishpig-attribute-splash-pages-and-flat-catalog)
+
 26/09/2012 - v2.1.2
 - Fixed notice error when saving config
 

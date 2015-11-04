@@ -7,6 +7,14 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+TODO/BUGS
+- Look into Store View scoped attributes
+- Order products per splash page
+- Look into report that 'Sort By' doesn't work
+
+28/04/2012 - v2.0.18
+- Improved multistore for product attributes and navigation
+
 30/01/2012 - v2.0.17
 - Fixed issue that caused page/group time to display in XML sitemap instead of date
 

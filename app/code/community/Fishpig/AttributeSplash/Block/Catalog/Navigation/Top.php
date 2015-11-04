@@ -57,9 +57,7 @@ class Fishpig_AttributeSplash_Block_Catalog_Navigation_Top extends Mage_Catalog_
 	{
 		$pages = $this->_getSplashPageCollection();
 		
-		
 		return $pages;
-	
 	}
 	
 	/**
@@ -71,8 +69,9 @@ class Fishpig_AttributeSplash_Block_Catalog_Navigation_Top extends Mage_Catalog_
 	{
 		$pages = Mage::getResourceModel('attributeSplash/page_collection')
 			->addIsEnabledFilter()
-			->addIncludeInMenuFilter();
-		
+			->addIncludeInMenuFilter()
+			->addStoreIdFilter(Mage::app()->getStore()->getId());
+
 		return $pages;
 	}
 	

@@ -22,14 +22,15 @@ class Fishpig_AttributeSplash_Block_Catalog_Product_View_Attributes extends Mage
 		if (Mage::getStoreConfigFlag('attributeSplash/product/inject_links')) {
 			$product 	= $this->getProduct();
 			$toIgnore = array(Mage::helper('catalog')->__('N/A'), Mage::helper('catalog')->__('No'));
-			
+			$storeId = Mage::app()->getStore()->getId();
+
 			foreach($additionalData as $attributeCode => $data) {
 				if (!in_array($data['value'], $toIgnore)) {
 					if ($optionIds = $this->_getOptionIds($product, $attributeCode) ) {
 						$buffer = array();
 	
 						foreach($optionIds as $optionId) {
-							$splash = Mage::getModel('attributeSplash/page')->loadByOptionId($optionId);
+							$splash = Mage::getModel('attributeSplash/page')->setStoreId($storeId)->loadByOptionId($optionId);
 						
 							if ($splash->getId()) {
 								$name = $splash->getOptionModel() ? $splash->getOptionModel()->getValue() : $splash->getName();

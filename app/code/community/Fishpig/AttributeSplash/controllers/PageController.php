@@ -62,7 +62,7 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 	protected function _setCurrentCategory()
 	{
 		if (!Mage::registry('current_category')) {
-			Mage::register('current_category', $this->_getStoresDefaultCategory(), true);
+			Mage::register('current_category', Mage::helper('attributeSplash')->getBaseSplashCategory(), true);
 		}
 		
 		return $this;
@@ -104,32 +104,6 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 		}
 
 		return $splashPage;
-	}
-	
-	/**
-	 * Retrieves the store's default category
-	 *
-	 * @return false|Mage_Catalog_Model_Category
-	 */
-	protected function _getStoresDefaultCategory()
-	{
-		$categoryId = Mage::getStoreConfig('attributeSplash/frontend/default_category_id');
-		
-		if (!$categoryId) {
-			$categoryId = Mage::app()->getStore()->getRootCategoryId();
-		}
-
-		$category = Mage::getModel('catalog/category')->load($categoryId);
-		
-		if ($category->getId()) {
-			if ($splash = Mage::registry('splash_page')) {
-				$category->setName($splash->getDisplayName());
-			}
-			
-			return $category;
-		}
-		
-		return false;
 	}
 	
 	/**

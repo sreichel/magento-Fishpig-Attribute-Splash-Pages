@@ -227,4 +227,28 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 		
 		return Mage::registry('current_frontend_store');
 	}
+	
+	/**
+	 * Retrieve the base splash category
+	 *
+	 * @return false|Mage_Catalog_Model_Category
+	 */
+	public function getBaseSplashCategory()
+	{
+		$categoryId = Mage::getStoreConfig('attributeSplash/frontend/default_category_id');
+		
+		if (!$categoryId) {
+			$categoryId = Mage::app()->getStore()->getRootCategoryId();
+		}
+
+		$category = Mage::getModel('catalog/category')->load($categoryId);
+		
+		if ($category->getId()) {
+			if ($splash = Mage::registry('splash_page')) {
+				$category->setName($splash->getDisplayName());
+			}
+			
+			return $category;
+		}
+	}
 }

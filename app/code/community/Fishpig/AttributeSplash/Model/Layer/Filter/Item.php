@@ -27,6 +27,12 @@ class Fishpig_AttributeSplash_Model_Layer_Filter_Item extends Mage_Catalog_Model
 							Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null,
 						);
 						
+						if ($_category = Mage::registry('current_category')) {
+							if ($_category->getId() !== ) {
+								$query['cat'] = $_category->getId();
+							}
+						}
+						
 						return Mage::getUrl('', array('_direct' => $splashPage->getUrlPath(), '_current' => true, '_query' => $query));
 					}
 				}
@@ -45,5 +51,19 @@ class Fishpig_AttributeSplash_Model_Layer_Filter_Item extends Mage_Catalog_Model
 	public function isSearchPage()
 	{
 		return in_array('catalogsearch_result_index', Mage::getSingleton('core/layout')->getUpdate()->getHandles());
+	}
+	
+	/**
+	 * Retrieve the ID of the splash category
+	 *
+	 * @return int
+	 */
+	public function getSplashCategoryId()
+	{
+		if (!$this->hasSplashCategory()) 
+			$this->setSplashCategory(Mage::helper('attributeSplash')->getBaseSplashCategory());
+		}
+		
+		return $this->getSplashCategory()->getId();
 	}
 }

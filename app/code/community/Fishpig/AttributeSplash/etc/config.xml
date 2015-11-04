@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>1.9.16</version>
+			<version>1.9.17</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -24,6 +24,9 @@
 			<attributeSplash_mysql4>
 				<class>Fishpig_AttributeSplash_Model_Mysql4</class>
 				<entities>
+					<group>
+						<table>attributesplash_group</table>
+					</group>
 					<page>
 						<table>attributesplash_page</table>
 					</page>

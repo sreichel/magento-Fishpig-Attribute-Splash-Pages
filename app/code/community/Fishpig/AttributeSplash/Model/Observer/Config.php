@@ -32,6 +32,7 @@ class Fishpig_AttributeSplash_Model_Observer_Config
 				
 				if ($oldUrlSuffix != $newUrlSuffix) {
 					Mage::getResourceModel('attributeSplash/page')->updateAllUrlRewrites();
+					Mage::getResourceModel('attributeSplash/group')->updateAllUrlRewrites();
 				}
 			}
 		}

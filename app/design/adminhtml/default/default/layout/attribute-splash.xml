@@ -22,6 +22,22 @@
 		</reference>
 	</attributesplash_admin_adminhtml_page_edit>
 
+	<attributesplash_admin_adminhtml_group_index>
+		<reference name="content">
+			<block type="attributeSplash/adminhtml_group" name="splash_group.grid" />
+		</reference>
+	</attributesplash_admin_adminhtml_group_index>
+
+	<attributesplash_admin_adminhtml_group_edit>
+		<update handle="editor" />
+		<reference name="left">
+			<block type="attributeSplash/adminhtml_group_edit_tabs" name="splash_group.edit.tabs" />
+		</reference>
+		<reference name="content">
+			<block type="attributeSplash/adminhtml_group_edit" name="splash_group.edit" />
+		</reference>
+	</attributesplash_admin_adminhtml_group_edit>
+	
 	<adminhtml_system_config_edit>
 		<reference name="before_body_end">
 			<block type="adminhtml/template" name="attributeSplash.config.js" template="attribute-splash/config/js.phtml" />

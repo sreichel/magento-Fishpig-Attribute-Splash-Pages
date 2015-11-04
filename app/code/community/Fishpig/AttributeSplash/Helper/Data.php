@@ -169,4 +169,19 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 	{
 		return Mage::getSingleton('core/resource')->getConnection('core_read');
 	}
+	
+	/**
+	 * Log an error message
+	 *
+	 * @param string $msg
+	 * @param mixed $status
+	 * @param string $file
+	 * @param bool $force
+	 * @return Fishpig_AttributeSplash_Helper_Data
+	 */
+	public function log($msg, $status = false, $file = 'attributeSplash.log', $force = true)
+	{
+		Mage::log($msg, $status, $file, $force);
+		return $this;
+	}
 }

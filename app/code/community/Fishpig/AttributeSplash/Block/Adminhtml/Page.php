@@ -16,6 +16,5 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page extends Mage_Adminhtml_Block_
 		$this->_blockGroup = 'attributeSplash';
 		$this->_headerText = $this->__('Attribute Splash Pages');
 		$this->_addButtonLabel = $this->__('Create a New Splash Page');
-
 	}
 }

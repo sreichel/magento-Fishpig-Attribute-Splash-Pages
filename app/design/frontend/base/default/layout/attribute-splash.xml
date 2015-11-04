@@ -24,5 +24,14 @@
 			</block>
 		</reference>
 	</attributesplash_page_view>
+	
+	<attributesplash_group_view>
+		<reference name="content">
+			<block type="attributeSplash/group_view" name="attributeSplash.view.group" template="attribute-splash/group/view.phtml">
+				<block type="page/html_pager" name="splash_group.pager" />
+				<action method="setPagerBlockName"><pager_block_name>splash_group.pager</pager_block_name></action>
+			</block>
+		</reference>
+	</attributesplash_group_view>
 
 </layout>

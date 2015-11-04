@@ -6,32 +6,11 @@
  * @author      Ben Tideswell <help@fishpig.co.uk>
  */
 
-class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
+class Fishpig_AttributeSplash_Model_Group extends Mage_Core_Model_Abstract
 {
-	/**
-	 * value used when attributes use grid mode
-	 *
-	 * @var int
-	 */
-	const ATTRIBUTE_MODE_GRID = 1;
-	
-	/**
-	 * value used when attributes use list mode
-	 *
-	 * @var int
-	 */
-	const ATTRIBUTE_MODE_LIST = 2;
-
-	/**
-	 * value used when attributes use simple mode
-	 *
-	 * @var int
-	 */
-	const ATTRIBUTE_MODE_SIMPLE = 3;
-
 	public function _construct()
 	{
-		$this->_init('attributeSplash/page');
+		$this->_init('attributeSplash/group');
 	}
 	
 	/**
@@ -83,24 +62,13 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	}
 
 	/**
-	 * Retrieve an attributeSplash/image helper object
-	 * This allows you to resize the image dynamically or return the URL to the full image
-	 *
-	 * @return Fishpig_AttributeSplash_Helper_Image
-	 */
-	public function getImage()
-	{
-		return Mage::helper('attributeSplash/image')->getImageUrl($this->getData('image'));
-	}
-	
-	/**
 	 * Determine whether the splash page can be displayed
 	 *
 	 * @return bool
 	 */
 	public function canDisplay()
 	{
-		return $this->getId() && $this->getIsEnabled();
+		return $this->getId() && $this->getIsEnabled() && $this->hasSplashPages();
 	}
 	
 	/**
@@ -115,30 +83,6 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 		}
 		
 		return $this->getData('attribute_model');
-	}
-
-	/**
-	 * Retrieve the option model for the page
-	 *
-	 * @return Mage_Eav_Model_Entity_Attribute_Option
-	 */
-	public function getOptionModel()
-	{
-		if (!$this->hasOptionModel()) {
-			$this->setOptionModel($this->getResource()->getOptionModel($this));
-		}
-		
-		return $this->getData('option_model');
-	}
-	
-	/**
-	 * Retrieve the option value for the spash page
-	 *
-	 * @return string
-	 */
-	public function getOptionValue()
-	{
-		return $this->getOptionModel()->getValue();
 	}
 
 	/**
@@ -160,28 +104,22 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	 *
 	 * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 	 */
-	public function getProductCollection()
+	public function getSplashPages()
 	{
-		if (!$this->hasProductCollection()) {
-			$this->setProductCollection($this->getResource()->getProductCollection($this));
+		if (!$this->hasData('splash_pages')) {
+			$this->setSplashPages($this->getResource()->getSplashPages($this));
 		}
 		
-		return $this->getData('product_collection');
+		return $this->getData('splash_pages');
 	}
 	
 	/**
-	 * Retrieve the group associated with the splash page
-	 * This will retrieve the most related group
-	 * If there isn't a group for the same store, the admin group will be returned
+	 * Determine whether this group has any splash pages
 	 *
-	 * @return Fishpig_AttributeSplash_Model_Group|false
+	 * @return bool
 	 */
-	public function getSplashGroup()
+	public function hasSplashPages()
 	{
-		if (!$this->hasSplashGroup()) {
-			$this->setSplashGroup($this->getResource()->getSplashGroup($this));
-		}
-		
-		return $this->getData('splash_group');
+		return count($this->getSplashPages()) > 0;
 	}
 }

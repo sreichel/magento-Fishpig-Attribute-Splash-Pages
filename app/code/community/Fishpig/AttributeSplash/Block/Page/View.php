@@ -131,6 +131,10 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 		return $this->getData('cms_block_html');
 	}
 	
+	/**
+	 * Set the template based on the user defined config valur
+	 *
+	 */
 	protected function _setTemplateFromConfig()
 	{
 		if ($layoutCode = Mage::getStoreConfig('attributeSplash/frontend/template')) {

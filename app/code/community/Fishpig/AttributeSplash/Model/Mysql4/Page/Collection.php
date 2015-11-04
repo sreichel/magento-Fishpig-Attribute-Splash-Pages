@@ -59,6 +59,30 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 	}
 	
 	/**
+	 * Filter the collection so only enabled pages are returned
+	 *
+	 */
+	public function addIsEnabledFilter($value = 1)
+	{
+		return $this->addFieldToFilter('is_enabled', $value);
+	}
+	
+	/**
+	 * Add a store ID filter to the collection
+	 * If $includeAdmin is true, global pages will be returned also
+	 *
+	 * @param int $storeId
+	 * @param bool $includeAdmin
+	 */
+	public function addStoreIdFilter($storeId, $includeAdmin = true)
+	{
+		$storeIds = $includeAdmin ? array(0, $storeId) : array($storeId);
+		
+		$this->getSelect()->where('`main_table`.`store_id` IN (?)', $storeIds);
+		return $this;
+	}
+	
+	/**
 	 * Filter the collection by a product ID
 	 *
 	 * @param Mage_Catalog_Model_Product $product

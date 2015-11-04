@@ -33,4 +33,7 @@
 	<?php else: ?>
 		<?php echo $this->getProductListHtml() ?>
 	<?php endif; ?>
+	<?php if ($description = $splashPage->getDescription()): ?>
+		<div class="category-description-full std"><?php echo $description ?></div>
+	<?php endif; ?>
 <?php endif; ?>

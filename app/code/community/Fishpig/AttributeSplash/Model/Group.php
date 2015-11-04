@@ -33,7 +33,12 @@ class Fishpig_AttributeSplash_Model_Group extends Mage_Core_Model_Abstract
 	public function getUrl()
 	{
 		if ($this->getUrlPath()) {
-			return Mage::getUrl('', array('_direct' => $this->getUrlPath()));
+			return Mage::getUrl('', array(
+				'_direct' => $this->getUrlPath(),
+				'_secure' 	=> false,
+				'_nosid' 	=> true,
+				'_store' => $this->getStoreId() ? $this->getStoreId() : Mage::helper('attributeSplash')->getCurrentFrontendStore()->getId(),
+			));
 		}
 		
 		return Mage::getUrl($this->getResource()->getTargetPath($this));
@@ -136,5 +141,35 @@ class Fishpig_AttributeSplash_Model_Group extends Mage_Core_Model_Abstract
 	public function hasSplashPages()
 	{
 		return count($this->getSplashPages()) > 0;
+	}
+	
+	/**
+	 * Retrieve the date/time the item was updated
+	 *
+	 * @param bool $includeTime = true
+	 * @return string
+	 */
+	public function getUpdatedAt($includeTime = true)
+	{
+		if ($str = $this->_getData('updated_at')) {
+			return $includeTime ? $str : trim(substr($str, strpos($str, ' ')));
+		}
+		
+		return '';
+	}
+
+	/**
+	 * Retrieve the date/time the item was created
+	 *
+	 * @param bool $includeTime = true
+	 * @return string
+	 */
+	public function getCreatedAt($includeTime = true)
+	{
+		if ($str = $this->_getData('created_at')) {
+			return $includeTime ? $str : trim(substr($str, strpos($str, ' ')));
+		}
+		
+		return '';
 	}
 }

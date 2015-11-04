@@ -65,9 +65,14 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	public function getUrl()
 	{
 		if ($this->getUrlPath()) {
-			return Mage::getUrl('', array('_direct' => $this->getUrlPath()));
+			return Mage::getUrl('', array(
+				'_direct' => $this->getUrlPath(),
+				'_secure' 	=> false,
+				'_nosid' 	=> true,
+				'_store' => $this->getStoreId() ? $this->getStoreId() : Mage::helper('attributeSplash')->getCurrentFrontendStore()->getId(),
+			));
 		}
-		
+
 		return Mage::getUrl($this->getResource()->getTargetPath($this));
 	}
 	
@@ -131,6 +136,23 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	public function getImage()
 	{
 		return Mage::helper('attributeSplash/image')->getImageUrl($this->getData('image'));
+	}
+	
+	/**
+	 * Retrieve the URL for the image
+	 * This converts relative URL's to absolute
+	 *
+	 * @return string
+	 */
+	public function getImageUrl()
+	{
+		if ($this->_getData('image_url')) {
+			if (strpos($this->_getData('image_url'), 'http://') === false) {
+				$this->setImageUrl(Mage::getBaseUrl() . ltrim($this->_getData('image_url'), '/ '));
+			}
+		}
+		
+		return $this->_getData('image_url');
 	}
 	
 	/**
@@ -304,5 +326,35 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	protected function _convertSize($size)
 	{
 		return $size ? (int)$size : null;
+	}
+	
+	/**
+	 * Retrieve the date/time the item was updated
+	 *
+	 * @param bool $includeTime = true
+	 * @return string
+	 */
+	public function getUpdatedAt($includeTime = true)
+	{
+		if ($str = $this->_getData('updated_at')) {
+			return $includeTime ? $str : trim(substr($str, strpos($str, ' ')));
+		}
+		
+		return '';
+	}
+
+	/**
+	 * Retrieve the date/time the item was created
+	 *
+	 * @param bool $includeTime = true
+	 * @return string
+	 */
+	public function getCreatedAt($includeTime = true)
+	{
+		if ($str = $this->_getData('created_at')) {
+			return $includeTime ? $str : trim(substr($str, strpos($str, ' ')));
+		}
+		
+		return '';
 	}
 }

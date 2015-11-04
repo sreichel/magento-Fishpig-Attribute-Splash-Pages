@@ -32,7 +32,7 @@ class Fishpig_AttributeSplash_Model_Sitemap extends Mage_Sitemap_Model_Sitemap
 				if (count($splashPages) > 0) {
 					foreach($splashPages as $page) {
 						$xml .= sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-							htmlspecialchars($page->getUrl()), $page->getUpdatedAt(), $this->_getPageChangeFrequency(), $this->_getPagePriority());
+							htmlspecialchars($page->getUrl()), $page->getUpdatedAt(false), $this->_getPageChangeFrequency(), $this->_getPagePriority());
 					}
 				}
 				
@@ -43,7 +43,7 @@ class Fishpig_AttributeSplash_Model_Sitemap extends Mage_Sitemap_Model_Sitemap
 						foreach($splashGroups as $group) {
 							if ($group->canDisplay()) {
 								$xml .= sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-											htmlspecialchars($group->getUrl()), $group->getUpdatedAt(), $this->_getGroupChangeFrequency(), $this->_getGroupPriority());
+											htmlspecialchars($group->getUrl()), $group->getUpdatedAt(false), $this->_getGroupChangeFrequency(), $this->_getGroupPriority());
 							}
 						}
 					}
@@ -51,7 +51,8 @@ class Fishpig_AttributeSplash_Model_Sitemap extends Mage_Sitemap_Model_Sitemap
 			}
 			
 			$xml .= '</urlset>';
-			
+			header('Content-Type:text/xml;charset=utf8');
+
 			$this->_saveSitemapContent($xml);
 		}
 		

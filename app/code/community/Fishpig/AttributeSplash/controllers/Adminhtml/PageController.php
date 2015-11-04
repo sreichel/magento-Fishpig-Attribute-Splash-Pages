@@ -229,6 +229,24 @@ class Fishpig_AttributeSplash_Adminhtml_PageController extends Mage_Adminhtml_Co
 	}
 
 	/**
+	 * Reindex all Splash URL's
+	 *
+	 */
+	public function reindexAction()
+	{
+		try {
+			Mage::getResourceModel('attributeSplash/group')->updateAllUrlRewrites();
+			Mage::getSingleton('adminhtml/session')->addSuccess($this->__('%s index was rebuilt.', 'Splash URL Rewrites'));
+		}
+		catch (Exception $e) {
+			Mage::helper('attributeSplash')->log($e->getMessage());
+			Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+		}
+		
+		$this->_redirect('*/*');
+	}
+	
+	/**
 	 * Initialise the splash page model
 	 *
 	 * @return false|Fishpig_AttributeSplash_Model_Page

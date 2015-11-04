@@ -20,30 +20,36 @@ class Fishpig_AttributeSplash_Block_Catalog_Product_View_Attributes extends Mage
 		$additionalData = parent::getAdditionalData($excludeAttr);
 
 		if (Mage::getStoreConfigFlag('attributeSplash/product/inject_links')) {
-			$product = $this->getProduct();
+			$product 	= $this->getProduct();
+			$toIgnore = array(Mage::helper('catalog')->__('N/A'), Mage::helper('catalog')->__('No'));
 			
 			foreach($additionalData as $attributeCode => $data) {
-				if ($optionIds = $this->_getOptionIds($product, $attributeCode) ) {
-					$buffer = array();
-
-					foreach($optionIds as $optionId) {
-						$splash = Mage::getModel('attributeSplash/page')->loadByOptionId($optionId);
-					
-						if ($splash->getId()) {
-							$buffer[] = sprintf('<a href="%s" title="%s">%s</a>', $splash->getUrl(), $this->escapeHtml($splash->getName()), $this->escapeHtml($splash->getName()));
-						}
-						else {
-							$option = Mage::helper('attributeSplash')->getOptionById($optionId, Mage::app()->getStore()->getId());
-							
-							if ($option) {
-								$value = $option->getStoreDefaultValue() ?  $option->getStoreDefaultValue() : $option->getValue();
+				if (!in_array($data['value'], $toIgnore)) {
+					if ($optionIds = $this->_getOptionIds($product, $attributeCode) ) {
+						$buffer = array();
+	
+						foreach($optionIds as $optionId) {
+							$splash = Mage::getModel('attributeSplash/page')->loadByOptionId($optionId);
+						
+							if ($splash->getId()) {
+								$buffer[] = sprintf('<a href="%s" title="%s">%s</a>', $splash->getUrl(), $this->escapeHtml($splash->getName()), $this->escapeHtml($splash->getName()));
+							}
+							else {
+								$option = Mage::helper('attributeSplash')->getOptionById($optionId, Mage::app()->getStore()->getId());
 								
-								$buffer[] = $this->escapeHtml($value);
+								if ($option) {
+									$value = $option->getStoreDefaultValue() ?  $option->getStoreDefaultValue() : $option->getValue();
+									
+									$buffer[] = $this->escapeHtml($value);
+								}
 							}
 						}
+						
+						$additionalData[$attributeCode]['value'] = implode(', ', $buffer);
 					}
-					
-					$additionalData[$attributeCode]['value'] = implode(', ', $buffer);
+				}
+				else {
+					unset($additionalData[$attributeCode]);
 				}
 			}
 		}

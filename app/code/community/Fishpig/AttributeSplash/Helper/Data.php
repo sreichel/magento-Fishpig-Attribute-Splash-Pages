@@ -195,4 +195,36 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 		Mage::log($msg, $status, $file, $force);
 		return $this;
 	}
+	
+	/**
+	 * Retrieve the current store code
+	 *
+	 * @return Mage_Core_Model_Store
+	 */
+	public function getCurrentFrontendStore()
+	{
+		if (!Mage::registry('current_frontend_store')) {
+			$store = Mage::app()->getStore();
+			
+			if (!$store->getId() || $store->getCode() == 'admin') {
+				$resource = Mage::getSingleton('core/resource');
+				$connection = $resource->getConnection('core_read');
+				$select = $connection->select()
+					->from($resource->getTableName('core/store'), 'store_id')
+					->where('store_id > ?', 0)
+					->where('code != ?', 'admin')
+					->limit(1)
+					->order('sort_order ASC');
+				
+				$store = Mage::getModel('core/store')->load($connection->fetchOne($select));
+
+				Mage::register('current_frontend_store', $store, true);
+			}
+			else {
+				Mage::register('current_frontend_store', $store, true);
+			}
+		}
+		
+		return Mage::registry('current_frontend_store');
+	}
 }

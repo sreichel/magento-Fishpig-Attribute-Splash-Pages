@@ -16,5 +16,10 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page extends Mage_Adminhtml_Block_
 		$this->_blockGroup = 'attributeSplash';
 		$this->_headerText = $this->__('Attribute Splash Pages');
 		$this->_addButtonLabel = $this->__('Create a New Splash Page');
+		
+		$this->_addButton('reindex_urls', array(
+			'label' => $this->__('Reindex URL\'s'),
+			'onclick' => 'confirmSetLocation(\'Are you sure you want to reindex your Splash URL rewrites?\', \'' . $this->getUrl('*/*/reindex') . '\');',
+		));
 	}
 }

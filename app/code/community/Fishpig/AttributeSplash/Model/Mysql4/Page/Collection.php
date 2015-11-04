@@ -34,6 +34,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 			);
 
 		$this->getSelect()->order('_option_table.sort_order ASC');
+		$this->getSelect()->order('main_table.display_name DESC');
 
 		return $this;
 	}

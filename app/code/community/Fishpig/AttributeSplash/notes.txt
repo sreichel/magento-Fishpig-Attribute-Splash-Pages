@@ -12,6 +12,9 @@ TODO/BUGS
 - Order products per splash page
 - Look into report that 'Sort By' doesn't work
 
+29/07/2012 - v2.0.23
+- Fixed issue that caused the top navigation to cause a fatal error when using a version of Magento older than 1.7.0.0
+
 30/06/2012 - v2.0.22
 - Bug fix for 1.7.0.1
 

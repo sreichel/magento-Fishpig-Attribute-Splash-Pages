@@ -23,15 +23,26 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Dashboard extends Mage_Adminhtml_B
 		$tabs = array(
 			'group' => 'Groups',
 			'page' => 'Pages',
-			'addons' => 'Add-Ons',
 		);
 		
 		foreach($tabs as $alias => $label) {
-			$this->addTab('group_' . $alias, array(
+			$this->addTab($alias, array(
 				'label'     => Mage::helper('catalog')->__($label),
 				'content'   => $this->getLayout()->createBlock('attributeSplash/adminhtml_' . $alias)->toHtml(),
 				'active'    => $alias === 'page',
 			));
+		}
+		
+		if ($extend = $this->getLayout()->createBlock('fpadmin/adminhtml_extend')) {
+			$html = trim($extend->setTemplate('attribute-splash/extend.phtml')->toHtml());
+			
+			if ($html !== '') {
+				$this->addTab('extend', array(
+					'label'     => Mage::helper('catalog')->__('Add-Ons'),
+					'content'   => $html,
+					'active'    => false,
+				));
+			}
 		}
 	}
 }

@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+21/11/2013 - v3.0.0.9
+- Added support for FPAdmin
+
 21/11/2013 - v3.0.0.7
 - Removed sitemap.xml integration. Will soon be replaced with own sitemap
 

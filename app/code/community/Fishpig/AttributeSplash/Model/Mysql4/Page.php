@@ -14,6 +14,35 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_A
 	}
 
 	/**
+	 * Retrieve select object for load object data
+	 * This gets the default select, plus the attribute id and code
+	 *
+	 * @param   string $field
+	 * @param   mixed $value
+	 * @return  Zend_Db_Select
+	*/
+	protected function _getLoadSelect($field, $value, $object)
+	{
+		$select = $this->_getReadAdapter()->select()
+			->from(array('main_table' => $this->getMainTable()))
+			->where("`main_table`.`{$field}` = ?", $value)
+			->limit(1);
+		
+		$select->join(
+			array('_option_table' => $this->getTable('eav/attribute_option')),
+			'`_option_table`.`option_id` = `main_table`.`option_id`',
+			''
+			)
+			->join(
+				array('_attribute_table' => $this->getTable('eav/attribute')),
+				'`_attribute_table`.`attribute_id` = `_option_table`.`attribute_id`',
+				array('attribute_id', 'attribute_code')
+			);
+		
+		return $select;
+	}
+	
+	/**
 	 * Retrieve the attribute model for the page
 	 *
 	 * @param Fishpig_AttributeSplash_Model_Page $page
@@ -21,7 +50,10 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_A
 	 */
 	public function getAttributeModel(Fishpig_AttributeSplash_Model_Page $page)
 	{
-		if ($page->getOptionId()) {
+		if ($page->getAttributeId()) {
+			return Mage::getModel('eav/entity_attribute')->load($page->getAttributeId());
+		}
+		else if ($page->getOptionId()) {
 			return Mage::helper('attributeSplash')->getAttributeByOptionId($page->getOptionId());
 		}
 		
@@ -37,34 +69,6 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_A
 	public function getOptionModel(Fishpig_AttributeSplash_Model_Page $page)
 	{
 		return Mage::helper('attributeSplash')->getOptionById($page->getOptionId(), $page->getStoreId());
-	}
-	
-	/**
-	 * Retrieve the attribute ID for the splash page
-	 *
-	 * @param Fishpig_AttributeSplash_Model_Page $page
-	 * @return int
-	 */
-	public function getAttributeId(Fishpig_AttributeSplash_Model_Page $page)
-	{
-		if ($attributeModel = $page->getAttributeModel()) {
-			return $attributeModel->getId();
-		}
-		
-		return 0;
-	}
-	
-	/**
-	 * Retrieve the attribute code for the splash page
-	 *
-	 * @param Fishpig_AttributeSplash_Model_Page $page
-	 * @return string
-	 */
-	public function getAttributeCode(Fishpig_AttributeSplash_Model_Page $page)
-	{
-		if ($attributeModel = $page->getAttributeModel()) {
-			return $attributeModel->getAttributeCode();
-		}
 	}
 	 
 	/**

@@ -102,34 +102,6 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	{
 		return $this->getId() && $this->getIsEnabled();
 	}
-
-	/**
-	 * Retrieve the attribute ID for the splash page
-	 *
-	 * @return int
-	 */
-	public function getAttributeId()
-	{
-		if (!$this->hasAttributeId()) {
-			$this->setAttributeId($this->getResource()->getAttributeId($this));
-		}
-		
-		return $this->getData('attribute_id');
-	}
-	
-	/**
-	 * Retrieve the attribute ID for the splash page
-	 *
-	 * @return int
-	 */
-	public function getAttributeCode()
-	{
-		if (!$this->hasAttributeCode()) {
-			$this->setAttributeCode($this->getResource()->getAttributeCode($this));
-		}
-		
-		return $this->getData('attribute_code');
-	}
 	
 	/**
 	 * Retrieve the attribute model for the page
@@ -196,5 +168,4 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 		
 		return $this->getData('product_collection');
 	}
-
 }

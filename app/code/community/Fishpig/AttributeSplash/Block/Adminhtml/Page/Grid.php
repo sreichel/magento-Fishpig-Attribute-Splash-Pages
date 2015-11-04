@@ -25,8 +25,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Grid extends Mage_Adminhtml_B
 	 */
 	protected function _prepareCollection()
 	{
-		$collection = Mage::getResourceModel('attributeSplash/page_collection')
-			->addAttributeOptionData();
+		$collection = Mage::getResourceModel('attributeSplash/page_collection');
 
 		$this->setCollection($collection);
 	

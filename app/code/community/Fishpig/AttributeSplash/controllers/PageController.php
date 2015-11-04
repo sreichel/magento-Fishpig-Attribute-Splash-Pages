@@ -76,14 +76,14 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 		Mage::dispatchEvent('attributeSplash_controller_page_init_before', array('controller_action' => $this));
 		
 		$splashPageId = (int) $this->getRequest()->getParam('id', false);
-		
+
 		if (!$splashPageId) {
 			return false;
 		}
 		
 		$splashPage = Mage::getModel('attributeSplash/page')->load($splashPageId);
 		
-		if (!$splashPage->CanDisplay()) {
+		if (!$splashPage->canDisplay()) {
 			return false;
 		}
 		
@@ -96,7 +96,7 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 			Mage::logException($e);
 			return false;
 		}
-		
+
 		return $splashPage;
 	}
 	

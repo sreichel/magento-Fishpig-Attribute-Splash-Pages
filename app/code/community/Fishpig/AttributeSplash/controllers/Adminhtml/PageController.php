@@ -57,6 +57,19 @@ class Fishpig_AttributeSplash_Adminhtml_PageController extends Mage_Adminhtml_Co
 				$this->getLayout()->createBlock('attributeSplash/adminhtml_page_create_options')->toHtml()
 			);
 	}
+	
+	/**
+	 * Display the store grid without the container
+	 * This is useful for modifying the grid via AJAX
+	 *
+	 */
+	public function storeGridAction()
+	{
+		$this->getResponse()
+			->setBody(
+				$this->getLayout()->createBlock('attributeSplash/adminhtml_page_create_stores')->toHtml()
+			);
+	}
 
 	/**
 	 * Create a new splash page
@@ -64,7 +77,16 @@ class Fishpig_AttributeSplash_Adminhtml_PageController extends Mage_Adminhtml_Co
 	 */
 	public function newAction()
 	{
-		$this->_forward('edit');
+		$optionId = $this->getRequest()->getParam('option_id');
+		$storeId = $this->getRequest()->getParam('store_id', 0);
+		
+		if (!Mage::helper('attributeSplash')->splashPageExists($optionId, $storeId)) {
+			$this->_forward('edit');
+		}
+		else {
+			$this->_getSession()->addError($this->__('A splash page exists for that option/store combination'));
+			$this->_redirect('*/*');
+		}
 	}
 	
 	

@@ -116,7 +116,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_Option extends Mage_
 		if (!is_null($storeModel) && $storeModel->getId() !== false) {
 			return array(
 				'store_id' => $storeModel->getId(),
-				'store_name' => $storeModel->getName(),
+				'store_name' => $storeModel->getName() == 'Admin' ? $this->__('Global') : $storeModel->getName(),
 			);
 		}
 

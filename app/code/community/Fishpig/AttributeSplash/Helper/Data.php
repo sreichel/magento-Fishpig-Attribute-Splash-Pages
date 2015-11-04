@@ -132,6 +132,25 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
+	 * Determine whether a splash page exists for the $optionId/$storeId combination
+	 *
+	 * @param int $optionId
+	 * @param int $storeId = 0
+	 * @return bool
+	 */
+	public function splashPageExists($optionId, $storeId = 0)
+	{
+		$select = $this->_getReadAdapter()
+			->select()
+			->from(Mage::getSingleton('core/resource')->getTableName('attributeSplash/page'), 'page_id')
+			->where('option_id=?', $optionId)
+			->where('store_id=?', $storeId)
+			->limit(1);
+			
+		return $this->_getReadAdapter()->fetchOne($select) !== false;
+	}
+	
+	/**
 	 * Determine whether to display canonical meta tag
 	 *
 	 * @return bool
@@ -139,5 +158,15 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 	public function canUseCanonical()
 	{
 		return Mage::getStoreConfigFlag('attributeSplash/seo/use_canonical');
+	}
+	
+
+	/**
+	 * Retrieve the read adapter
+	 *
+	 */
+	protected function _getReadAdapter()
+	{
+		return Mage::getSingleton('core/resource')->getConnection('core_read');
 	}
 }

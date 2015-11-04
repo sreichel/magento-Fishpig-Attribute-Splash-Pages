@@ -17,7 +17,12 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Create_Options extends Mage_A
 //		$this->setDefaultDir('asc');
 		$this->setSaveParametersInSession(true);
 		$this->setUseAjax(true);
-//		$this->setRowClickCallback('getAttributeValueGrid');
+
+		if (!Mage::app()->isSingleStoreMode()) {
+		
+
+			$this->setRowClickCallback('getStoreChooserGrid');
+		}
 	}
 	
 	/**
@@ -28,8 +33,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Create_Options extends Mage_A
 	{
 		$collection = $this->helper('attributeSplash')
 			->getOptionCollectionByAttributeId($this->getRequest()->getParam('attribute_id'));
-		
-//		echo $collection->getSelect() . '<br/><br/>';
+
 		$this->setCollection($collection);
 	
 		return parent::_prepareCollection();
@@ -83,28 +87,10 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Create_Options extends Mage_A
 	 */
 	public function getRowUrl($row)
 	{
-		return $this->getUrl('*/*/new', array('option_id' => $row->getId(), 'attribute_id' => $this->getRequest()->getParam('attribute_id')));
-	}
-	
-	/**
-	 * Add a custom filter for the in_product column
-	 *
-	 */
-	 /*
-	protected function _addColumnFilterToCollection($column)
-	{
-		echo '<pre>'; print_r($column->getData()); echo '</pre>'; exit;
-		if ($column->getName() == 'store_value') {
-			$this->getCollection()->addFieldToFilter('store_default_value.' . $column->getName(), $column->getValue());	
+		if (!Mage::app()->isSingleStoreMode()) {
+			return $this->getUrl('*/*/storeGrid', array('attribute_id' => $this->getRequest()->getParam('attribute_id'), 'option_id' => $row->getId()));
 		}
-	
 		
-		
-		echo $this->getCollection()->getSelect();
-		exit;
-
-		
-		return $this;
+		return $this->getUrl('*/*/new', array('option_id' => $row->getId(), 'attribute_id' => $this->getRequest()->getParam('attribute_id'), 'store_id' => 0));
 	}
-*/	
 }

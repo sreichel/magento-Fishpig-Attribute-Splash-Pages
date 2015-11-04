@@ -10,16 +10,20 @@ function getAttributeValueGrid(grid, event) {
 	document.fire('splash:attribute_selected', {gridUrl: Event.findElement(event, 'tr').title});
 }
 
+function getStoreChooserGrid(grid, event) {
+	document.fire('splash:option_selected', {gridUrl: Event.findElement(event, 'tr').title});
+}
 	
 	var AttributeSplash_CreateForm = Class.create({
-		initialize: function(idPrefix, triggerSelector) {
+		initialize: function(idPrefix, triggerSelector, closeSelector) {
 			this.wrapper = $(idPrefix);
 			this.shadow = $(idPrefix + '-shadow');
 			this.container = $(idPrefix + '-container');
 			this.gridWrapper = $(idPrefix + '-grid-wrapper');
 			this.attributeGridWrapper = $(idPrefix + '-grid-attributes');
 			this.optionGridWrapper = $(idPrefix + '-grid-options');
-
+			this.storeGridWrapper = $(idPrefix + '-grid-stores');
+			
 			this.hideEverything();
 			
 			$$(triggerSelector)
@@ -28,7 +32,10 @@ function getAttributeValueGrid(grid, event) {
 			
 			this.shadow.observe('click', this.hideEverything.bind(this));
 			
+			this.wrapper.select(closeSelector).invoke('observe', 'click', this.hideEverything.bindAsEventListener(this));
+			
 			document.observe('splash:attribute_selected', this.reactToAttributeSelect.bindAsEventListener(this));
+			document.observe('splash:option_selected', this.reactToOptionSelect.bindAsEventListener(this));
 		},
 		shadowIsPresent: function() {
 			return this.wrapper.visible() && this.shadow.visible();
@@ -82,6 +89,12 @@ function getAttributeValueGrid(grid, event) {
 				afterFinish: callback.bind(this)
 			});
 		},
+		hideOptionGridWrapper: function(callback) {
+			Effect.SlideUp(this.optionGridWrapper, {
+				duration: 0.3,
+				afterFinish: callback.bind(this)
+			});
+		},
 		hideEverything: function() {
 			this.wrapper.hide();
 			this.shadow.hide();
@@ -89,12 +102,24 @@ function getAttributeValueGrid(grid, event) {
 			this.attributeGridWrapper.hide();
 			this.optionGridWrapper.hide();
 			this.optionGridWrapper.innerHTML = '';
+			this.storeGridWrapper.hide();
+			this.storeGridWrapper.innerHTML = '';
 		},
 		reactToAttributeSelect: function(event) {
 			if (event.memo.gridUrl) {
 				this.hideAttributeGridWrapper(function() {
 					this.optionGridWrapper.show();
 					new Ajax.Updater(this.optionGridWrapper, event.memo.gridUrl, {
+						evalScripts: true
+					});
+				}.bind(this));
+			}
+		},
+		reactToOptionSelect: function(event) {
+			if (event.memo.gridUrl) {
+				this.hideOptionGridWrapper(function() {
+					this.storeGridWrapper.show();
+					new Ajax.Updater(this.storeGridWrapper, event.memo.gridUrl, {
 						evalScripts: true
 					});
 				}.bind(this));
@@ -108,17 +133,27 @@ function getAttributeValueGrid(grid, event) {
 <div id="<?php echo $idPrefix ?>" style="display:none;">
 	<div id="<?php echo $idPrefix ?>-shadow"></div>
 	<div id="<?php echo $idPrefix ?>-container">
-		<h2><span><?php echo $this->__('Create a New Splash Page') ?></span></h2>
+		<div class="content-header">
+			<table cellspacing="0">
+				<tbody>
+					<tr>
+						<td style="width:50%;"><h3 class="icon-head head-adminhtml-page"><?php echo $this->__('Create a New Splash Page') ?></h3></td>
+						<td class="form-buttons"><button type="button" class="delete close" onclick=""><span><?php echo $this->__('Close') ?></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<div id="<?php echo $idPrefix ?>-grid-wrapper">
 			<div id="<?php echo $idPrefix ?>-grid-attributes"><?php echo $this->getChildHtml('attributes') ?></div>
 			<div id="<?php echo $idPrefix ?>-grid-options" style="display: none;"></div>
+			<div id="<?php echo $idPrefix ?>-grid-stores" style="display: none;"></div>
 		</div>
 	</div>
 </div>
 
 <script type-"text/javascript">
 
-	new AttributeSplash_CreateForm('<?php echo $idPrefix ?>', 'button.add');
+	new AttributeSplash_CreateForm('<?php echo $idPrefix ?>', 'button.add', '.close');
 	
 </script>
 

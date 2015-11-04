@@ -15,7 +15,23 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 	 */
 	public function getSplashGroup()
 	{
-		return Mage::registry('splash_group');
+
+		if (!$this->hasSplashGroup()) {
+			$this->setSplashGroup(false);
+			
+			if ($this->hasSplashGroupId()) {
+				$splashGroup = Mage::getModel('attributeSplash/group')->load($this->getSplashGroupId());
+
+				if ($splashGroup->getId()) {
+					$this->setSplashGroup($splashGroup);
+				}
+			}
+			else {
+				$this->setSplashGroup(Mage::registry('splash_group'));
+			}
+		}
+		
+		return $this->_getData('splash_group');
 	}
 
 	/**
@@ -25,33 +41,33 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 	{
 		parent::_prepareLayout();
 
-		$splashGroup = $this->getSplashGroup();
-
-		if ($headBlock = $this->getLayout()->getBlock('head')) {
-			if ($title = $splashGroup->getPageTitle()) {
-				$headBlock->setTitle($title);
-			}
-
-			if ($description = $splashGroup->getMetaDescription()) {
-				$headBlock->setDescription($description);
+		if ($splashGroup = $this->getSplashGroup()) {
+			if ($headBlock = $this->getLayout()->getBlock('head')) {
+				if ($title = $splashGroup->getPageTitle()) {
+					$headBlock->setTitle($title);
+				}
+	
+				if ($description = $splashGroup->getMetaDescription()) {
+					$headBlock->setDescription($description);
+				}
+				
+				if ($keywords = $splashGroup->getMetaKeywords()) {
+					$headBlock->setKeywords($keywords);
+				}
+				
+				if ($this->helper('attributeSplash')->canUseCanonical()) {
+					$headBlock->addItem('link_rel', $splashGroup->getUrl(), 'rel="canonical"');
+				}
 			}
 			
-			if ($keywords = $splashGroup->getMetaKeywords()) {
-				$headBlock->setKeywords($keywords);
+			if ($breadBlock = $this->getLayout()->getBlock('breadcrumbs')) {
+				$breadBlock->addCrumb('home', array('label' => $this->__('Home'), 'title' => $this->__('Home'), 'link' => $this->getUrl('')))
+					->addCrumb('splash_group', array('label' => $splashGroup->getName(), 'title' => $splashGroup->getName()));
 			}
 			
-			if ($this->helper('attributeSplash')->canUseCanonical()) {
-				$headBlock->addItem('link_rel', $splashGroup->getUrl(), 'rel="canonical"');
-			}
+			$this->_setTemplateFromConfig();
 		}
 		
-		if ($breadBlock = $this->getLayout()->getBlock('breadcrumbs')) {
-			$breadBlock->addCrumb('home', array('label' => $this->__('Home'), 'title' => $this->__('Home'), 'link' => $this->getUrl('')))
-				->addCrumb('splash_group', array('label' => $splashGroup->getName(), 'title' => $splashGroup->getName()));
-		}
-		
-		$this->_setTemplateFromConfig();
-
         return $this;
     }
 

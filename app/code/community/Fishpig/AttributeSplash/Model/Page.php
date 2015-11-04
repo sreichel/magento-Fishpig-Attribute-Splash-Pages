@@ -124,14 +124,23 @@ class Fishpig_AttributeSplash_Model_Page extends Mage_Core_Model_Abstract
 	}
 
 	/**
-	 * Retrieve an attributeSplash/image helper object
-	 * This allows you to resize the image dynamically or return the URL to the full image
+	 * Retrieve the full URL of the splash image
 	 *
-	 * @return Fishpig_AttributeSplash_Helper_Image
+	 * @return string
 	 */
 	public function getImage()
 	{
 		return Mage::helper('attributeSplash/image')->getImageUrl($this->getData('image'));
+	}
+	
+	/**
+	 * Retrieve the full URL of the splash thumbnail
+	 *
+	 * @return string
+	 */
+	public function getThumbnail()
+	{
+		return Mage::helper('attributeSplash/image')->getImageUrl($this->getData('thumbnail'));
 	}
 	
 	/**

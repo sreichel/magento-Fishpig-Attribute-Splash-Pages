@@ -325,8 +325,15 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 			return $result['file'];
 		}
 		catch (Exception $e) {
-			if ($e->getCode() != Mage_Core_Model_File_Uploader::TMP_NAME_EMPTY) {
-				throw $e;
+			try {
+				if ($e->getCode() != Mage_Core_Model_File_Uploader::TMP_NAME_EMPTY) {
+					throw $e;
+				}
+			} 
+			catch (Exception $e) {
+				if ($e->getCode() != 'File was not uploaded.') {
+					throw $e;
+				}
 			}
 		}
 		

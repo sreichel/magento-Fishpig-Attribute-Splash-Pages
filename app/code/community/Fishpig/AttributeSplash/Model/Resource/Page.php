@@ -101,7 +101,7 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 #			$object->unsetData('option_id');
 		}
 		
-		if (!$object->getData('stores')) {
+		if (!$object->getData('store_ids')) {
 			throw new Exception();
 		}
 
@@ -112,13 +112,19 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 		return parent::_beforeSave($object);
 	}
 	
+	/**
+	 * Determine whether [ages scope if unique to store
+	 *
+	 * @param Mage_Core_Model_Abstract $object
+	 * @return bool
+	 */
 	protected function _pageIsUniqueToStores(Mage_Core_Model_Abstract $object)
 	{
-		if (Mage::app()->isSingleStoreMode() || !$object->hasStores()) {
+		if (Mage::app()->isSingleStoreMode() || !$object->hasStoreIds()) {
 			$stores = array(Mage_Core_Model_App::ADMIN_STORE_ID);
 		}
 		else {
-			$stores = (array)$object->getData('stores');
+			$stores = (array)$object->getData('store_ids');
 		}
 
 		$select = $this->_getReadAdapter()
@@ -128,7 +134,7 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 			->where('option_id=?', $object->getOptionId())
 			->where('_store.store_id IN (?)', $stores)
 			->limit(1);
-			
+
 		if ($object->getId()) {
 			$select->where('main_table.page_id <> ?', $object->getId());
 		}
@@ -136,11 +142,19 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 		return $this->_getWriteAdapter()->fetchOne($select) === false;
 	}
 	
+	/**
+	 * Auto-update splash group
+	 *
+	 * @param Mage_Core_Model_Abstract $object
+	 * @return $this
+	 */
 	protected function _afterSave(Mage_Core_Model_Abstract $object)
 	{
 		parent::_afterSave($object);
 		
-		$this->updateSplashGroup($object);
+		if (!$object->getAutoCreateGroup()) {
+			$this->updateSplashGroup($object);
+		}
 		
 		return $this;
 	}
@@ -191,5 +205,15 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 		return count($groups) > 0
 			? $groups->getFirstItem()
 			: false;
+	}
+
+	/**
+	 * Get the index table for pags
+	 *
+	 * @return string
+	 */
+	public function getIndexTable()
+	{
+		return $this->getTable('attributeSplash/page_index');
 	}
 }

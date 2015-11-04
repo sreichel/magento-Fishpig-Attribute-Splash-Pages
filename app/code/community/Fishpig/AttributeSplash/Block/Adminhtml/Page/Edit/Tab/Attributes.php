@@ -50,10 +50,10 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_Attributes extends F
 	/**
 	 * Retrieve the option values for the page
 	 * 
-	 * @param Fishpig_AttributeSplash_Model__Page $page
+	 * @param Fishpig_AttributeSplash_Model_Page $page = null
 	 * @return array
 	 */
-	protected function _getPageOptionValues(Fishpig_AttributeSplash_Model__Page $page)
+	protected function _getPageOptionValues($page = null)
 	{
 		if (is_null($page)) {
 			return array();

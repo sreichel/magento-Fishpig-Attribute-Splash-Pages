@@ -9,6 +9,13 @@
 abstract class Fishpig_AttributeSplash_Model_System_Config_Source_Attribute_Abstract
 {
 	/**
+	 * Cache for options
+	 *
+	 * @param
+	 */
+	protected $_options = null;
+	
+	/**
 	 * Cache for collection
 	 *
 	 * @param
@@ -74,7 +81,7 @@ abstract class Fishpig_AttributeSplash_Model_System_Config_Source_Attribute_Abst
 			
 		}
 
-		return $this->_options;
+		return (array)$this->_options;
 	}
 	
 	/**

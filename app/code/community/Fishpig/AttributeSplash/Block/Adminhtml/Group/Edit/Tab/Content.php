@@ -23,9 +23,9 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_Content extends Fis
 		));
 
 		$htmlConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(array(
-			'add_widgets' => false,
-			'add_variables' => false,
-			'add_image' => false,
+			'add_widgets' => true,
+			'add_variables' => true,
+			'add_image' => true,
 			'files_browser_window_url' => $this->getUrl('adminhtml/cms_wysiwyg_images/index')
 		));
 
@@ -47,5 +47,14 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_Content extends Fis
 		$this->getForm()->setValues($this->_getFormData());
 
 		return $this;
+	}
+	
+	protected function _prepareLayout()
+	{
+		parent::_prepareLayout();
+		
+		if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
+			$this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+		}
 	}
 }

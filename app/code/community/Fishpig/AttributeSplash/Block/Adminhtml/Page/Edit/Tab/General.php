@@ -53,9 +53,16 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_General extends Fish
 			));
 		}
 		
+		$fieldset->addField('category_id', 'text', array(
+			'name' => 'category_id',
+			'label' => $this->__('Category ID'),
+			'title' => $this->__('Category ID'),
+			'note' => $this->__('Used to populate category filters in the layered navigation'),
+		));
+
 		if (!Mage::app()->isSingleStoreMode()) {
-			$field = $fieldset->addField('store_id', 'multiselect', array(
-				'name' => 'stores[]',
+			$field = $fieldset->addField('store_ids', 'multiselect', array(
+				'name' => 'store_ids[]',
 				'label' => Mage::helper('cms')->__('Store View'),
 				'title' => Mage::helper('cms')->__('Store View'),
 				'required' => true,
@@ -69,8 +76,8 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_General extends Fish
 			}
 		}
 		else {
-			$fieldset->addField('store_id', 'hidden', array(
-				'name' => 'stores[]',
+			$fieldset->addField('store_ids', 'hidden', array(
+				'name' => 'store_ids[]',
 				'value' => Mage::app()->getStore(true)->getId(),
 			));
 			

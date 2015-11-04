@@ -5,9 +5,9 @@
 			<active>true</active>
 			<codePool>community</codePool>
 		</Fishpig_AttributeSplash>
-		<Fishpig_FPAdmin>
+		<Fishpig_AttributeSplash_FPAdmin>
 			<active>true</active>
 			<codePool>community</codePool>
-		</Fishpig_FPAdmin>
+		</Fishpig_AttributeSplash_FPAdmin>
 	</modules>
 </config>

@@ -48,4 +48,25 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplashController extends Mage_A
 				$this->getLayout()->createBlock('attributeSplash/adminhtml_page_grid')->toHtml()
 			);
 	}
+	
+	/**
+	 * Display the Extend tab
+	 *
+	 * @return void
+	 */
+	public function extendAction()
+	{
+		$block = $this->getLayout()
+			->createBlock('attributeSplash/adminhtml_extend')
+			->setModule('Fishpig_AttributeSplash')
+			->setMedium('Add-On Tab')
+			->setTemplate('large.phtml')
+			->setLimit(4)
+			->setPreferred(array('Fishpig_CrossLink', 'Fishpig_AttributeSplashPro', 'Fishpig_NoBots'));
+			
+		$this->getResponse()
+			->setBody(
+				$block->toHtml()
+			);
+	}
 }

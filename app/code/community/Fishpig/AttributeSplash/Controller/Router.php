@@ -9,6 +9,13 @@
 class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstract
 {
 	/**
+	 * Cache for request object
+	 *
+	 * @var Zend_Controller_Request_Http
+	 */
+	protected $_request = null;
+
+	/**
 	 * Initialize Controller Router
 	 *
 	 * @param Varien_Event_Observer $observer
@@ -16,6 +23,16 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 	public function initControllerRouters(Varien_Event_Observer $observer)
 	{
 		$observer->getEvent()->getFront()->addRouter('attributeSplash', $this);
+	}
+
+	/**
+	 * Get the request object
+	 *
+	 * @return Zend_Controller_Request_Http
+	 */
+	public function getRequest()
+	{
+		return $this->_request;
 	}
 
     /**
@@ -26,7 +43,6 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
      */
     public function match(Zend_Controller_Request_Http $request)
     {
-
 		$this->_request = $request;
 		
 		if ($this->_match() !== false) {
@@ -49,6 +65,13 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 	protected function _match()
 	{
 		$requestUri = trim($this->_request->getPathInfo(), '/');
+		
+		Mage::dispatchEvent('attributeSplash_match_routes_before', array('router' => $this, 'request_uri' => $requestUri));
+		
+		if ($this->getRequest()->getModuleName() === 'splash') {
+			return true;
+		}
+
 		$isDoubleBarrel = strpos($requestUri, '/') !== false;
 		$includeGroupUrlKey = Mage::getStoreConfigFlag('attributeSplash/page/include_group_url_key');
 		$urlSuffix = rtrim(Mage::getStoreConfig('attributeSplash/seo/url_suffix'), '/');
@@ -72,6 +95,9 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 			list($groupUrlKey, $pageUrlKey) = explode('/', $requestUri);
 			
 			return $this->_loadSplashPage($pageUrlKey, $groupUrlKey);
+		}
+		else if ($includeGroupUrlKey) {
+			return $this->_loadSplashGroup($requestUri);
 		}
 		
 		if ($this->_loadSplashPage($requestUri)) {
@@ -123,7 +149,7 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 		Mage::register('splash_page', $page);
 		Mage::register('splash_group', $page->getSplashGroup());
 		
-		$this->_request->setModuleName('splash')
+		$this->getRequest()->setModuleName('splash')
 			->setControllerName('page')
 			->setActionName('view')
 			->setParam('id', $page->getId())
@@ -151,7 +177,7 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 		
 		Mage::register('splash_group', $group);
 		
-		$this->_request->setModuleName('splash')
+		$this->getRequest()->setModuleName('splash')
 			->setControllerName('group')
 			->setActionName('view')
 			->setParam('id', $group->getId());

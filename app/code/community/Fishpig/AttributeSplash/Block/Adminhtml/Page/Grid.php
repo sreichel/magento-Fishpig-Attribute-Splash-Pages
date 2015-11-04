@@ -125,10 +125,10 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Grid extends Mage_Adminhtml_B
 		));
 
 		if (!Mage::app()->isSingleStoreMode()) {
-			$this->addColumn('store_id', array(
+			$this->addColumn('store_ids', array(
 				'header'	=> $this->__('Store'),
 				'align'		=> 'left',
-				'index'		=> 'store_id',
+				'index'		=> 'store_ids',
                 'type'          => 'store',
                 'store_all'     => true,
                 'store_view'    => true,

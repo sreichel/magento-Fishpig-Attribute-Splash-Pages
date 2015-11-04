@@ -76,12 +76,22 @@ class Fishpig_AttributeSplash_Model_Resource_Group extends Fishpig_AttributeSpla
 			->addIsEnabledFilter();
 
 		if ($group->getStoreId() > 0) {
-			$pages->addStoreIdFilter($group->getStoreId());
+			$pages->addStoreFilter($group->getStoreId());
 		}
 		else if (($storeId = Mage::app()->getStore()->getId()) > 0) {
-			$pages->addStoreIdFilter($storeId);
+			$pages->addStoreFilter($storeId);
 		}
 		
-		return $pages->addAttributeIdFilter($group->getAttributeId());
+		 return $pages->addAttributeIdFilter($group->getAttributeId());
+	}
+
+	/**
+	 * Get the index table name
+	 *
+	 * @return string
+	 */
+	public function getIndexTable()
+	{
+		return $this->getTable('attributeSplash/group_index');
 	}
 }

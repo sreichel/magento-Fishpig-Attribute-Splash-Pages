@@ -58,7 +58,7 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 		}
 		
 		return $this->_getUrl(
-			$this->getAttributeModel()->getAttributeCode()
+			$this->getAttributeModel()->getAttributeCode() . '/'
 		);
 	}
 	
@@ -162,15 +162,15 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 	 */
 	public function isGlobal()
 	{
-		$storeId = $this->_getData('store_id');
-		
-		if (is_array($storeId)) {
-			return count($storeId) === 1
-				? (int)$storeId[0] === 0
-				: false;
+		if ($storeIds = $this->getStoreIds()) {
+			foreach($storeIds as $storeId) {
+				if ((int)$storeId === 0)	{
+					return true;
+				}
+			}
 		}
-
-		return (int)$this->_getData('store_id') === 0;
+		
+		return false;
 	}
 	
 	/**
@@ -182,4 +182,28 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 	{
 		return (int)$this->_getData('include_in_menu') !== 0;
 	}
+	
+	/**
+	 * Get the category used for layered navigation category filters
+	 * 
+	 * @return false|Mage_Catalog_Model_Category
+	 */
+	public function getCategory()
+	{
+		if (!$this->hasCategory()) {
+			$this->setCategory(false);
+
+			if ($this->getCategoryId()) {
+				$category = Mage::getModel('catalog/category')
+					->setStoreId($this->getStoreId())
+					->load($this->getCategoryId());
+					
+				if ($category->getId()) {
+					$this->setCategory($category);
+				}
+			}
+		}
+		
+		return $this->_getData('category');
+	}	
 }

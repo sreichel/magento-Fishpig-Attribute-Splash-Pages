@@ -119,9 +119,16 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_General extends Mage
 		}
 	
 		if ($optionModel = Mage::registry('splash_page_option')) {
-			return array('display_name' => $optionModel->getStoreValue());
+			foreach(array('store_default_value', 'default_value', 'value') as $key) {
+				if (($value = trim($optionModel->getData($key))) !== '') {
+					$displayName = $value;
+					break;
+				}
+			}
+
+			return array('display_name' => $displayName, 'is_enabled' => 1);
 		}
 		
-		return array();
+		return array('is_enabled' => 1);
 	}
 }

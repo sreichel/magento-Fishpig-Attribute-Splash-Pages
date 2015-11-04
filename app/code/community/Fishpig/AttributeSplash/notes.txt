@@ -12,6 +12,9 @@ TODO/BUGS
 - Order products per splash page
 - Look into report that 'Sort By' doesn't work
 
+11/08/2012 - v2.1.0
+- Multiple bug fixes
+
 01/08/2012 - v2.0.25
 - Added option to automatically hide out of sock products and products with no images
 

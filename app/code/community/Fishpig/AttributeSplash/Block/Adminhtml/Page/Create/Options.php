@@ -35,7 +35,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Create_Options extends Mage_A
 			->getOptionCollectionByAttributeId($this->getRequest()->getParam('attribute_id'));
 
 		$this->setCollection($collection);
-	
+
 		return parent::_prepareCollection();
 	}
 	
@@ -56,7 +56,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Create_Options extends Mage_A
 			'header'		=> $this->__('Default Value'),
 			'align'			=> 'left',
 			'index'			=> 'default_value',
-			'filter_index'	=> 'store_default_value.value',
+			'filter_index'	=> 'tdv.value',
 		));
 
 		return parent::_prepareColumns();

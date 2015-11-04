@@ -7,6 +7,9 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+16/09/2011 - v2.0.5
+- Fixed issue which forced AttributeSplash config page to become first config page
+
 16/09/2011 - v2.0.4
 - Moved config section into FishPig tab
 - Moved menu item into it's own tab following complaints of being unable to find the links

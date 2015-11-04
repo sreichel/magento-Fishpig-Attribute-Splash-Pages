@@ -7,6 +7,9 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+14/03/2013 - v2.2.0.4
+- Removed setSaveParametersInSession
+
 11/03/2013 - v2.2.0.3
 - Fix meta issue
 

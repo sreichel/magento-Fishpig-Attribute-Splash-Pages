@@ -15,7 +15,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Grid extends Mage_Adminhtml_B
 		$this->setId('splash_grid');
 //		$this->setDefaultSort();
 //		$this->setDefaultDir();
-		$this->setSaveParametersInSession(true);
+		$this->setSaveParametersInSession(false);
 		$this->setUseAjax(true);
 	}
 	

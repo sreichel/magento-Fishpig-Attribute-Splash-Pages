@@ -79,7 +79,7 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 		$update->addHandle('attributesplash_page_view_' . $splashPage->getAttributeModel()->getAttributeCode());
 
 		$this->loadLayoutUpdates();
-		
+
 		$update->addUpdate($splashPage->getLayoutUpdateXml());
 
 		$this->generateLayoutXml()->generateLayoutBlocks();

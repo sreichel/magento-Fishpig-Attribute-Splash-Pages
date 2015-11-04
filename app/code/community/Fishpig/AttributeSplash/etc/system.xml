@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <attributeSplash>
+            <label>Attribute Splash Pages</label>
+            <tab>catalog</tab>
+            <sort_order>990</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+            	<frontend>
+            		<label>Splash Pages</label>
+            		<sort_order>6</sort_order>
+            		<show_in_default>1</show_in_default>
+            		<show_in_website>1</show_in_website>
+            		<show_in_store>1</show_in_store>
+            		<fields>
+            			<template>
+            				<label>Template</label>
+            				<frontend_type>select</frontend_type>
+            				<source_model>attributeSplash/system_config_source_layout</source_model>
+            				<sort_order>1</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</template>
+            			<navigation>
+            				<label>Navigation</label>
+            				<frontend_type>select</frontend_type>
+            				<source_model>attributeSplash/system_config_source_navigation</source_model>
+            				<sort_order>6</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</navigation>
+            			<navigation_container>
+            				<label>Navigation Container</label>
+            				<frontend_type>text</frontend_type>
+							<comment>Enter the parent block name of your navigation block. This value is usually 'left' or 'right', however you can enter a custom block name if your template uses one.</comment>
+            				<sort_order>11</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</navigation_container>
+            			<navigation_template>
+            				<label>Navigation Template</label>
+            				<comment>Leave this empty to use the default template (.phtml) file. You should enter the path and filename relative from the template directory (eg. catalog/layer/view.phtml)</comment>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>16</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</navigation_template>
+            			<grid_column_count>
+            				<label>Column Count</label>
+            				<comment>Number of products per row</comment>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>31</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<validate>validate-number required-entry</validate>
+            			</grid_column_count>
+            		</fields>
+            	</frontend>
+            	<list_page>
+            		<label>Splash List Pages</label>
+					<sort_order>11</sort_order>
+            		<show_in_default>1</show_in_default>
+            		<show_in_website>1</show_in_website>
+            		<show_in_store>1</show_in_store>
+            		<fields>
+            			<enabled>
+            				<label>Enabled</label>
+            				<comment>If disabled, pages will not be created to list all splash pages under a specific attribute (eg. manufactuer.html)</comment>
+            				<frontend_type>select</frontend_type>
+            				<source_model>adminhtml/system_config_source_yesno</source_model>
+            				<sort_order>51</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</enabled>
+            			<template>
+            				<label>Template</label>
+            				<frontend_type>select</frontend_type>
+            				<source_model>attributeSplash/system_config_source_layout</source_model>
+            				<sort_order>56</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<depends><enabled>1</enabled></depends>
+            			</template>
+            			<display_mode>
+            				<label>Display Mode</label>
+            				<comment>Simple mode lists only splash page names</comment>
+            				<frontend_type>select</frontend_type>
+            				<source_model>attributeSplash/system_config_source_attribute_mode</source_model>
+            				<sort_order>61</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<depends><enabled>1</enabled></depends>
+            			</display_mode>
+            			<grid_per_page>
+            				<label>Items Per Page</label>
+            				<comment>Enter 0 to display all splash pages on 1 page</comment>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>66</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<validate>validate-number required-entry</validate>
+            				<depends><enabled>1</enabled><display_mode>1</display_mode></depends>
+            			</grid_per_page>
+            			<list_per_page>
+            				<label>Items Per Page</label>
+            				<comment>Enter 0 to display all splash pages on 1 page</comment>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>66</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<validate>validate-number required-entry</validate>
+            				<depends><enabled>1</enabled><display_mode>2</display_mode></depends>
+            			</list_per_page>
+            			<simple_per_page>
+            				<label>Items Per Page</label>
+            				<comment>Enter 0 to display all splash pages on 1 page</comment>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>66</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<validate>validate-number required-entry</validate>
+            				<depends><enabled>1</enabled><display_mode>3</display_mode></depends>
+            			</simple_per_page>
+            			<grid_column_count>
+            				<label>Column Count</label>
+            				<comment>Number of Splash pages per row</comment>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>71</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<validate>validate-number required-entry</validate>
+            				<depends><enabled>1</enabled><display_mode>1</display_mode></depends>
+            			</grid_column_count>
+            		</fields>
+            	</list_page>
+            	<seo>
+            		<label>Search Engine Optimizations</label>
+            		<sort_order>21</sort_order>
+            		<show_in_default>1</show_in_default>
+            		<show_in_website>1</show_in_website>
+            		<show_in_store>1</show_in_store>
+            		<fields>
+            			<url_suffix>
+            				<label>URL Suffix</label>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>6</sort_order>
+            				<show_in_default>1</show_in_default>
+            			</url_suffix>
+            			<use_canonical>
+            				<label>Use Canonical Link Meta</label>
+            				<frontend_type>select</frontend_type>
+            				<source_model>adminhtml/system_config_source_yesno</source_model>
+            				<sort_order>16</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</use_canonical>
+            		</fields>
+            	</seo>
+            </groups>
+        </attributeSplash>
+    </sections>
+</config>

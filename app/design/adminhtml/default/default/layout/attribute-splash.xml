@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<layout>
+
+	<attributesplash_adminhtml_splash_page_index>
+		<reference name="left">
+			<block type="attributeSplash/adminhtml_splash_page_grid_tabs" name="attributeSplash.grid.tabs"/>
+		</reference>
+		<reference name="content">
+			<block type="attributeSplash/adminhtml_splash_page" name="attributeSplash.splash_page"/>
+		</reference>
+	</attributesplash_adminhtml_splash_page_index>
+	
+	<attributesplash_adminhtml_splash_page_new>
+		<reference name="left">
+			<block type="attributeSplash/adminhtml_splash_page_new_tabs" name="attributeSplash.new.tabs"/>
+		</reference>
+		<reference name="content">
+			<block type="attributeSplash/adminhtml_splash_page_new" name="attributeSplash.new">
+				<block type="attributeSplash/adminhtml_splash_page_new_form" name="form"/>
+			</block>
+			<block type="attributeSplash/adminhtml_template" name="attributeSplash.new.js" after="-" template="attribute-splash/new/js.phtml"/>
+		</reference>
+	</attributesplash_adminhtml_splash_page_new>
+	
+	<attributesplash_adminhtml_splash_page_edit>
+		<reference name="left">
+			<block type="attributeSplash/adminhtml_splash_page_edit_tabs" name="attributeSplash.edit.tabs"/>
+		</reference>
+		<reference name="content">
+			<block type="attributeSplash/adminhtml_splash_page_edit" name="attributeSplash.edit">
+				<block type="attributeSplash/adminhtml_splash_page_edit_form" name="form"/>
+			</block>
+		</reference>
+	</attributesplash_adminhtml_splash_page_edit>
+	
+</layout>

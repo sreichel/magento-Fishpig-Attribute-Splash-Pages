@@ -28,7 +28,7 @@ class Fishpig_AttributeSplash_Model_Layer_Filter_Item extends Mage_Catalog_Model
 						);
 						
 						if ($_category = Mage::registry('current_category')) {
-							if ($_category->getId() !== ) {
+							if ($_category->getId() !== $this->getSplashCategoryId()) {
 								$query['cat'] = $_category->getId();
 							}
 						}

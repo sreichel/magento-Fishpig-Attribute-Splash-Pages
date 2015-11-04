@@ -12,6 +12,9 @@ TODO/BUGS
 - Order products per splash page
 - Look into report that 'Sort By' doesn't work
 
+21/06/2012 - v2.0.20
+- Bug fixes
+
 21/06/2012 - v2.0.19
 - Fixed issue with category filters when selecting splash layered navigation link
 

@@ -62,7 +62,8 @@ class Fishpig_AttributeSplash_Block_Catalog_Product_View_Attributes extends Mage
 	protected function _getOptionIds($product, $attributeCode)
 	{
 		$attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $attributeCode);
-		
+		$optionIds = array();
+
 		if ($attribute->getFrontendInput() == 'multiselect') {
 			$optionIds = explode(',', $product->getData($attributeCode));
 		}

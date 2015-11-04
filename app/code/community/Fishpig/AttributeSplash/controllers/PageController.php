@@ -110,8 +110,8 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 		$splashPage = Mage::getModel('attributeSplash/page')
 			->setStoreId(Mage::app()->getStore()->getId())
 			->load((int) $this->getRequest()->getParam('id', false));
-
-		if (!$splashPage->getIsEnabled() || !$splashPage->getSplashGroup()) {
+		
+		if (!$splashPage->canDisplay()) {
 			return false;
 		}
 		

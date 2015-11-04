@@ -7,6 +7,7 @@
  */
 
 	$this->startSetup();
+	
 
 	$this->getConnection()->addColumn($this->getTable('attributesplash_page'), 'page_layout', " varchar(32) default NULL AFTER layout_update_xml");
 	$this->getConnection()->addColumn($this->getTable('attributesplash_group'), 'page_layout', " varchar(32) default NULL AFTER layout_update_xml");

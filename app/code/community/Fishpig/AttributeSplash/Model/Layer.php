@@ -9,19 +9,14 @@
 class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer 
 {
 	/**
-	 * Retrieve the current category
+	 * Retrieve the current category for use when generating product collections
+	 * As we are using splash pages and not categories, this returns the splash page
 	 *
-	 * @return Mage_Catalog_Model_Category
+	 * @return false|Fishpig_AttributeSplashPro_Model_Page
 	 */
 	public function getCurrentCategory()
-	{	
-		if (!$this->hasCurrentCategory()) {
-			if ($category = $this->getSplashPage()->getCategory()) {
-				$this->setData('current_category', $category);
-			}
-		}
-
-		return parent::getCurrentCategory();
+	{
+		return $this->getSplashPage();
 	}
 
 	/**
@@ -32,63 +27,13 @@ class Fishpig_AttributeSplash_Model_Layer extends Mage_Catalog_Model_Layer
 	 */
 	public function getSplashPage()
 	{
-		if ($page = Mage::registry('splash_page')) {
+		if (($page = Mage::registry('splash_page')) !== null) {
+			$page->setChildrenCategories(array());
+
 			return $page;
 		}
 		
 		return false;
-	}
-
-	/**
-	 * Get the state key for caching
-	 *
-	 * @return string
-	 */
-	 public function getStateKey()
-	 {
-		if ($this->_stateKey === null) {
-			$this->_stateKey = 'STORE_'.Mage::app()->getStore()->getId()
-				. '_SPLASH_' . $this->getSplashPage()->getId()
-				. '_CUSTGROUP_' . Mage::getSingleton('customer/session')->getCustomerGroupId();
-			}
-
-		return $this->_stateKey;
-	}
-
-	/**
-	 * Get default tags for current layer state
-	 *
-	 * @param   array $additionalTags
-	 * @return  array
-	*/
-	public function getStateTags(array $additionalTags = array())
-	{
-		$additionalTags = array_merge($additionalTags, array(
-			Mage_Catalog_Model_Category::CACHE_TAG.$this->getSplashPage()->getId()
-		));
-	
-		return $additionalTags;
-	}
-
-	/**
-	 * Retrieve the product collection for the Splash Page
-	 *
-	 * @return
-	 */
-	 public function getProductCollection()
-	 {
-		 $key = 'splash_' . $this->getSplashPage()->getId();
-
-		if (isset($this->_productCollections[$key])) {
-			$collection = $this->_productCollections[$key];
-		}
-		else {
-			$collection = $this->getSplashPage()->getProductCollection();
-			$this->prepareProductCollection($collection);
-			$this->_productCollections[$key] = $collection;
-		}
-
-		return $collection;
 	}
 
 	/**

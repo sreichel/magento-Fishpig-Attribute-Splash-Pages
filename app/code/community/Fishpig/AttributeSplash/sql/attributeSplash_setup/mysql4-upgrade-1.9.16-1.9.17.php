@@ -14,6 +14,8 @@
 	 */
 	$this->run("
 
+		-- DROP TABLE IF EXISTS {$this->getTable('attributesplash_group')};
+
 		CREATE TABLE IF NOT EXISTS {$this->getTable('attributesplash_group')} (
 			`group_id` int(11) unsigned NOT NULL auto_increment,
 			`attribute_id` smallint(5) unsigned NOT NULL default 0,

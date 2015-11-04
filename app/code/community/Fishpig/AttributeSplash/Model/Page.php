@@ -130,13 +130,4 @@ class Fishpig_AttributeSplash_Model_Page extends Fishpig_AttributeSplash_Model_A
 		
 		return $this->getData('splash_group');
 	}
-	
-	public function getCategory()
-	{
-		if (($category = parent::getCategory()) !== false) {
-			return $category;
-		}
-		
-		return $this->getSplashGroup()->getCategory();
-	}
 }

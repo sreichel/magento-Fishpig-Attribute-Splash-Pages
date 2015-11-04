@@ -30,5 +30,5 @@
 		$this->endSetup();
 	}
 	catch (Exception $e) {
-		Mage::logException($e);
+		Mage::logExpcetion($e);
 	}

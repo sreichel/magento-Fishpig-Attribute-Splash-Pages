@@ -112,7 +112,7 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 	 */
 	public function getSplashPageProductsPerRow()
 	{
-		return Mage::getStoreConfig('attributeSplash/page/column_count');
+		return Mage::getStoreConfig('attributeSplash/frontend/grid_column_count');
 	}
 	
 	/**

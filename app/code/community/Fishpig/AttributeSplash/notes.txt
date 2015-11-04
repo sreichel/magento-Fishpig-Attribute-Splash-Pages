@@ -6,51 +6,6 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
-02/01/2014 - v3.0.10.0
-- Added support for XML Sitemap addon: http://fishpig.co.uk/magento/extensions/attribute-splash-pages/xml-sitemap/
-
-19/12/2013 - v3.0.9.0
-- Fixed WYSIWYG editor image problem
-
-17/12/2013 - v3.0.8.0
-- Fixed SQL installation issues
-
-14/12/2013 - v3.0.6.0
-- Added column_count back in for pages
-
-13/12/2013 - v3.0.5.0
-- Added category filters back into layered navigation
-
-13/12/2013 - v3.0.4.0
-- Fixed multiple Adminhtml issues
-
-12/12/2013 - v3.0.3.0
-- Fixed install issue
-
-02/12/2013 - v3.0.2.0
-- Added indexes so that page/groups display for correct scope always
-
-02/12/2013 - v3.0.1.9
-- Fixed Group and Page ordering issue
-
-29/11/2013 - v3.0.1.8
-- Fixed page creation bug
-
-27/11/2013 - v3.0.1.7
-- Fixed multiple bugs
-
-26/11/2013 - v3.0.1.4
-- Fixed Group issue
-
-25/11/2013 - v3.0.1.1
-- Fixed canDisplay() problem
-
-23/11/2013 - v3.0.1.0
-- Added support for FPAdmin
-
-22/11/2013 - v3.0.0.10
-- Fixed mysql install issue
-
 21/11/2013 - v3.0.0.9
 - Added support for FPAdmin
 

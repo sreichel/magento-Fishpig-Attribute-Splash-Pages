@@ -17,35 +17,6 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Collection_Abstract extend
 		$this->_map['fields'][$this->getResource()->getIdFieldName()] = 'main_table.' . $this->getResource()->getIdFieldName();
 		$this->_map['fields']['store'] = 'store_table.store_id';
 	}
-
-	/**
-	 * Init collection select
-	 *
-	 * @return Mage_Core_Model_Resource_Collection_Abstract
-	*/
-	protected function _initSelect()
-	{
-		$this->getSelect()->from(array('main_table' => $this->getResource()->getMainTable()));
-		
-		$idFieldName = $this->getResource()->getIdFieldName();
-
-		if ((int)Mage::app()->getStore()->getId() !== 0) {
-			$this->getSelect()
-				->join(array('store_table' => $this->getResource()->getIndexTable()),
-				'main_table.' . $idFieldName . ' = store_table.' . $idFieldName,
-				array()
-			);
-		}
-		else {
-			$this->getSelect()->join(
-				array('store_table' => $this->getResource()->getStoreTable()),
-				'main_table.' . $idFieldName . ' = store_table.' . $idFieldName,
-				array()
-			)->group('main_table.' . $idFieldName);
-		}
-			
-		return $this->getSelect();	
-	}
 	
 	/**
 	 * Add a store filter
@@ -67,21 +38,73 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Collection_Abstract extend
 	*/
 	public function addStoreFilter($store, $withAdmin = true)
 	{
-		if ($store instanceof Mage_Core_Model_Store) {
-			$store = array($store->getId());
+		if (!$this->getFlag('store_filter_added')) {
+			if ($store instanceof Mage_Core_Model_Store) {
+				$store = array($store->getId());
+			}
+	
+			if (!is_array($store)) {
+				$store = array($store);
+			}
+	
+			if ($withAdmin) {
+				$store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
+			}
+	
+			$this->addFilter('store', array('in' => $store), 'public');
 		}
 
-		if (!is_array($store)) {
-			$store = array($store);
-		}
-
-		if ($withAdmin) {
-			$store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
-		}
-		
-		return $this->addFieldtoFilter('store_table.store_id', array('in' => $store));
+		return $this;
 	}
 
+	/**
+	 * Join store relation table if there is store filter
+	 *
+	 * @return $this
+	*/
+	protected function _renderFiltersBefore()
+	{
+		if ($this->getFilter('store')) {
+			$idFieldName = $this->getResource()->getIdFieldName();
+			
+			$this->getSelect()->join(
+				array('store_table' => $this->getResource()->getStoreTable()),
+				'main_table.' . $idFieldName . ' = store_table.' . $idFieldName,
+				array()
+			)->group('main_table.' . $idFieldName);
+
+			$filter = $this->getFilter('store');
+		}
+
+
+		return parent::_renderFiltersBefore();
+	}
+	
+	protected function _afterLoad()
+	{
+		$uniques = array();
+		$uniqueField = $this->getResource()->getUniqueFieldName();
+		
+		foreach($this->getItems() as $key => $item) {
+			if ($value = $item->getData($uniqueField)) {
+				if (!isset($uniques[$value])) {
+					$uniques[$value] = $item;
+				}
+				else {
+					if ($uniques[$value]->isGlobal()) {
+						$this->removeItemByKey($uniques[$value]->getId());
+						$uniques[$value] = $item;
+					}
+					else if ($item->isGlobal()) {
+						$this->removeItemByKey($item->getId());
+					}
+				}
+			}
+		}
+		
+		return parent::_afterLoad();
+	}
+	
 	/**
 	 * Filter the collection by attribute Code
 	 *

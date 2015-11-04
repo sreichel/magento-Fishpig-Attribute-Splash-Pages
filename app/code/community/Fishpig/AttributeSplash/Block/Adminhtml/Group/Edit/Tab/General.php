@@ -50,19 +50,9 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_General extends Fis
 			'disabled' => !is_null(Mage::registry('splash_group')),
 		));
 		
-		$fieldset->addField('category_id', 'text', array(
-			'name' => 'category_id',
-			'label' => $this->__('Category ID'),
-			'title' => $this->__('Category ID'),
-			'note' => $this->__('Used to populate category filters in the layered navigation'),
-		));
-		
-		$group = Mage::registry('splash_group');
-		
-
-		if (!Mage::app()->isSingleStoreMode() && (!$group || !$group->isGlobal())) {
-			$field = $fieldset->addField('store_ids', 'multiselect', array(
-				'name' => 'store_ids[]',
+		if (!Mage::app()->isSingleStoreMode()) {
+			$field = $fieldset->addField('store_id', 'multiselect', array(
+				'name' => 'stores[]',
 				'label' => Mage::helper('cms')->__('Store View'),
 				'title' => Mage::helper('cms')->__('Store View'),
 				'required' => true,
@@ -70,19 +60,19 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_General extends Fis
 			));
 
 			$renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
-
+			
 			if ($renderer) {
 				$field->setRenderer($renderer);
 			}
 		}
 		else {
-			$fieldset->addField('store_ids_hidden', 'hidden', array(
-				'name' => 'store_ids[]',
+			$fieldset->addField('store_id', 'hidden', array(
+				'name' => 'stores[]',
 				'value' => Mage::app()->getStore(true)->getId(),
 			));
 			
-			if (($group = Mage::registry('splash_group')) !== null) {
-				$group->setStoreId(Mage::app()->getStore(true)->getId());
+			if (($page = Mage::registry('splash_page')) !== null) {
+				$page->setStoreId(Mage::app()->getStore(true)->getId());
 			}
 		}
 

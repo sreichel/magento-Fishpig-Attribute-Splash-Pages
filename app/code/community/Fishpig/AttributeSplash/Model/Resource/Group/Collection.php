@@ -25,7 +25,7 @@ class Fishpig_AttributeSplash_Model_Resource_Group_Collection extends Fishpig_At
 	*/
 	protected function _initSelect()
 	{
-		parent::_initSelect();
+		$this->getSelect()->from(array('main_table' => $this->getResource()->getMainTable()));
 		
 		$this->getSelect()->join(
 				array('_attribute_table' => $this->getTable('eav/attribute')),

@@ -19,7 +19,6 @@ class Fishpig_AttributeSplash_Model_Observer
 		if (Mage::getStoreConfigFlag('attributeSplash/navigation/enabled')) {
 			$groups = Mage::getResourceModel('attributeSplash/group_collection')
 				->addStoreFilter(Mage::app()->getStore()->getId())
-				->addOrderByName()
 				->load();
 				
 			$this->_injectLinks($groups, $observer->getEvent()->getMenu());
@@ -48,7 +47,7 @@ class Fishpig_AttributeSplash_Model_Observer
 
 			$children = $item->getSplashPages();
 			
-			if ($children && count($children->addOrderByName()->addFieldToFilter('include_in_menu', 1)->load()) === 0) {
+			if ($children && count($children->addFieldToFilter('include_in_menu', 1)->load()) === 0) {
 				continue;
 			}
 

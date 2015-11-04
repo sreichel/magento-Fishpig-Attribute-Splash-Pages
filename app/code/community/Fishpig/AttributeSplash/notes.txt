@@ -8,6 +8,9 @@
 # Donations:		http://www.amazon.co.uk/registry/wishlist/3AVRJAF921488
 ##
 
+26/07/2011 - v2.0.2
+- Added the layout_update_xml field to the group pages
+- Added is_featured field to splash page
 
 23/07/2011 - v2.0.1
 - Added fix to stop layered navigation links being injected when on the search results page

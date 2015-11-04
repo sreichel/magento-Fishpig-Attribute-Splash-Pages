@@ -72,6 +72,16 @@
             				<show_in_store>1</show_in_store>
             				<validate>validate-number required-entry</validate>
             			</grid_column_count>
+            			<default_category_id>
+            				<label>Default Category ID</label>
+            				<comment>Enter the category ID that you want to use to populate your splash pages. If left empty, the store's default category will be used.</comment>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>91</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<validate>validate-number</validate>
+            			</default_category_id>
             		</fields>
             	</frontend>
             	<list_page>

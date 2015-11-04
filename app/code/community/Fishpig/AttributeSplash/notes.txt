@@ -9,6 +9,10 @@
 ##
 
 
+23/07/2011 - v2.0.1
+- Added fix to stop layered navigation links being injected when on the search results page
+- Added config option for custom category ID. This allows you to use a custom category to populate splash pages instead of the default
+
 08/07/2011 - v2.0.0
 - Fixed missing attribute in page collection
 - Added backgroundColor(array) function to Image helper
@@ -30,4 +34,4 @@
 - Added group (list) functionality. This allows you to create custom pages to list splash pages on a per attribute basis.
 
 31/06/2011 - v1.9.5
-- Rewritten whole module. Includes same functionality, however is now more flexible and can easily accept new features
+- Rewritten whole extension. Includes same functionality, however is now more flexible and can easily accept new features

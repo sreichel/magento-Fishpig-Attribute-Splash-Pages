@@ -16,7 +16,7 @@ class Fishpig_AttributeSplash_Model_Layer_Filter_Item extends Mage_Catalog_Model
 	public function getUrl()
 	{
 		if (Mage::getStoreConfig('attributeSplash/frontend/inject_links')) {
-			if (!Mage::registry('splash_page')) {
+			if (!Mage::registry('splash_page') && !$this->isSearchPage()) {
 				if (Mage::helper('attributeSplash')->splashPageExists($this->getValue(), Mage::app()->getStore()->getId())) {
 	
 					$splashPage = Mage::getModel('attributeSplash/page')->loadByOptionId($this->getValue());
@@ -34,5 +34,16 @@ class Fishpig_AttributeSplash_Model_Layer_Filter_Item extends Mage_Catalog_Model
 		}
 
 		return parent::getUrl();
+	}
+	
+	/**
+	 * Determine whether the current page is the search page
+	 * If so, do not inject links
+	 *
+	 * @return bool
+	 */
+	public function isSearchPage()
+	{
+		return in_array('catalogsearch_result_index', Mage::getSingleton('core/layout')->getUpdate()->getHandles());
 	}
 }

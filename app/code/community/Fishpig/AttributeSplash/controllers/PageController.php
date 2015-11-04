@@ -105,7 +105,13 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 	 */
 	protected function _getStoresDefaultCategory()
 	{
-		$category = Mage::getModel('catalog/category')->load(Mage::app()->getStore()->getRootCategoryId());
+		$categoryId = Mage::getStoreConfig('attributeSplash/frontend/default_category_id');
+		
+		if (!$categoryId) {
+			$categoryId = Mage::app()->getStore()->getRootCategoryId();
+		}
+
+		$category = Mage::getModel('catalog/category')->load($categoryId);
 		
 		if ($category->getId()) {
 			if ($splash = Mage::registry('splash_page')) {

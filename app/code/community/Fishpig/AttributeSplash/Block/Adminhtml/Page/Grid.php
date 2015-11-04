@@ -77,8 +77,8 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Grid extends Mage_Adminhtml_B
 			'index'		=> 'is_enabled',
 			'type'		=> 'options',
 			'options'	=> array(
-				$this->__('Disabled'),
-				$this->__('Enabled'),
+				1 => $this->__('Enabled'),
+				0 => $this->__('Disabled'),
 			),
 		));
 	

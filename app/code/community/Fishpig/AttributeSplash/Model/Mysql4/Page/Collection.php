@@ -19,6 +19,7 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 	{
 		$this->_init('attributeSplash/page');
 	}
+
 	
 	/**
 	 * Add attribute data to the collection
@@ -68,6 +69,29 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page_Collection extends Mage_Core_Mod
 	{
 		$this->addAttributeOptionData();
 		$this->getSelect()->where('`_attribute_table`.`attribute_code` = ?', $attributeCode);
+
+		return $this;
+	}
+	
+	/**
+	 * Filter the collection by a product ID
+	 *
+	 * @param Mage_Catalog_Model_Product $product
+	 */
+	public function addProductFilter(Mage_Catalog_Model_Product $product)
+	{
+		$storeId = Mage::app()->getStore()->getId();
+		
+		$this->addAttributeOptionData();
+		$this->getSelect()
+			->join(
+				array('_product_filter' => $this->getTable('catalog/product_index_eav')),
+				"`_product_filter`.`attribute_id`= `_attribute_table`.`attribute_id`"
+				. $this->getConnection()->quoteInto(" AND `_product_filter`.`value` = `main_table`.`option_id`")
+				. $this->getConnection()->quoteInto(" AND `_product_filter`.`entity_id` = ?", $product->getId())
+				. $this->getConnection()->quoteInto(" AND `_product_filter`.`store_id`=? ", $storeId),
+				''
+			);
 
 		return $this;
 	}

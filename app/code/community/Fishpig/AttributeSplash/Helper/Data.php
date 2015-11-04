@@ -99,7 +99,38 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 		
 		return false;
 	}
-	
+
+	/**
+	 * Retrieve a splash page for the product / attribute code combination
+	 *
+	 * @param Mage_Catalog_Model_Product $product
+	 * @param $attributeCode
+	 * @return Fishpig_AttributeSplash_Model_Splash|null
+	 */
+	public function getProductSplashPage(Mage_Catalog_Model_Product $product, $attributeCode)
+	{
+		$key = $attributeCode . '_splash_page';
+		
+		if (!$product->hasData($key)) {
+			$product->setData($key, false);
+			$collection = Mage::getResourceModel('attributeSplash/page_collection')
+				->addAttributeCodeFilter($attributeCode)
+				->addProductFilter($product);
+			
+			$collection->load();
+			
+			if ($collection->count() >= 1) {
+				$splash = $collection->getFirstItem();
+				
+				if ($splash->getId()) {
+					$product->setData($key, $splash);
+				}
+			}
+		}
+		
+		return $product->getData($key);
+	}
+
 	/**
 	 * Determine whether to display canonical meta tag
 	 *

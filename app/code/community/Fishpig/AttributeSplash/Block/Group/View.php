@@ -17,7 +17,6 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 	 */
 	public function getSplashGroup()
 	{
-
 		if (!$this->hasSplashGroup()) {
 			$this->setSplashGroup(false);
 			
@@ -43,7 +42,6 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 		}
 		
 		return $this->_splashPages;
-	
 	}
 	
 	/**

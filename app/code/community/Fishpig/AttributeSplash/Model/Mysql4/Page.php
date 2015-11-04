@@ -106,8 +106,24 @@ class Fishpig_AttributeSplash_Model_Mysql4_Page extends Fishpig_AttributeSplash_
 		$collection->addAttributeToFilter('visibility', array('in' => array(2, 4)));
 		$collection->addAttributeToFilter('status', 1);
 		
+		if (Mage::getStoreConfigFlag('attributeSplash/product/hide_out_of_stock', $page->getStoreId())) {
+			Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($collection);
+		}
+		
+		if (Mage::getStoreConfigFlag('attributeSplash/product/hide_no_image', $page->getStoreId())) {
+			$imageAttributeCode = Mage::getStoreConfigFlag('attributeSplash/product/image_attribute_code', $page->getStoreId());
+			
+			if ($imageAttributeCode) {
+				$collection->addAttributeToFilter($imageAttributeCode, array(
+					'notnull' => '',
+					'nteq' => ''
+				));
+			}
+		}
+		
 		return $collection;
 	}
+	
 	
 	protected function _afterSave(Mage_Core_Model_Abstract $object)
 	{

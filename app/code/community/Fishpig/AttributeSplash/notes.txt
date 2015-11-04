@@ -8,6 +8,9 @@
 # Donations:		http://www.amazon.co.uk/registry/wishlist/3AVRJAF921488
 ##
 
+31/06/2011 - v1.9.19
+- Added improvements to layered navigation URL integration
+
 31/06/2011 - v1.9.18
 - Added small fix for Mysql4 install
 

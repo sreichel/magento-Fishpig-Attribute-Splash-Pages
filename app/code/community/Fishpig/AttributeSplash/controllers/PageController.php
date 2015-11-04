@@ -79,7 +79,7 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 			return false;
 		}
 		
-		$splashPage = Mage::getModel('attributeSplash/page')->load($splashPageId);
+		$splashPage = Mage::getModel('attributeSplash/page')->setStoreId(Mage::app()->getStore()->getId())->load($splashPageId);
 		
 		if (!$splashPage->canDisplay()) {
 			return false;

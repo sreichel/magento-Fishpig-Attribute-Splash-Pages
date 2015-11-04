@@ -1,68 +1,31 @@
-fishpig EULA
-http://fishpig.co.uk
+FishPig END USER LICENSE AGREEMENT (EULA)
 
-THIS LICENSE AGREEMENT (HEREINAFTER AGREEMENT) IS AN AGREEMENT BETWEEN YOU (THE
-PERSON OR COMPANY WHO IS BEING LICENSED TO USE THE SOFTWARE OR DOCUMENTATION)
-AND AHEADWORKS CO. (HEREINAFTER WE/US/OUR). THE AGREEMENT APPLIES TO ALL
-PRODUCTS/SOFTWARE/SCRIPTS/SERVICES YOU PURCHASE FROM US.
+- http://fishpig.co.uk/license.txt
 
-1. By using the Software you acknowledge that you have read this Agreement,
-   and that you agree to the content of the Agreement and its terms, and agree
-   to use the Software in compliance with this Agreement.
+This License applies to any program or other work which contains a notice placed by the copyright holder saying it may be distributed under the terms of this license.  The "Program", below, refers to any such program or work, and a "work based on the Program" means either the Program or any derivative work under copyright law: that is to say, a work containing the Program or a portion of it, either verbatim or with  modifications and/or translated into another language.  (Hereinafter, translation is included without limitation in the term "modification".) Each licensee is addressed as "you".
 
-2. The Agreement comes into legal force at the moment when you obtain our
-   Software from our site or receive it through email or on data medium at the
-   our discretion or by any other means.
+Activities other than copying, distribution and modification are not covered by this License; they are outside its scope.  The act of running the Program is not restricted, and the output from the Program is covered only if its contents constitute a work based on the Program (independent of having been made by running the Program). Whether that is true depends on what the Program does.
 
-3. We are the copyright holder of the Software. The Software or a portion of it
-   is a copyrightable matter and is liable to protection by the law. Any
-   activity that infringes terms of this Agreement violates copyright law and
-   will be prosecuted according to the current law. We reserve the right to
-   revoke the license of any user who is holding an invalid license.
+  1. You may copy and distribute verbatim copies of the Program's source code as you receive it, in any medium, provided that you conspicuously and appropriately publish on each copy an appropriate copyright notice and disclaimer of warranty; keep intact all the notices that refer to this License and to the absence of any warranty; and give any other recipients of the Program a copy of this License along with the Program.
 
-4. This Agreement gives you the right to use the Software on for your own personal 
-   or business use, subject to all other terms of this Agreement. Any commercial 
-   distribution of the Software without our consent is regarded as violation of this
-   Agreement and entails liability, according to the current law.
+  2. You may modify your copy or copies of the Program or any portion of it, thus forming a work based on the Program. This modified program may not be distributed unless meeting the following conditions:
+  
+    a) You have been granted explicit permission from the Licensee to distribute modified copies of the Program.
+    
+    b) You include sufficient and prominent messages explicitly stating that the modified Program is based on the original Program.
+    
+    c) You distribute the modified program under this license; all references to this Licensee and the licensee are retained in their original form.
+    
+  These requirements apply to the modified work as a whole. If identifiable sections of the work are not derived from the original Program and can be considered independent and separate works in themselves, then this license and it's terms do not applu to thosre sections when you distribute them as separate works. But when you distribute the same sections as part of a whole, which is a worked based on the Program, the distribution of the whole must on the terms of this license, the distribution of the whole must be on the terms of this License, whose permissions for other licensees extend to the entire whole, and thus to each and every part regardless of who wrote it. Thus, it is not the intent of this section to claim rights or contest your rights to work written entirely by you; rather, the intent is to exercise the right to control the distribution of derivative or collective works based on the Program. 
 
-5. You may not use any part of the code in whole or part in any other software.
+  In addition, mere aggregation of another work not based on the Program with the Program on a volume of a storage does not bring the other work under the scope of this License.
 
-6. You may not give, sell, distribute, sub-license, rent, lease or lend any
-   portion of the Software or Documentation to anyone. You may not place the
-   Software on a server so that it is accessible via a public network such as
-   the Internet for distribution purposes.
+  4. You may not copy, modify, sublicense, or distribute the Program except as expressly provided under this License.  Any attempt otherwise to copy, modify, sublicense or distribute the Program is void, and will automatically terminate your rights under this License. However, parties who have received copies, or rights, from you under this License will not have their licenses terminated so long as such parties remain in full compliance.
 
-7. You are bound to preserve the copyright information intact, this includes the
-   text/link at bottom.
+  5. You are not required to accept this License, since you have not signed it.  However, nothing else grants you permission to modify or distribute the Program or its derivative works.  These actions are prohibited by law if you do not accept this License.  Therefore, by modifying or distributing the Program (or any work based on the Program), you indicate your acceptance of this License to do so, and all its terms and conditions for copying, distributing or modifying the Program or works based on it.
 
-8. We reserve the right to publish a selected list of users of our Software.
+  6. Each time you redistribute the Program (or any work based on the Program), the recipient automatically receives a license from the original licensor to copy, distribute or modify the Program subject to these terms and conditions.  You may not impose any further restrictions on the recipients' exercise of the rights granted herein. You are not responsible for enforcing compliance by third parties to this License.
 
-9. We will not be liable to you for any damages (including any loss of
-   profits/saving, or incidental or consequential) caused to you, your
-   information and your business arising out of the use or inability to use
-   this Software.
+  7. If, as a consequence of a court judgment or allegation of patent infringement or for any other reason (not limited to patent issues), conditions are imposed on you (whether by court order, agreement or otherwise) that contradict the conditions of this License, they do not excuse you from the conditions of this License.  If you cannot distribute so as to satisfy simultaneously your obligations under this License and any other pertinent obligations, then as a consequence you may not distribute the Program at all.  For example, if a patent license would not permit royalty-free redistribution of the Program by all those who receive copies directly or indirectly through you, then the only way you could satisfy both it and this License would be to refrain entirely from distribution of the Program.
 
-10. We are not liable for prosecution arising from use of the Software against
-    law or for any illegal use.
-
-11. If you fail to use the Software in accordance with the terms and conditions
-    of this License Agreement, it constitutes a breach of the agreement, and
-    your license to use the program is revoked.
-
-12. fishpig reserves the right to change this license agreement at any
-    time and impose its clauses at any given time.
-
-13. License agreement remains effective until terminated. We retain the right to
-    terminate your license to use the Software at any time, if in its sole
-    discretion, you are not abiding by the terms of the Agreement, including,
-    but not limited to, obscuring or removing any link or copyright notice as
-    specified in this agreement. You may terminate it at any time by destroying
-    all copies of the Software. Termination of this Agreement does not bind us
-    to return you the amount spent for purchase of the Software.
-
-14. If you continue to use the Software after fishpig gives you notice
-    of termination of your license, you hereby agree to accept an injunction to
-    enjoin you from its further use and to pay all costs (including but not
-    limited to reasonable attorney fees) to enforce our revocation of your
-    license and any damages suffered by us because of your misuse of
-    the Software.
+For more information on terms set out in this document, email legal@fishpig.co.uk

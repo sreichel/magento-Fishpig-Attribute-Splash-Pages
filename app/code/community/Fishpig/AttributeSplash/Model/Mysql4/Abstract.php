@@ -225,7 +225,8 @@ abstract class Fishpig_AttributeSplash_Model_Mysql4_Abstract extends Mage_Core_M
 	 */
 	public function formatUrlKey($str)
 	{
-		$urlKey = preg_replace('#[^0-9a-z\/]+#i', '-', Mage::helper('catalog/product_url')->format($str));
+		$urlKey = str_replace("'", '', $str);
+		$urlKey = preg_replace('#[^0-9a-z\/]+#i', '-', Mage::helper('catalog/product_url')->format($urlKey));
 		$urlKey = strtolower($urlKey);
 		$urlKey = trim($urlKey, '-');
 		

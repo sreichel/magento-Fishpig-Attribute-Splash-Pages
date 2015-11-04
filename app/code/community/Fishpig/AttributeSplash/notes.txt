@@ -7,6 +7,11 @@
 # Bug Reports:		help@fishpig.co.uk
 ##
 
+02/09/2011 - v2.0.6
+- Added position to page collection to match attribute option position
+- Added fix for URL key formatting which removes apostrophes
+- Changed short_description from varchar to TEXT
+
 16/09/2011 - v2.0.5
 - Fixed issue which forced AttributeSplash config page to become first config page
 

@@ -29,20 +29,20 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_Content extends Fis
 			'files_browser_window_url' => $this->getUrl('adminhtml/cms_wysiwyg_images/index')
 		));
 
-		$fieldset->addField('short_description', 'editor', array(
-			'name' => 'short_description',
-			'label' => $this->helper('adminhtml')->__('Short Description'),
-			'title' => $this->helper('adminhtml')->__('Short Description'),
-			'style' => 'width:100%; height:200px;'
-		));
+		$fields = array(
+			'short_description' => 'Short Description',
+			'description' => 'Description',
+		);
 		
-		$fieldset->addField('description', 'editor', array(
-			'name' => 'description',
-			'label' => $this->helper('adminhtml')->__('Description'),
-			'title' => $this->helper('adminhtml')->__('Description'),
-			'style' => 'width:100%; height:400px;',
-			'config' => $htmlConfig,
-		));
+		foreach($fields as $field => $label) {
+			$fieldset->addField($field, 'editor', array(
+				'name' => $field,
+				'label' => $this->helper('adminhtml')->__($label),
+				'title' => $this->helper('adminhtml')->__($label),
+				'style' => 'width:100%; height:400px;',
+				'config' => $htmlConfig,
+			));
+		}
 
 		$this->getForm()->setValues($this->_getFormData());
 

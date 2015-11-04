@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+20/11/2013 - v3.0.0.5
+- Changed short_description to a HTML editor for groups and pages
+
 20/11/2013 - v3.0.0.4
 - Setting a page layout from the config now works for Groups and Pages
 

@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+02/12/2013 - v3.0.2.0
+- Added indexes so that page/groups display for correct scope always
+
 02/12/2013 - v3.0.1.9
 - Fixed Group and Page ordering issue
 

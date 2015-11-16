@@ -16,6 +16,13 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 	abstract public function getUniqueFieldName();
 	
 	/**
+	 * Retreieve the name of the index table
+	 *
+	 * @return string
+	 */
+	abstract public function getIndexTable();
+	
+	/**
 	 * Retrieve select object for load object data
 	 * This gets the default select, plus the attribute id and code
 	 *
@@ -42,7 +49,7 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 			$select->join(array('store' => $this->getStoreTable()), $cond, '')
 				->order('store.store_id DESC');
 		}
-		
+
 		return $select;
 	}
 
@@ -139,6 +146,8 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 
 				$this->_getWriteAdapter()->insertMultiple($table, $data);
 			}
+			
+			$object->getResource()->reindexAll();
 		}
 	}
 
@@ -160,6 +169,55 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 		}
 		
 		return parent::_afterLoad($object);
+	}
+
+	/**
+	 * Reindex all
+	 *
+	 * @return $this
+	 */
+	public function reindexAll()
+	{
+		$stores = Mage::getResourceModel('core/store_collection')->load();
+		
+		foreach($stores as $store) {
+			$this->reindexAllByStoreId($store->getId());
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Reindex all by store ID
+	 *
+	 * @param int $storeId
+	 * @return $this
+	 */
+	public function reindexAllByStoreId($storeId)
+	{	
+		$this->_getWriteAdapter()->delete($this->getIndexTable(), $this->_getWriteAdapter()->quoteInto('store_id=?', $storeId));
+			
+		$subselect = $this->_getReadAdapter()
+			->select()
+			->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName(), $this->getUniqueFieldName()))
+			->join(
+				array('_store' => $this->getStoreTable()),
+				'_store.' . $this->getIdFieldName() . '=main_table.' . $this->getIdFieldName(),
+				''
+			)
+			->where('_store.store_id IN (?)', array($storeId, 0))
+			->order('store_id DESC');
+
+		$select = $this->_getReadAdapter()->select()
+			->from(array('main_table' => new Zend_Db_Expr('(' . (string)$subselect . ')')), $this->getIdFieldName())
+			->columns(array('store_id' => new Zend_Db_Expr("'" . $storeId . "'")))
+			->group($this->getUniqueFieldName());
+		
+		if ($objectIds = $this->_getReadAdapter()->fetchAll($select)) {
+			$this->_getWriteAdapter()->insertMultiple($this->getIndexTable(), $objectIds);
+		}
+		
+		return $this;
 	}
 
 	/**

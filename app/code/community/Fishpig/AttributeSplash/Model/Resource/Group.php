@@ -82,6 +82,16 @@ class Fishpig_AttributeSplash_Model_Resource_Group extends Fishpig_AttributeSpla
 			$pages->addStoreFilter($storeId);
 		}
 		
-		return $pages->addAttributeIdFilter($group->getAttributeId());
+		 return $pages->addAttributeIdFilter($group->getAttributeId());
+	}
+
+	/**
+	 * Get the index table name
+	 *
+	 * @return string
+	 */
+	public function getIndexTable()
+	{
+		return $this->getTable('attributeSplash/group_index');
 	}
 }

@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>3.0.1.9</version>
+			<version>3.0.2.0</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -26,8 +26,10 @@
 				<entities>
 					<group><table>attributesplash_group</table></group>
 					<group_store><table>attributesplash_group_store</table></group_store>
+					<group_index><table>attributesplash_group_index</table></group_index>
 					<page><table>attributesplash_page</table></page>
 					<page_store><table>attributesplash_page_store</table></page_store>
+					<page_index><table>attributesplash_page_index</table></page_index>
 				</entities>
 			</attributeSplash_resource>
 		</models>
@@ -61,6 +63,13 @@
 				</observers>
 			</controller_front_init_routers>
 		</events>
+		<index>
+			<indexer>
+				<attributeSplash>
+					<model>attributeSplash/indexer</model>
+				</attributeSplash>
+			</indexer>
+		</index>
 	</global>
 	<admin>
 		<routers>

@@ -162,15 +162,15 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 	 */
 	public function isGlobal()
 	{
-		$storeId = $this->_getData('store_id');
-		
-		if (is_array($storeId)) {
-			return count($storeId) === 1
-				? (int)$storeId[0] === 0
-				: false;
+		if ($storeIds = $this->getStoreIds()) {
+			foreach($storeIds as $storeId) {
+				if ((int)$storeId === 0)	{
+					return true;
+				}
+			}
 		}
-
-		return (int)$this->_getData('store_id') === 0;
+		
+		return false;
 	}
 	
 	/**

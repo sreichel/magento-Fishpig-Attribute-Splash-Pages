@@ -32,11 +32,9 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Dashboard extends Mage_Adminhtml_B
 				'active'    => $alias === 'page',
 			));
 		}
-
-		if ($extend = $this->getLayout()->createBlock('fpadmin/adminhtml_extend')) {
-			$html = trim($extend->setTemplate('attribute-splash/extend.phtml')->toHtml());
-			
-			if ($html !== '') {
+/*
+		if ($extend = $this->getLayout()->getBlock('fishpig.extend')) {
+			if (($html = trim($extend->toHtml())) !== '') {
 				$this->addTab('extend', array(
 					'label'     => Mage::helper('catalog')->__('Add-Ons'),
 					'content'   => $html,
@@ -44,5 +42,8 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Dashboard extends Mage_Adminhtml_B
 				));
 			}
 		}
+		*/
+		
+		return parent::_prepareLayout();
 	}
 }

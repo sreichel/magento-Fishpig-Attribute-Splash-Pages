@@ -12,7 +12,13 @@
 					<text><![CDATA[<div class="content-header"><h3>Attribute Splash Pages</h3></div>]]></text>
 				</action>
 			</block>
-			<block type="attributeSplash/adminhtml_dashboard" name="splash.dashboard" />
+			<block type="attributeSplash/adminhtml_dashboard" name="splash.dashboard">
+				<block type="fpadmin/adminhtml_extend" name="fishpig.extend" as="extend">
+					<action method="setTabLabel"><label>Add-Ons</label></action>
+					<action method="setTabUrl"><url>*/*/extend</url></action>
+				</block>	
+				<action method="addTab"><tab_id>extend</tab_id><tab>extend</tab></action>
+			</block>
 			<block type="core/text" name="splash.tabs.content">
 				<action method="setText">
 					<text><![CDATA[

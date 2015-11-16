@@ -5,11 +5,12 @@
  * @author      Ben Tideswell <help@fishpig.co.uk>
  */
 
- 	
+ 	// Required for compiler as this is used in multiple modules
  	if (!defined('__fishpig_extend')) {
  		define('__fishpig_extend');
 
 class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Core_Block_Template
+implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
 	/**
 	 * Tracking string for GA
@@ -25,6 +26,13 @@ class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Core_Block_Template
 	 */
 	 const BASE_URL = 'http://fishpig.co.uk/';
 
+	 /**
+	  * The URL for the S3 bucket for images
+	  *
+	  * @var const string
+	  */
+	 const S3_BUCKET_URL = 'https://s3.amazonaws.com/FishPig-Extend/image/';
+	 
 	/**
 	 * Cache for all available extensions
 	 *
@@ -32,6 +40,16 @@ class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Core_Block_Template
 	 */
 	static protected $_extensions = null;
 	
+	/**
+	 * Retrieve extensions set via XML
+	 *
+	 * @return array
+	 */
+	public function getSelectedExtensions()
+	{
+		return $this->getExtensions($this->getLimit(), $this->getPreferred() ? array_keys($this->getPreferred()) : null);	
+	}
+
 	/**
 	 * Retrieve the available extensions taking into account $count and $pref
 	 *
@@ -177,7 +195,7 @@ class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Core_Block_Template
 	 */
 	public function getImageUrl(array $e)
 	{
-		return 'https://s3.amazonaws.com/FishPig-Extend/image/' . $this->_getField($e, 'image');
+		return self::S3_BUCKET_URL . $this->_getField($e, 'image');
 	}
 	
 	/**
@@ -212,7 +230,139 @@ class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Core_Block_Template
 	{
 		return Mage::app()->getConfig();
 	}
+	
+	/**
+	 * Retrieve the ID
+	 *
+	 * @return string
+	 */
+	public function getId()
+	{
+		if (!$this->_getData('id')) {
+			$this->setId('fp-extend-' . rand(1111, 9999));
+		}
+		
+		return $this->_getData('id');
+	}
+
+	/**
+	 * Retrieve the full path to the template
+	 *
+	 * @return string
+	 */
+    public function getTemplateFile()
+    {
+    	if (($dir = $this->_getFPAdminDir()) !== false) {
+	    	return $dir . 'template' . DS . $this->getTemplate();
+		}
+    }
+
+	/**
+	 * Set the template include path
+	 *
+	 * @param string $dir
+	 * @return $this
+	 */    
+	public function setScriptPath($dir)
+	{
+		$this->_viewDir = '';
+		
+		return $this;
+	}
+	
+	/**
+	 * Retrieve any available FPAdmin directory
+	 *
+	 * @return false|string
+	 */
+	protected function _getFPAdminDir()
+	{
+		$candidates = array(
+			'Fishpig_Wordpress',
+			'Fishpig_AttributeSplash',
+			'Fishpig_iBanners'
+		);
+
+		foreach($candidates as $candidate) {
+			$dir = Mage::getModuleDir('', $candidate) . DS . 'FPAdmin' . DS;
+			
+			if (is_dir($dir)) {
+				return $dir;
+			}
+		}
+		
+		return false;
+	}
+	
+	public function canShowTab()
+	{
+		return true;
+	}
+	
+	public function isHidden()
+	{
+		return false;
+	}
+	
+	/**
+	 * Retrieve the tab title
+	 *
+	 * @return string
+	 */
+	public function getTabTitle()
+	{
+		return $this->getTabLabel();
+	}
+	
+	/**
+	 * Retrieve the tab label
+	 *
+	 * @return string
+	 */
+	public function getTabLabel()
+	{
+		return $this->_getData('tab_label');
+	}
+	
+	/**
+	 * Determine whether to skip generate content
+	 *
+	 * @return bool
+	 */
+	public function getSkipGenerateContent()
+	{
+		return true;
+	}
+	
+	/**
+	 * Retrieve the tab class name
+	 *
+	 * @return string
+	 */
+	public function getTabClass()
+	{
+		if ($this->getSkipGenerateContent()) {
+			return 'ajax';
+		}
+		
+		return parent::getTabClass();
+	}
+	
+	/**
+	 * Retrieve the URL used to load the tab content
+	 *
+	 * @return string
+	 */
+	public function getTabUrl()
+	{
+		if ($tabUrl = $this->_getData('tab_url')) {
+			return $this->getUrl($tabUrl);
+		}
+		
+		return '#';
+	}
 }
 
+	// End of compilation fix
 	}
 	

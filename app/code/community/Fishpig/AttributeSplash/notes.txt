@@ -6,7 +6,7 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
-23/11/2013 - v3.0.0.11
+23/11/2013 - v3.0.1.0
 - Added support for FPAdmin
 
 22/11/2013 - v3.0.0.10

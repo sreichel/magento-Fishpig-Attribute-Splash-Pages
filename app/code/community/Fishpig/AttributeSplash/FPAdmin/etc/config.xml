@@ -1,10 +1,5 @@
 <?xml version="1.0"?>
 <config>
-	<modules>
-		<Fishpig_FPAdmin>
-			<version>1.0.0.1</version>
-		</Fishpig_FPAdmin>
-	</modules>
 	<global>
 		<blocks>
 			<fpadmin>
@@ -12,17 +7,6 @@
 			</fpadmin>
 		</blocks>
 	</global>
-	<admin>
-		<routers>
-			<adminhtml>
-				<args>
-					<modules>
-						<fpadmin before="Mage_Adminhtml">Fishpig_FPAdmin_Adminhtml</fpadmin>
-					</modules>
-				</args>
-			</adminhtml>
-		</routers>
-	</admin>
 	<fishpig>
 		<extend>
 			<Fishpig_Bolt>

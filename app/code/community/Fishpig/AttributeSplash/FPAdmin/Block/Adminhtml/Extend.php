@@ -5,7 +5,11 @@
  * @author      Ben Tideswell <help@fishpig.co.uk>
  */
 
-class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Adminhtml_Block_Template
+ 	
+ 	if (!defined('__fishpig_extend')) {
+ 		define('__fishpig_extend');
+
+class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Core_Block_Template
 {
 	/**
 	 * Tracking string for GA
@@ -173,7 +177,7 @@ class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Adminhtml_Block_Templa
 	 */
 	public function getImageUrl(array $e)
 	{
-		return $this->getUrl('adminhtml/fishpig_extend/image', array('id' => $this->_getField($e, 'image')));
+		return 'https://s3.amazonaws.com/FishPig-Extend/image/' . $this->_getField($e, 'image');
 	}
 	
 	/**
@@ -209,3 +213,6 @@ class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Adminhtml_Block_Templa
 		return Mage::app()->getConfig();
 	}
 }
+
+	}
+	

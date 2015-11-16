@@ -32,7 +32,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Dashboard extends Mage_Adminhtml_B
 				'active'    => $alias === 'page',
 			));
 		}
-		
+
 		if ($extend = $this->getLayout()->createBlock('fpadmin/adminhtml_extend')) {
 			$html = trim($extend->setTemplate('attribute-splash/extend.phtml')->toHtml());
 			

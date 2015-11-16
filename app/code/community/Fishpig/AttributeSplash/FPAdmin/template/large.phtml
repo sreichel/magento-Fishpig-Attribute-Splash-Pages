@@ -28,8 +28,8 @@
 <script type="text/javascript">$('<?php echo $this->getId() ?>').select('a').invoke('writeAttribute', 'target', '_blank');</script>
 <style type="text/css">
 #<?php echo $this->getId() ?> { max-width: 1600px; margin: 50px auto 0; }
-#<?php echo $this->getId() ?> ul { height: 1%; overflow: hidden; }
-#<?php echo $this->getId() ?> li.item { float: left; width: 25%; text-align: center; }
+#<?php echo $this->getId() ?> ul { /*height: 1%; overflow: hidden; */text-align: center; }
+#<?php echo $this->getId() ?> li.item { display: inline-block; width: 24.5%; }
 #<?php echo $this->getId() ?> li.item .pad { padding: 10% 8%; border-right: 1px solid #ccc; }
 #<?php echo $this->getId() ?> li.item.last .pad { border-right: 0px none; }
 #<?php echo $this->getId() ?> li.item .image { display: block; margin-bottom: 10px; }

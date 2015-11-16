@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+29/11/2013 - v3.0.1.8
+- Fixed page creation bug
+
 27/11/2013 - v3.0.1.7
 - Fixed multiple bugs
 

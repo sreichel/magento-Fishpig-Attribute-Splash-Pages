@@ -17,7 +17,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	 *
 	 * @var const string
 	 */
-	const TRACKING_STRING = '?utm_source=%s&utm_medium=banner&utm_term=%s&utm_campaign=Extend';
+	const TRACKING_STRING = '?utm_source=%s&utm_medium=%s&utm_term=%s&utm_campaign=Extend';
 	
 	/**
 	 * Base URL for links
@@ -68,7 +68,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	{
 		if (($pool = $this->_getAllExtensions()) !== false) {
 			$winners = array();
-	
+
 			foreach($pref as $code) {
 				if (isset($pool[$code])) {
 					$winners[$code] = $pool[$code];
@@ -146,8 +146,13 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	 * @param array $e
 	 * @return string
 	 */
-	public function getTitle(array $e)
+	public function getTitle(array $e = null)
 	{
+		// Being called as a tab
+		if (is_null($e)) {
+			return $this->_getData('title');
+		}
+
 		return $this->_getField($e, 'title');
 	}
 	
@@ -175,13 +180,25 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	{
 		$term = $this->_getField($e, 'module');	
 		 
-		$trackedUrl = sprintf(self::BASE_URL . $this->_getField($e, 'url') . self::TRACKING_STRING, $source, $term);
+		$trackedUrl = sprintf(self::BASE_URL . $this->_getField($e, 'url') . self::TRACKING_STRING, $source, $this->getMedium(), $term);
 		
 		if (!is_null($content)) {
 			$trackedUrl .= '&utm_content=' . $content;
 		}
 		
 		return $trackedUrl;
+	}
+	
+	/**
+	 * Retrieve the utm_medium parameter
+	 *
+	 * @return string
+	 */
+	public function getMedium()
+	{
+		return $this->_getData('medium')
+			? $this->_getData('medium')
+			: 'Magento Admin';
 	}
 	
 	/**
@@ -286,12 +303,17 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	protected function _getFPAdminDir()
 	{
 		$candidates = array(
+			$this->getModule(),
 			'Fishpig_Wordpress',
 			'Fishpig_AttributeSplash',
 			'Fishpig_iBanners'
 		);
 
-		foreach($candidates as $candidate) {
+		foreach(array_unique($candidates) as $candidate) {
+			if (!$candidate) {
+				continue;
+			}
+
 			$dir = Mage::getModuleDir('', $candidate) . DS . 'FPAdmin' . DS;
 			
 			if (is_dir($dir)) {
@@ -302,11 +324,21 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 		return false;
 	}
 	
+	/**
+	 * If tab, always show
+	 *
+	 * @return bool
+	 */
 	public function canShowTab()
 	{
 		return true;
 	}
 	
+	/**
+	 * Don't hide if a tab
+	 *
+	 * @return bool
+	 */
 	public function isHidden()
 	{
 		return false;

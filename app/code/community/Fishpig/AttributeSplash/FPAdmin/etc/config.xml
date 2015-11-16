@@ -8,7 +8,14 @@
 				<title>Bolt</title>
 				<subtitle>Full Page Cache</subtitle>
 				<short_description>Add enterprise level caching to Magento community with Bolt, Magento's fastest Full Page Cache extension.</short_description>
-			</Fishpig_Bolt>			
+			</Fishpig_Bolt>	
+			<Fishpig_NoBots>
+				<url><![CDATA[magento/extensions/block-robots-stop-spam/]]></url>
+				<image>nobots.png</image>
+				<title>NoBots</title>
+				<subtitle>Stop Magento Spam Bots</subtitle>
+				<short_description>NoBots automatically blocks spam bots from your website giving you less spam and a faster server.</short_description>
+			</Fishpig_NoBots>		
 			<Fishpig_CrossLink>
 				<url><![CDATA[magento/extensions/seo-internal-links/]]></url>
 				<image>crosslink.png</image>
@@ -16,13 +23,13 @@
 				<subtitle>SEO Internal Links</subtitle>
 				<short_description>Automatically cross link your products, categories, splash pages, CMS pages, blog posts and categories using Crosslinks.</short_description>
 			</Fishpig_CrossLink>
-			<Fishpig_NoBots>
-				<url><![CDATA[magento/extensions/block-robots-stop-spam/]]></url>
-				<image>nobots.png</image>
-				<title>NoBots</title>
-				<subtitle>Stop Magento Spam Bots</subtitle>
-				<short_description>NoBots automatically blocks spam bots from your website giving you less spam and a faster server.</short_description>
-			</Fishpig_NoBots>
+			<Fishpig_Opti>
+				<url><![CDATA[magento/extensions/optimisation-minification/]]></url>
+				<image>opti.png</image>
+				<title>Opti</title>
+				<subtitle>Minify Magento</subtitle>
+				<short_description>Opti automatically minifies your HTML, CSS and Javascript and works on any server.</short_description>
+			</Fishpig_Opti>
 			<Fishpig_AttributeSplashPro>
 				<url><![CDATA[magento/extensions/attribute-splash-pro/]]></url>
 				<image>splash-pro.png</image>

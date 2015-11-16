@@ -17,6 +17,18 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_Design extends Fishp
 	{
 		parent::_prepareForm();
 
+		$fieldset = $this->getForm()->addFieldset('splash_design_menu', array(
+			'legend'=> $this->helper('adminhtml')->__('Menu'),
+			'class' => 'fieldset-wide',
+		));
+		
+		$fieldset->addField('include_in_menu', 'select', array(
+			'name' => 'include_in_menu',
+			'label' => $this->__('Include in Navigation Menu'),
+			'title' => $this->__('Include in Navigation Menu'),
+			'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
+		));
+		
 		$fieldset = $this->getForm()->addFieldset('splash_design_page_layout', array(
 			'legend'=> $this->helper('adminhtml')->__('Page Layout'),
 			'class' => 'fieldset-wide',
@@ -54,19 +66,6 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_Design extends Fishp
 			'title' => $this->__('CMS Block'),
 			'values' => Mage::getModel('catalog/category_attribute_source_page')->getAllOptions(),
 		));
-		
-		$fieldset = $this->getForm()->addFieldset('splash_design_menu', array(
-			'legend'=> $this->helper('adminhtml')->__('Menu'),
-			'class' => 'fieldset-wide',
-		));
-		
-		$fieldset->addField('include_in_menu', 'select', array(
-			'name' => 'include_in_menu',
-			'label' => $this->__('Include in Navigation Menu'),
-			'title' => $this->__('Include in Navigation Menu'),
-			'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
-		));
-
 
 		$this->getForm()->setValues($this->_getFormData());
 		

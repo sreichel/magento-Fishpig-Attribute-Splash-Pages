@@ -90,8 +90,15 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_General extends Fish
 
 		$fieldset->addField('is_enabled', 'select', array(
 			'name' => 'is_enabled',
-			'title' => $this->__('Is Enabled'),
-			'label' => $this->__('Is Enabled'),
+			'title' => $this->__('Enabled'),
+			'label' => $this->__('Enabled'),
+			'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
+		));
+		
+		$fieldset->addField('is_featured', 'select', array(
+			'name' => 'is_featured',
+			'title' => $this->__('Featured'),
+			'label' => $this->__('Featured'),
 			'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
 		));
 

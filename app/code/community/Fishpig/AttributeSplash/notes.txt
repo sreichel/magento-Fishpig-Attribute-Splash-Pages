@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+05/02/2014 - v3.1.7.0
+- Added is_featured back in to extension
+
 04/02/2014 - v3.1.5.0
 - Fixed bug that stopped some splash pages from displaying correctly
 

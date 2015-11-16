@@ -89,7 +89,7 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplash_PageController extends M
 				return $this->_redirect('*/*/edit', array('id' => $page->getId()));
 			}
 			
-			return $this->_redirect('*/*/new');
+			return $this->_redirect('*/attributeSplash');
 		}
 
 		$this->_getSession()->addError($this->__('There was no data to save.'));

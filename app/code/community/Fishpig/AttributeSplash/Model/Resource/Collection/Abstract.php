@@ -114,4 +114,16 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Collection_Abstract extend
 	{
 		return $this->addFieldToFilter('is_enabled', $value);
 	}
+	
+	/**
+	 * Get SQL for get record count
+	 * Modified because model uses GROUP BY
+	 *
+	 * @return Varien_Db_Select
+	*/
+	public function getSelectCountSql()
+	{
+		return parent::getSelectCountSql()
+			->reset(Zend_Db_Select::GROUP);
+	}
 }

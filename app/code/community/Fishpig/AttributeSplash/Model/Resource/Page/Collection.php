@@ -84,4 +84,16 @@ class Fishpig_AttributeSplash_Model_Resource_Page_Collection extends Fishpig_Att
 
 		return $this;
 	}
+	
+	/**
+	 * Order the groups by name
+	 *
+	 * @return $this
+	 */
+	public function addOrderByName()
+	{
+		$this->getSelect()->order('main_table.display_name ASC');
+		
+		return $this;
+	}
 }

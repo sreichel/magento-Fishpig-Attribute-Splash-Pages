@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+02/12/2013 - v3.0.1.9
+- Fixed Group and Page ordering issue
+
 29/11/2013 - v3.0.1.8
 - Fixed page creation bug
 

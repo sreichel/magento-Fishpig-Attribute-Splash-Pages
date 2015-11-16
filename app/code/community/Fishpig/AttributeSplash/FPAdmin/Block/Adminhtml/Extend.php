@@ -17,7 +17,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	 *
 	 * @var const string
 	 */
-	const TRACKING_STRING = '?utm_source=%s&utm_medium=%s&utm_term=%s&utm_campaign=%s';
+	const TRACKING_STRING = '?utm_source=%s&utm_medium=banner&utm_term=%s&utm_campaign=Extend';
 	
 	/**
 	 * Base URL for links
@@ -113,7 +113,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 		self::$_extensions = array();
 
 		foreach($config as $code => $extension) {
-			$extension->module = $code;
+			$extension['module'] = $code;
 			$reqMultistore = isset($extension->require_multistore) ? (int)$extension->require_multistore : null;
 
 			if (!isset($_SERVER['IS_FISHPIG']) && in_array($code, $installedModules)) {
@@ -122,8 +122,8 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 			else if (!is_null($reqMultistore) && $reqMultistore === (int)Mage::app()->isSingleStoreMode()) {
 				continue;
 			}
-			else if (isset($extension->depends)) {
-				$depends = array_keys((array)$extension->depends);
+			else if (isset($extension['depends'])) {
+				$depends = array_keys((array)$extension['depends']);
 
 				if (count(array_diff($depends, $installedModules)) > 0) {
 					continue;
@@ -171,10 +171,11 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	 * @param string $medium
 	 * @return string
 	 */
-	public function getTrackedUrl(array $e, $source, $content = null, $medium = 'Extend')
+	public function getTrackedUrl(array $e, $source, $content = null)
 	{
-		$campaign = $this->_getField($e, 'module');		
-		$trackedUrl = sprintf(self::BASE_URL . $this->_getField($e, 'url') . self::TRACKING_STRING, $source, $medium, $campaign, $campaign);
+		$term = $this->_getField($e, 'module');	
+		 
+		$trackedUrl = sprintf(self::BASE_URL . $this->_getField($e, 'url') . self::TRACKING_STRING, $source, $term);
 		
 		if (!is_null($content)) {
 			$trackedUrl .= '&utm_content=' . $content;

@@ -158,7 +158,7 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 	 */
 	public function getStoreId()
 	{
-		if (!$this->hasStoreId()) {
+		if (!$this->hasStoreId() || (int)$this->_getData('store_id') === 0) {
 			return (int)Mage::app()->getStore(true)->getId();
 		}
 

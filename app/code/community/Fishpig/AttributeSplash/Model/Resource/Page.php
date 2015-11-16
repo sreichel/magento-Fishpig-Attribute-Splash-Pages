@@ -101,7 +101,7 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 #			$object->unsetData('option_id');
 		}
 		
-		if (!$object->getData('stores')) {
+		if (!$object->getData('store_ids')) {
 			throw new Exception();
 		}
 
@@ -118,7 +118,7 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 			$stores = array(Mage_Core_Model_App::ADMIN_STORE_ID);
 		}
 		else {
-			$stores = (array)$object->getData('stores');
+			$stores = (array)$object->getData('store_ids');
 		}
 
 		$select = $this->_getReadAdapter()

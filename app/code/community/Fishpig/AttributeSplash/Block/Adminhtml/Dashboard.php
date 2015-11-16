@@ -25,14 +25,24 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Dashboard extends Mage_Adminhtml_B
 			'page' => 'Pages',
 		);
 		
+		$_layout = $this->getLayout();
+		
 		foreach($tabs as $alias => $label) {
 			$this->addTab($alias, array(
 				'label'     => Mage::helper('catalog')->__($label),
-				'content'   => $this->getLayout()->createBlock('attributeSplash/adminhtml_' . $alias)->toHtml(),
+				'content'   => $_layout->createBlock('attributeSplash/adminhtml_' . $alias)->toHtml(),
 				'active'    => $alias === 'page',
 			));
 		}
-		
+
+		if ($extend = $_layout->createBlock('attributeSplash/adminhtml_extend')) {
+			$extend->setNameInLayout('fishpig.extend')
+				->setTabLabel($this->__('Add-Ons'))
+				->setTabUrl('*/*/extend');
+				
+			$this->addTab('extend', $extend);
+		}
+				
 		return parent::_prepareLayout();
 	}
 }

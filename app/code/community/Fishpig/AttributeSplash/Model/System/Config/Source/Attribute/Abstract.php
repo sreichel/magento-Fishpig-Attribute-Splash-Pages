@@ -81,7 +81,7 @@ abstract class Fishpig_AttributeSplash_Model_System_Config_Source_Attribute_Abst
 			
 		}
 
-		return $this->_options;
+		return (array)$this->_options;
 	}
 	
 	/**

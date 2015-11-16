@@ -63,13 +63,13 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_General extends Fis
 			));
 
 			$renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
-			
+
 			if ($renderer) {
 				$field->setRenderer($renderer);
 			}
 		}
 		else {
-			$fieldset->addField('store_ids', 'hidden', array(
+			$fieldset->addField('store_ids_hidden', 'hidden', array(
 				'name' => 'store_ids[]',
 				'value' => Mage::app()->getStore(true)->getId(),
 			));

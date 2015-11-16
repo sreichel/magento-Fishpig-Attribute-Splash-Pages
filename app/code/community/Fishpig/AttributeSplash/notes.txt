@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+13/12/2013 - v3.0.4.0
+- Fixed multiple Adminhtml issues
+
 12/12/2013 - v3.0.3.0
 - Fixed install issue
 

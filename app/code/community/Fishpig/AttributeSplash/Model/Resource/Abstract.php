@@ -206,7 +206,7 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 				''
 			)
 			->where('_store.store_id IN (?)', array($storeId, 0))
-			->order('store_id DESC');
+			->order('_store.store_id DESC');
 
 		$select = $this->_getReadAdapter()->select()
 			->from(array('main_table' => new Zend_Db_Expr('(' . (string)$subselect . ')')), $this->getIdFieldName())

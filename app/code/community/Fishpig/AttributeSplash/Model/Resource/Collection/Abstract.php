@@ -79,7 +79,7 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Collection_Abstract extend
 			$store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
 		}
 		
-		return $this->addFieldtoFilter('store_id', array('in' => $store));
+		return $this->addFieldtoFilter('store_table.store_id', array('in' => $store));
 	}
 
 	/**

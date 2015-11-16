@@ -107,23 +107,28 @@
 		}
 	}
 	
-	/**
-	 * Delete old splash pages
-	 *
-	 */
-	$splashPages = Mage::getResourceModel('attributeSplash/page_collection');
-	
-	foreach($splashPages as $splashPage) {
-		if (!$splashPage->getAttributeId()) {
-			try {
-//				$splashPage->delete();
-			}
-			catch (Exception $e) {
-				Mage::log($e->getMessage(), false, 'attributeSplash.log', true);
+	try {
+		/**
+		 * Delete old splash pages
+		 *
+		 */
+		$splashPages = Mage::getResourceModel('attributeSplash/page_collection');
+		
+		foreach($splashPages as $splashPage) {
+			if (!$splashPage->getAttributeId()) {
+				try {
+	//				$splashPage->delete();
+				}
+				catch (Exception $e) {
+					Mage::log($e->getMessage(), false, 'attributeSplash.log', true);
+				}
 			}
 		}
 	}
-	
+	catch (Exception $e) {
+		Mage::logException($e);
+	}
+
 	/**
 	 * Migrate images
 	 *
@@ -139,4 +144,5 @@
 	catch (Exception $e) {
 		Mage::log($e->getMessage(), false, 'attributeSplash.log', true);
 	}
+
 	$this->endSetup();

@@ -113,7 +113,7 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 	{
 		if ($object->getId()) {
 			$oldStores = $this->lookupStoreIds($object->getId());
-			$newStores = (array)$object->getStores();
+			$newStores = (array)$object->getStoreIds();
 	
 			if (empty($newStores)) {
 				$newStores = (array)$object->getStoreId();
@@ -152,19 +152,10 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 	{
 		if ($object->getId()) {
 			$storeIds = $this->lookupStoreIds($object->getId());
+			$object->setData('store_ids', $storeIds);			
 			
-			
-			if ($this->isAdmin()) {
-				$object->setData('store_id', $storeIds);
-			}
-			else {
+			if (!$this->isAdmin()) {
 				$object->setStoreId(Mage::app()->getStore(true)->getId());
-				
-				if (count($storeIds) === 1) {
-					if ($storeIds[0] != 0) {
-						$object->setStoreId((int)array_shift($storeIds));
-					}
-				}
 			}
 		}
 		

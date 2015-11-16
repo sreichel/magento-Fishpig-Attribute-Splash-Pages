@@ -58,7 +58,7 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 		}
 		
 		return $this->_getUrl(
-			$this->getAttributeModel()->getAttributeCode()
+			$this->getAttributeModel()->getAttributeCode() . '/'
 		);
 	}
 	

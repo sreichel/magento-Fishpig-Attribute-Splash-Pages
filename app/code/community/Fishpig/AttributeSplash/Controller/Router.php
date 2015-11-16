@@ -72,6 +72,9 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 			
 			return $this->_loadSplashPage($pageUrlKey, $groupUrlKey);
 		}
+		else if ($includeGroupUrlKey) {
+			return $this->_loadSplashGroup($requestUri);
+		}
 		
 		if ($this->_loadSplashPage($requestUri)) {
 			return true;

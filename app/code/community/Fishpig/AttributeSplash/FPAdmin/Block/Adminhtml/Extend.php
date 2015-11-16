@@ -118,7 +118,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 
 		foreach($config as $code => $extension) {
 			$extension['module'] = $code;
-			$reqMultistore = isset($extension->require_multistore) ? (int)$extension->require_multistore : null;
+			$reqMultistore = isset($extension['require_multistore']) ? (int)$extension['require_multistore'] : null;
 
 			if (!isset($_SERVER['IS_FISHPIG']) && in_array($code, $installedModules)) {
 				continue;

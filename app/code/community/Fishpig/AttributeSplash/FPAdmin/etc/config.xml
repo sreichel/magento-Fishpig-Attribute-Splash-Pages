@@ -65,7 +65,7 @@
 				<url><![CDATA[magento/wordpress-integration/facebook/]]></url>
 				<image>facebook.png</image>
 				<title>Facebook</title>
-				<subtitle>Magento and WordPress</subtitle>
+				<subtitle>Social Integration</subtitle>
 				<short_definition>Add Like buttons, Send buttons, Facebook comments and more!</short_definition>
 				<depends><Fishpig_Wordpress /></depends>
 			</Fishpig_Wordpress_Addon_Facebook>
@@ -73,7 +73,7 @@
 				<url><![CDATA[magento/wordpress-integration/root/]]></url>
 				<image>root.gif</image>
 				<title>Root</title>
-				<subtitle>Blog URL's from the Root</subtitle>
+				<subtitle>Use WordPress to create your CMS pages</subtitle>
 				<short_definition>Remove the blog sub-directory from your integrated blog URLs.</short_definition>
 				<depends><Fishpig_Wordpress /></depends>
 			</Fishpig_Wordpress_Addon_Root>

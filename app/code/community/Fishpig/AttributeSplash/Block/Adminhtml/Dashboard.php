@@ -36,6 +36,19 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Dashboard extends Mage_Adminhtml_B
 		}
 
 		Mage::dispatchEvent('attributesplash_dashboard_tabs_prepare_layout', array('tabs' => $this));
+		
+		if (!isset($this->_tabs['xmlsitemap'])) {
+			$this->addTab('xmlsitemap', array(
+				'label' => Mage::helper('catalog')->__('XML Sitemap'),
+				'content' => $_layout->createBlock('attributeSplash/adminhtml_extend')
+					->setTemplate('large.phtml')
+					->setModule('Fishpig_AttributeSplash')
+					->setMedium('XML Sitemap Tab')
+					->setLimit(1)
+					->setPreferred(array('Fishpig_AttributeSplash_Addon_XmlSitemap'))
+					->toHtml(),
+			));
+		}
 
 		if ($extend = $_layout->createBlock('attributeSplash/adminhtml_extend')) {
 			$extend->setNameInLayout('fishpig.extend')

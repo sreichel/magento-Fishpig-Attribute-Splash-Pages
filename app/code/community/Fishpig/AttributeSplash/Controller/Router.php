@@ -26,7 +26,6 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
      */
     public function match(Zend_Controller_Request_Http $request)
     {
-
 		$this->_request = $request;
 		
 		if ($this->_match() !== false) {

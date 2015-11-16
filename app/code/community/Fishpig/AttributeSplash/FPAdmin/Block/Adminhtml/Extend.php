@@ -40,6 +40,13 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	 */
 	static protected $_extensions = null;
 	
+	protected function _construct()
+	{
+		$this->setTemplate('small.phtml');
+		
+		return parent::_construct();
+	}
+
 	/**
 	 * Retrieve extensions set via XML
 	 *

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Fishpig_AttributeSplash_Addon_QuickCreate>
+			<version>1.0.0.0</version>
+		</Fishpig_AttributeSplash_Addon_QuickCreate>
+	</modules>
+	<global>
+		<blocks>
+			<attributeSplash_quickcreate>
+				<class>Fishpig_AttributeSplash_Addon_QuickCreate_Block</class>
+			</attributeSplash_quickcreate>
+		</blocks>
+	</global>
+	<adminhtml>
+		<events>
+			<attributesplash_dashboard_tabs_prepare_layout>
+				<observers>
+					<attributeSplash_quickcreate>
+						<type>singleton</type>
+						<class>Fishpig_AttributeSplash_Addon_QuickCreate_Model_Observer</class>
+						<method>injectQuickCreateTabObserver</method>
+					</attributeSplash_quickcreate>
+				</observers>
+			</attributesplash_dashboard_tabs_prepare_layout>
+		</events>
+	</adminhtml>
+</config>

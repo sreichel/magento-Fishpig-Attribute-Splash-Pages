@@ -152,7 +152,9 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 	{
 		parent::_afterSave($object);
 		
-		$this->updateSplashGroup($object);
+		if (!$object->getAutoCreateGroup()) {
+			$this->updateSplashGroup($object);
+		}
 		
 		return $this;
 	}

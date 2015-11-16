@@ -17,7 +17,10 @@
 				<action method="setText">
 					<text><![CDATA[
 						<div id="splash_tab_content"></div>
-						<style type="text/css">#splash_tab_content .content-header { display: none; }</style>
+						<style type="text/css">
+							#splash_dashboard_tabs_group_content .content-header { display: none; }
+							#splash_dashboard_tabs_page_content .content-header { display: none; }
+						</style>
 					]]></text>
 				</action>
 			</block>

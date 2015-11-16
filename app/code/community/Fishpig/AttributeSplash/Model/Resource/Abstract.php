@@ -158,7 +158,9 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 				$this->_getWriteAdapter()->insertMultiple($table, $data);
 			}
 			
-			$object->getResource()->reindexAll();
+			if (!$object->getSkipReindex()) {
+				$object->getResource()->reindexAll();
+			}
 		}
 	}
 

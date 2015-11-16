@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+02/01/2014 - v3.0.10.0
+- Added support for XML Sitemap addon: http://fishpig.co.uk/magento/extensions/attribute-splash-pages/xml-sitemap/
+
 19/12/2013 - v3.0.9.0
 - Fixed WYSIWYG editor image problem
 

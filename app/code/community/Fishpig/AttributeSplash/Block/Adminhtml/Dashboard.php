@@ -35,6 +35,8 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Dashboard extends Mage_Adminhtml_B
 			));
 		}
 
+		Mage::dispatchEvent('attributesplash_dashboard_tabs_prepare_layout', array('tabs' => $this));
+
 		if ($extend = $_layout->createBlock('attributeSplash/adminhtml_extend')) {
 			$extend->setNameInLayout('fishpig.extend')
 				->setTabLabel($this->__('Add-Ons'))

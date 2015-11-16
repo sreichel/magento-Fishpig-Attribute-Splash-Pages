@@ -40,7 +40,7 @@
 		try {
 			$select = $this->getConnection()
 				->select()
-				->from($this->getTable('attributeSplash/' . $type), array($type . '_id', 'store_id'));
+				->from($this->getTable('attributesplash_' . $type), array($type . '_id', 'store_id'));
 				
 			if ($results = $this->getConnection()->fetchAll($select)) {
 				foreach($results as $result) {

@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>3.0.8.0</version>
+			<version>3.0.9.0</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -124,11 +124,9 @@
 		<attributeSplash>
 			<page>
 				<column_count>4</column_count>
-				<add_to_sitemap>1</add_to_sitemap>
 			</page>
 			<group>
 				<column_count>4</column_count>
-				<add_to_sitemap>1</add_to_sitemap>
 			</group>
 			<navigation>
 				<enabled>1</enabled>

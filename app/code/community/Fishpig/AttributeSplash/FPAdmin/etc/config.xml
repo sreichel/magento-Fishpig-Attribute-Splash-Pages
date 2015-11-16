@@ -77,6 +77,22 @@
 				<short_description>Integrate your Magento and WordPress search systems automatically and make searching your site easier for your customers.</short_description>
 				<depends><Fishpig_Wordpress /></depends>
 			</Fishpig_Wordpress_Addon_IntegratedSearch>
+			<Fishpig_AttributeSplash_Addon_XmlSitemap>
+				<url><![CDATA[magento/extensions/attribute-splash-pages/xml-sitemap/]]></url>
+				<image>splash-pages.png</image>
+				<title>Attribute Splash</title>
+				<subtitle>XML Sitemap</subtitle>
+				<short_description>Add an XML sitemap for your Splash Pages and Splash Group so search engines can index your pages.</short_description>
+				<depends><Fishpig_AttributeSplash /></depends>
+			</Fishpig_AttributeSplash_Addon_XmlSitemap>
+			<Fishpig_AttributeSplash_Addon_QuickCreate>
+				<url><![CDATA[magento/extensions/attribute-splash-pages/quick-create/]]></url>
+				<image>splash-pages.png</image>
+				<title>Attribute Splash</title>
+				<subtitle>Quick Create</subtitle>
+				<short_description>Quickly create Splash Pages for any attributes with this extension and save yourself from hours of manual work.</short_description>
+				<depends><Fishpig_AttributeSplash /></depends>
+			</Fishpig_AttributeSplash_Addon_QuickCreate>
 		</extend>
 	</fishpig>
 </config>

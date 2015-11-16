@@ -54,7 +54,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	 */
 	public function getSelectedExtensions()
 	{
-		return $this->getExtensions($this->getLimit(), $this->getPreferred() ? array_keys($this->getPreferred()) : null);	
+		return $this->getExtensions($this->getLimit(), $this->getPreferred() ? ($this->getPreferred()) : null);	
 	}
 
 	/**

@@ -17,14 +17,22 @@ class Fishpig_AttributeSplash_Addon_QuickCreate_Block_Adminhtml_Create extends M
 		$this->_controller = 'adminhtml_page';
 		$this->_blockGroup = 'attributeSplash';
 		$this->_headerText = Mage::helper('attributeSplash')->__('Quick Create');
+		
+		$this->_removeButton('back');
+		$this->_removeButton('reset');
+		$this->_removeButton('save');
+		
+		$this->_addButton('create', array(
+			'label' => $this->__('Create'),
+			'class' => 'add',
+			'onclick' => "editForm.submit();",
+		));
 	}
-
 
 	protected function _prepareLayout()
 	{
-	$this->setHeaderText('test');
 		$this->setChild('form',
-			$this->getLayout()->createBlock('attributeSplash_quickcreate/adminhtml_create_form')
+			$this->getLayout()->createBlock('attributeSplash_addon_quickcreate/adminhtml_create_form')
 		);
 		
 		return $this;

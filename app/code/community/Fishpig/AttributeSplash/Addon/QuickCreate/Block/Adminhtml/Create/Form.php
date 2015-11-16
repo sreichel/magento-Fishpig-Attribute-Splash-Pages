@@ -15,10 +15,17 @@ class Fishpig_AttributeSplash_Addon_QuickCreate_Block_Adminhtml_Create_Form exte
 	 */
 	protected function _prepareForm()
 	{
-		$form = new Varien_Data_Form();
-
+		$module = 'quickcreate';
+		
+		$form = new Varien_Data_Form(array(
+			'id' => 'edit_form',
+			'action' => $this->getUrl('*/*/addon', array('module' => $module)),
+			'method' => 'post',
+		));
+		
+		$form->setUseContainer(true);
         $form->setHtmlIdPrefix('qc_');
-        $form->setFieldNameSuffix('qc');
+        $form->setFieldNameSuffix($module);
  
  
 		$this->setForm($form);

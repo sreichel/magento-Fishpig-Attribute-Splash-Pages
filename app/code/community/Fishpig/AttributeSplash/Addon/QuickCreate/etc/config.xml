@@ -7,10 +7,15 @@
 	</modules>
 	<global>
 		<blocks>
-			<attributeSplash_quickcreate>
+			<attributeSplash_addon_quickcreate>
 				<class>Fishpig_AttributeSplash_Addon_QuickCreate_Block</class>
-			</attributeSplash_quickcreate>
+			</attributeSplash_addon_quickcreate>
 		</blocks>
+		<helpers>
+			<attributeSplash_addon_quickcreate>
+				<class>Fishpig_AttributeSplash_Addon_QuickCreate_Helper</class>
+			</attributeSplash_addon_quickcreate>
+		</helpers>
 	</global>
 	<adminhtml>
 		<events>

@@ -22,7 +22,7 @@ class Fishpig_AttributeSplash_Addon_QuickCreate_Model_Observer extends Varien_Ob
 			->getTabs()
 				->addTab('quickcreate', array(
 					'label'     => Mage::helper('catalog')->__('Quick Create'),
-					'content'   => $layout->createBlock('attributeSplash_quickcreate/adminhtml_create')->toHtml(),
+					'content'   => $layout->createBlock('attributeSplash_addon_quickcreate/adminhtml_create')->toHtml(),
 				));
 
 		return $this;

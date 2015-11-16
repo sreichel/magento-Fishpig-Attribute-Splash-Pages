@@ -175,7 +175,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Grid extends Mage_Adminhtml_B
 	
 		$this->getMassactionBlock()->addItem('delete', array(
 			'label'=> $this->__('Delete'),
-			'url'  => $this->getUrl('*/*/massDelete'),
+			'url'  => $this->getUrl('*/attributeSplash_page/massDelete'),
 			'confirm' => Mage::helper('catalog')->__('Are you sure?')
 		));
 	}

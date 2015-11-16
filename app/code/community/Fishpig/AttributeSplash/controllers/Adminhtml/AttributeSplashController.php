@@ -62,11 +62,46 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplashController extends Mage_A
 			->setMedium('Add-On Tab')
 			->setTemplate('large.phtml')
 			->setLimit(4)
-			->setPreferred(array('Fishpig_CrossLink', 'Fishpig_AttributeSplashPro', 'Fishpig_NoBots'));
+			->setPreferred(array('Fishpig_AttributeSplash_Addon_QuickCreate', 'Fishpig_AttributeSplash_Addon_XmlSitemap', 'Fishpig_CrossLink', 'Fishpig_AttributeSplashPro', 'Fishpig_NoBots'));
 			
 		$this->getResponse()
 			->setBody(
 				$block->toHtml()
 			);
+	}
+	
+	/**
+	 * Call an addon method
+	 *
+	 * @return void
+	 */
+	public function addonAction()
+	{
+		$module = $this->getRequest()->getParam('module');
+		$data = $this->getRequest()->getPost($module);
+		
+		if (!$module || !$data) {
+			return $this->_redirectReferer();
+		}
+
+		$helper = Mage::helper('attributeSplash_addon_' . $module);
+		
+		if (!$helper) {
+			return $this->_redirectReferer();
+		}
+		
+		try {
+			if (($count = $helper->process($data)) > 0) {
+				Mage::getSingleton('adminhtml/session')->addSuccess($this->__('%d page(s) were created.', $count));
+			}
+			else {
+				Mage::getSingleton('adminhtml/session')->addSuccess($this->__('0 pages were created due to conflicts with existing pages.'));
+			}
+		}
+		catch (Exception $e) {
+			Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+		}
+		
+		return $this->_redirectReferer();
 	}
 }

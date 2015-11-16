@@ -194,7 +194,7 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplash_PageController extends M
 		
 		return false;
 	}
-	
+
 	protected function _handleImageUpload(Fishpig_AttributeSplash_Model_Page $page, $field)
 	{
 		$data = $page->getData($field);

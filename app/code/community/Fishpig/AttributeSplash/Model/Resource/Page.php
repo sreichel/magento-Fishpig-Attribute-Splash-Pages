@@ -102,7 +102,7 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 		}
 		
 		if (!$object->getData('store_ids')) {
-			throw new Exception();
+			throw new Exception('Store IDs not set.');
 		}
 
 		if (!$this->_pageIsUniqueToStores($object)) {
@@ -152,7 +152,7 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 	{
 		parent::_afterSave($object);
 		
-		if (!$object->getAutoCreateGroup()) {
+		if (!$object->getSkipAutoCreateGroup()) {
 			$this->updateSplashGroup($object);
 		}
 		

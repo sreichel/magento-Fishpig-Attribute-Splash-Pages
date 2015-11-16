@@ -8,9 +8,14 @@
 	
 	$this->startSetup();
 	
-	$this->run("
-		ALTER TABLE `{$this->getTable('attributesplash_group')}` CHANGE `short_description` `short_description` TEXT;
-		ALTER TABLE `{$this->getTable('attributesplash_page')}` CHANGE `short_description` `short_description` TEXT;
-	");
+	try {
+		$this->run("
+			ALTER TABLE `{$this->getTable('attributesplash_group')}` CHANGE `short_description` `short_description` TEXT;
+			ALTER TABLE `{$this->getTable('attributesplash_page')}` CHANGE `short_description` `short_description` TEXT;
+		");
+	}
+	catch (Exception $e) {
+		
+	}
 
 	$this->endSetup();

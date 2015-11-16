@@ -14,8 +14,6 @@
 	 */
 	$this->run("
 
-		-- DROP TABLE IF EXISTS {$this->getTable('attributesplash_page')};
-
 		CREATE TABLE IF NOT EXISTS {$this->getTable('attributesplash_page')} (
 			`page_id` int(11) unsigned NOT NULL auto_increment,
 			`option_id` int (11) unsigned NOT NULL default 0,

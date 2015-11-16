@@ -80,7 +80,7 @@ class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Adminhtml_Block_Templa
 		}
 		
 		$installedModules = array_keys((array)$this->_getConfig()->getNode('modules'));
-		$config = (array)$this->_getConfig()->getNode('fishpig/extend');
+		$config = (array)$this->_getConfig()->getNode('fishpig/extend')->asArray();
 		self::$_extensions = array();
 
 		foreach($config as $code => $extension) {

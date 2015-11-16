@@ -22,7 +22,7 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 		if (!$product->hasData($key)) {
 			$product->setData($key, false);
 			$collection = Mage::getResourceModel('attributeSplash/page_collection')
-				->setStoreFilter(Mage::app()->getStore())
+				->addStoreFilter(Mage::app()->getStore())
 				->addAttributeCodeFilter($attributeCode)
 				->addProductFilter($product);
 			

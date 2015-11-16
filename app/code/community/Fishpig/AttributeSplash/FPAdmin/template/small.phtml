@@ -9,15 +9,15 @@
 		<?php foreach($extensions as $extension): ?>
 			<li class="item<?php if ($this->isLast($extension)): ?> last<?php endif; ?>">
 				<div class="pad">
-					<a href="<?php echo $this->getTrackedUrl($extension, $this->getModule(), 'image') ?>" class="image">
+					<a href="<?php echo $this->getTrackedUrl($extension, $this->getModule(), 'image') ?>" class="image" target="_blank">
 						<img src="<?php echo $this->getImageUrl($extension) ?>" alt="" />
 					</a>
 					<h2>
-						<a href="<?php echo $this->getTrackedUrl($extension, $this->getModule(), 'title') ?>">
+						<a href="<?php echo $this->getTrackedUrl($extension, $this->getModule(), 'title') ?>" target="_blank">
 							<strong><?php echo $this->escapeHtml($this->getTitle($extension)) ?></strong> <span><?php echo $this->escapeHtml($this->getSubTitle($extension)) ?></span>
 						</a>
 					</h2>
-					<p><?php echo $this->getShortDescription($extension) ?> <a href="<?php echo $this->getTrackedUrl($extension, $this->getModule(), 'view-more') ?>">More info</a></p>
+					<p><?php echo $this->getShortDescription($extension) ?> <a href="<?php echo $this->getTrackedUrl($extension, $this->getModule(), 'view-more') ?>" target="_blank">More info</a></p>
 				</div>
 			</li>
 		<?php endforeach; ?>

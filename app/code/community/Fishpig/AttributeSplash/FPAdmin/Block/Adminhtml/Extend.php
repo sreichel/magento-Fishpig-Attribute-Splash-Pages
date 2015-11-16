@@ -66,6 +66,10 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	 */
 	public function getExtensions($count = 0, array $pref = array())
 	{
+		if (!isset($pref[0])) {
+			$pref = array_keys($pref);
+		}
+
 		if (($pool = $this->_getAllExtensions()) !== false) {
 			$winners = array();
 

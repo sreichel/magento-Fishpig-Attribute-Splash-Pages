@@ -61,6 +61,14 @@
 				<short_description>Manage multiple blogs from a single WordPress Admin and integrate each blog with a different Magento store view</short_description>
 				<require_multistore>0</require_multistore>
 			</Fishpig_Wordpress>
+			<Fishpig_Wordpress_Addon_Facebook>
+				<url><![CDATA[magento/wordpress-integration/facebook/]]></url>
+				<image>facebook.png</image>
+				<title>Facebook</title>
+				<subtitle>Magento and WordPress</subtitle>
+				<short_description>Add Like buttons, Send buttons, Facebook comments and more!</short_description>
+				<depends><Fishpig_Wordpress /></depends>
+			</Fishpig_Wordpress_Addon_Facebook>
 			<Fishpig_Wordpress_Addon_Root>
 				<url><![CDATA[magento/wordpress-integration/root/]]></url>
 				<image>root.gif</image>

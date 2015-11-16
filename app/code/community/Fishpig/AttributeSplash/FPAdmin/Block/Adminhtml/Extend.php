@@ -9,7 +9,7 @@
  	if (!defined('__fishpig_extend')) {
  		define('__fishpig_extend');
 
-class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Core_Block_Template
+abstract class Fishpig_FPAdmin_Block_Adminhtml_Extend extends Mage_Core_Block_Template
 implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
 	/**

@@ -1,12 +1,5 @@
 <?xml version="1.0"?>
 <config>
-	<global>
-		<blocks>
-			<fpadmin>
-				<class>Fishpig_FPAdmin_Block</class>
-			</fpadmin>
-		</blocks>
-	</global>
 	<fishpig>
 		<extend>
 			<Fishpig_Bolt>

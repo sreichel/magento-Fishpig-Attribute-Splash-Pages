@@ -57,7 +57,7 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplashController extends Mage_A
 	public function extendAction()
 	{
 		$block = $this->getLayout()
-			->createBlock('fpadmin/adminhtml_extend')
+			->createBlock('attributeSplash/adminhtml_extend')
 			->setModule('Fishpig_AttributeSplash')
 			->setTemplate('large.phtml')
 			->setLimit(4)

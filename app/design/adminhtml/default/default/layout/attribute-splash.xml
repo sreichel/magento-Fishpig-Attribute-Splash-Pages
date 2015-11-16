@@ -13,7 +13,7 @@
 				</action>
 			</block>
 			<block type="attributeSplash/adminhtml_dashboard" name="splash.dashboard">
-				<block type="fpadmin/adminhtml_extend" name="fishpig.extend" as="extend">
+				<block type="attributeSplash/adminhtml_extend" name="fishpig.extend" as="extend">
 					<action method="setTabLabel"><label>Add-Ons</label></action>
 					<action method="setTabUrl"><url>*/*/extend</url></action>
 				</block>	

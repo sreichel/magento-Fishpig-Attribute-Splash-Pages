@@ -89,6 +89,16 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 	}
 	
 	/**
+	 * Retrieve the short_description
+	 *
+	 * @return string
+	 */
+	public function getShortDescription()
+	{
+		return Mage::helper('cms')->getBlockTemplateProcessor()->filter($this->getData('short_description'));
+	}
+	
+	/**
 	 * Retrieve the Meta description.
 	 * If empty, use the short description
 	 *

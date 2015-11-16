@@ -206,14 +206,14 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	}
 	
 	/**
-	 * Retrieve the short description of the extension
+	 * Retrieve the short definition of the extension
 	 *
 	 * @param array $e
 	 * @return string
 	 */
-	public function getShortDescription(array $e)
+	public function getShortDefinition(array $e)
 	{
-		return $this->_getField($e, 'short_description');
+		return $this->_getField($e, 'short_definition');
 	}
 	
 	/**

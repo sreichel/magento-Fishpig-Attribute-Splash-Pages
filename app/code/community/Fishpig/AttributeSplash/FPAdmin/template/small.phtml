@@ -17,7 +17,7 @@
 							<strong><?php echo $this->escapeHtml($this->getTitle($extension)) ?></strong> <span><?php echo $this->escapeHtml($this->getSubTitle($extension)) ?></span>
 						</a>
 					</h2>
-					<p><?php echo $this->getShortDescription($extension) ?> <a href="<?php echo $this->getTrackedUrl($extension, $this->getModule(), 'view-more') ?>" target="_blank">More info</a></p>
+					<p><?php echo $this->getShortDefinition($extension) ?> <a href="<?php echo $this->getTrackedUrl($extension, $this->getModule(), 'view-more') ?>" target="_blank">More info</a></p>
 				</div>
 			</li>
 		<?php endforeach; ?>

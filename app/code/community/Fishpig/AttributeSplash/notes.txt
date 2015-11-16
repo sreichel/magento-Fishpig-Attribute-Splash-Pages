@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+30/01/2014 - v3.1.4.0
+- Processing added to getShortDescription so that {{...}} tags are parsed and rendered
+
 16/01/2014 - v3.1.3.0
 - Fixed page/group count in Adminhtml grids
 

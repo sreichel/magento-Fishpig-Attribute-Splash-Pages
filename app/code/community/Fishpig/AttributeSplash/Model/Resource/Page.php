@@ -94,15 +94,15 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 	 */
 	protected function _beforeSave(Mage_Core_Model_Abstract $object)
 	{
+		if (!$object->getData('store_ids')) {
+			$object->setData('store_ids', array(Mage::app()->getStore(true)->getId()));
+		}
+
 		if ($object->getId()) {
 			$object->getAttributeModel();
 
 			$object->unsetData('attribute_id');
 #			$object->unsetData('option_id');
-		}
-		
-		if (!$object->getData('store_ids')) {
-			throw new Exception('Store IDs not set.');
 		}
 
 		if (!$this->_pageIsUniqueToStores($object)) {

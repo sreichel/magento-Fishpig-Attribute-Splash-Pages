@@ -76,10 +76,12 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_General extends Fish
 			}
 		}
 		else {
+			/*
 			$fieldset->addField('store_ids', 'hidden', array(
 				'name' => 'store_ids[]',
 				'value' => Mage::app()->getStore(true)->getId(),
 			));
+			*/
 			
 			if (($page = Mage::registry('splash_page')) !== null) {
 				$page->setStoreId(Mage::app()->getStore(true)->getId());

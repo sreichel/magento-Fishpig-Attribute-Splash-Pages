@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+13/12/2013 - v3.0.5.0
+- Added category filters back into layered navigation
+
 13/12/2013 - v3.0.4.0
 - Fixed multiple Adminhtml issues
 

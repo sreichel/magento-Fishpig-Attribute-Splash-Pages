@@ -95,6 +95,17 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 			}
 		}
 		
+		if ($object->getCategoryId()) {
+			$category = Mage::getModel('catalog/category')->load($object->getCategoryId());
+			
+			if (!$category->getId()) {
+				$object->setCategoryId(null);
+			}
+		}
+		else {
+			$object->setCategoryId(null);
+		}
+		
 		if (!$object->getUrlKey()) {
 			$object->setUrlKey($object->getname());
 		}

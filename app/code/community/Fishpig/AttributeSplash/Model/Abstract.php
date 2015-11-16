@@ -182,4 +182,28 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 	{
 		return (int)$this->_getData('include_in_menu') !== 0;
 	}
+	
+	/**
+	 * Get the category used for layered navigation category filters
+	 * 
+	 * @return false|Mage_Catalog_Model_Category
+	 */
+	public function getCategory()
+	{
+		if (!$this->hasCategory()) {
+			$this->setCategory(false);
+
+			if ($this->getCategoryId()) {
+				$category = Mage::getModel('catalog/category')
+					->setStoreId($this->getStoreId())
+					->load($this->getCategoryId());
+					
+				if ($category->getId()) {
+					$this->setCategory($category);
+				}
+			}
+		}
+		
+		return $this->_getData('category');
+	}	
 }

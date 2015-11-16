@@ -50,6 +50,13 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_General extends Fis
 			'disabled' => !is_null(Mage::registry('splash_group')),
 		));
 		
+		$fieldset->addField('category_id', 'text', array(
+			'name' => 'category_id',
+			'label' => $this->__('Category ID'),
+			'title' => $this->__('Category ID'),
+			'note' => $this->__('Used to populate category filters in the layered navigation'),
+		));
+		
 		$group = Mage::registry('splash_group');
 		
 

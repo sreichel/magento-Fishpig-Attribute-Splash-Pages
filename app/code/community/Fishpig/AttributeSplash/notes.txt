@@ -6,6 +6,12 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+17/12/2013 - v3.0.7.0
+- Fixed SQL installation issues
+
+14/12/2013 - v3.0.6.0
+- Added column_count back in for pages
+
 13/12/2013 - v3.0.5.0
 - Added category filters back into layered navigation
 

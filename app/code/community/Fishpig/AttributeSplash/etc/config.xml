@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>3.0.5.0</version>
+			<version>3.0.7.0</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -138,45 +138,4 @@
 			</seo>
 		</attributeSplash>
 	</default>
-	<attributeSplash>
-		<ads>
-			<Fishpig_Crosslink>
-				<url>http://fishpig.co.uk/magento/extensions/seo-internal-links/</url>
-				<image>attribute-splash/addons/crosslink.png</image>
-				<title>Crosslink</title>
-				<subtitle>SEO Internal Links</subtitle>
-				<description>Automatically cross link your products, categories, splash pages, CMS pages, blog posts and categories using Crosslinks.</description>
-			</Fishpig_Crosslink>
-			<Fishpig_Bolt>
-				<url>http://fishpig.co.uk/magento/extensions/bolt-full-page-cache/</url>
-				<image>attribute-splash/addons/bolt.png</image>
-				<title>Bolt</title>
-				<subtitle>Full Page Cache</subtitle>
-				<description>Add enterprise level caching to Magento community with Bolt, Magento's fastest Full Page Cache extension.</description>
-			</Fishpig_Bolt>
-			<Fishpig_AttributeSplashPro>
-				<url>http://fishpig.co.uk/magento/extensions/attribute-splash-pro/</url>
-				<image>attribute-splash/addons/splash-pro.png</image>
-				<title>Splash Pro</title>
-				<subtitle>SEO Landing Pages</subtitle>
-				<description>Create SEO landing pages quickly and easily using Splash Pro. Decide which products you want to display based on multiple attribute filters, category filters and price filters.</description>
-			</Fishpig_AttributeSplashPro>
-			<Fishpig_Wordpress_Addon_Multisite>
-				<is_multistore>1</is_multistore>
-				<url>http://fishpig.co.uk/magento/wordpress-integration/multisite/</url>
-				<image>attribute-splash/addons/wordpress-multisite.png</image>
-				<title>WordPress Integration</title>
-				<subtitle>Multi-Store Blog Integration</subtitle>
-				<description>Integrate a WordPress blog into your Magento theme in minutes with this free extension.</description>
-			</Fishpig_Wordpress_Addon_Multisite>
-			<Fishpig_Wordpress>
-				<is_singlestore>1</is_singlestore>
-				<url>http://fishpig.co.uk/magento/wordpress-integration/</url>
-				<image>attribute-splash/addons/wordpress.png</image>
-				<title>WordPress Integration</title>
-				<subtitle>WordPress blog integration</subtitle>
-				<description>Manage multiple blogs from a single WordPress Admin and integrate each blog with a different Magento store view</description>
-			</Fishpig_Wordpress>
-		</ads>
-	</attributeSplash>
 </config>

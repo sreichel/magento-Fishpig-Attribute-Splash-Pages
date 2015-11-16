@@ -31,6 +31,16 @@
             				<show_in_website>1</show_in_website>
             				<show_in_store>1</show_in_store>
             			</template>
+            			<column_count>
+            				<label>Column Count</label>
+            				<comment>Number of Splash pages per row</comment>
+            				<frontend_type>text</frontend_type>
+            				<sort_order>6</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            				<validate>validate-number required-entry</validate>
+            			</column_count>
             			<include_group_url_key>
             				<label>Add Group URL Key to URL</label>
             				<frontend_type>select</frontend_type>

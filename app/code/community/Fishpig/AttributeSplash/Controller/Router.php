@@ -77,12 +77,12 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 				// URL contains / but no group key so should be single
 				return false;
 			}
-
-			list($groupUrlKey, $pageUrlKey, $extra) = explode('/', $requestUri);
-
-			if ($extra) {
+			
+			if (substr_count($requestUri, '/') > 2) {
 				return false;
 			}
+			
+			list($groupUrlKey, $pageUrlKey) = explode('/', $requestUri);
 
 			return $this->_loadSplashPage($pageUrlKey, $groupUrlKey);
 		}

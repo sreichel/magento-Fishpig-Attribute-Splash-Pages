@@ -46,12 +46,6 @@ class Fishpig_AttributeSplash_Model_Observer
 				continue;
 			}
 
-			$children = $item->getSplashPages();
-			
-			if ($children && count($children->addOrderByName()->addFieldToFilter('include_in_menu', 1)->load()) === 0) {
-				continue;
-			}
-
 			$data = array(
 				'name' => $item->getName(),
 				'id' => $item->getMenuNodeId(),
@@ -71,8 +65,14 @@ class Fishpig_AttributeSplash_Model_Observer
 			
 			$itemNode = new Varien_Data_Tree_Node($data, 'id', $parentNode->getTree(), $parentNode);
 			$parentNode->addChild($itemNode);
-			
+
+			$children = $item->getSplashPages();
+
 			if ($children) {
+				$children->addOrderByName()
+					->addFieldToFilter('include_in_menu', 1)
+					->load();
+
 				$this->_injectLinks($children, $itemNode);
 			}
 		}

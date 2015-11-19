@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+17/03/2014 - v3.2.2.0
+- Display group in menu even if no splash pages are enabled for the menu
+
 04/03/2014 - v3.2.0.0
 - Fixed e.visibility issue
 - Added default store_ids = 0 to Adminhtml forms for Splash Pages

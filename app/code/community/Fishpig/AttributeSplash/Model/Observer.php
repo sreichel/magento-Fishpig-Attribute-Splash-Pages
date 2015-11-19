@@ -106,6 +106,12 @@ class Fishpig_AttributeSplash_Model_Observer
 		return $this;
 	}
 	
+	/**
+	 * Add support for FishPig_FSeo
+	 *
+	 * @param Varien_Event_Observer $observer
+	 * @return $this|bool
+	 */
 	public function fseoLayeredNavigationMatchEntityObserver(Varien_Event_Observer $observer)
 	{
 		if (!Mage::helper('fseo/layer')->isEntityTypeEnabled('attributeSplash_page')) {
@@ -138,7 +144,7 @@ class Fishpig_AttributeSplash_Model_Observer
 		else {
 	    	$baseUrlKey = substr($urlKey, 0, strpos($urlKey, '/'));
 	    	$groupUrlKey = null;
-	    	$pageUrlKey = null;
+	    	$pageUrlKey = $baseUrlKey;
 	    }
 
 		$splashIds = Mage::getResourceModel('attributeSplash/page')->getPageAndGroupIdByUrlKeys($pageUrlKey, $groupUrlKey);

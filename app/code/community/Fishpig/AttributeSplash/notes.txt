@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+07/03/2015 - 3.3.8.4
+- Fixed FishPig_FSeo issue
+
 17/08/2013 - 3.3.8.1
 - Fixed issue that broke mass deleting Splash Pages from grid after applying filter
 

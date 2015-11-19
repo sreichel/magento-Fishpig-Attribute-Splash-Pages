@@ -45,11 +45,14 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
     {
 		$this->_request = $request;
 		
-		if ($this->_match() !== false) {
-			$request->setAlias(
-				Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-				ltrim($request->getPathInfo(), '/')
-			);
+		$requestUri = $this->_preparePathInfo($request->getPathInfo());
+		
+		if ($requestUri === false) {
+			return false;
+		}
+		
+		if ($this->_match($requestUri) !== false) {
+			$request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $requestUri . Mage::getStoreConfig('attributeSplash/seo/url_suffix'));
 
 			return true;
 		}
@@ -62,27 +65,25 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 	 *
 	 * @return bool
 	 */
-	protected function _match()
+	protected function _match(&$requestUri)
 	{
-		$requestUri = trim($this->_request->getPathInfo(), '/');
-		
 		Mage::dispatchEvent('attributeSplash_match_routes_before', array('router' => $this, 'request_uri' => $requestUri));
 		
 		if ($this->getRequest()->getModuleName() === 'splash') {
 			return true;
 		}
 
-		$isDoubleBarrel = strpos($requestUri, '/') !== false;
-		$includeGroupUrlKey = Mage::getStoreConfigFlag('attributeSplash/page/include_group_url_key');
-		$urlSuffix = rtrim(Mage::getStoreConfig('attributeSplash/seo/url_suffix'), '/');
+		$transport = new Varien_Object(array(
+			'request_uri' => $requestUri,
+			'slash_count' => substr_count($requestUri, '/'),
+		));
 		
-		if ($urlSuffix) {
-			if (substr($requestUri, -strlen($urlSuffix)) !== $urlSuffix) {
-				return false;
-			}
-			
-			$requestUri = substr($requestUri, 0, -strlen($urlSuffix));
-		}
+		Mage::dispatchEvent('attributeSplash_match_routes_middle', array('transport' => $transport, 'request' => $this->_request));
+
+		$requestUri = $transport->getRequestUri();
+
+		$includeGroupUrlKey = Mage::getStoreConfigFlag('attributeSplash/page/include_group_url_key');
+		$isDoubleBarrel = strpos($requestUri, '/') !== false;
 
 		if ($isDoubleBarrel) {
 			// Must be splash page
@@ -93,7 +94,7 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 			}
 			
 			list($groupUrlKey, $pageUrlKey) = explode('/', $requestUri);
-			
+
 			return $this->_loadSplashPage($pageUrlKey, $groupUrlKey);
 		}
 		else if ($includeGroupUrlKey) {
@@ -106,7 +107,28 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 
 		return $this->_loadSplashGroup($requestUri);
 	}
-	
+
+	/**
+	 * Prepare the path info variable
+	 *
+	 * @param string $pathInfo
+	 * @return false|string
+	 */
+	protected function _preparePathInfo($pathInfo)
+	{
+		$requestUri = ltrim($pathInfo, '/');
+
+		if (($urlSuffix = rtrim(Mage::getStoreConfig('attributeSplash/seo/url_suffix'), '/')) !== '') {
+			if (substr($requestUri, -strlen($urlSuffix)) !== $urlSuffix) {
+				return false;
+			}
+			
+			$requestUri = substr($requestUri, 0, -strlen($urlSuffix));
+		}
+		
+		return $requestUri;
+	}
+		
 	/**
 	 * Load a splash page by it's URL key
 	 * If the group URL key is present, this must match
@@ -182,6 +204,13 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 			->setActionName('view')
 			->setParam('id', $group->getId());
 			
+		return true;
+	}
+	
+	protected function _setAlias($requestUri)
+	{
+		$this->_request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $requestUri);
+		
 		return true;
 	}
 }

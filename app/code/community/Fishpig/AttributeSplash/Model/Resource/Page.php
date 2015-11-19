@@ -230,7 +230,9 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 	{
 		parent::_afterLoad($object);
 		
-		if ($other = $object->getOther()) {
+		$other = $object->getOther();
+		
+		if (is_array($other)) {
 			foreach($other as $key => $value) {
 				if (!$object->hasData($key)) {
 					$object->setData($key, $value);
@@ -249,5 +251,70 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 	public function getIndexTable()
 	{
 		return $this->getTable('attributeSplash/page_index');
+	}
+	
+	/**
+	 * Given a page URL key and maybe a group url key and store id,
+	 * return page and group IDS
+	 *
+	 * @param string $pageUrlKey
+	 * @param string $groupUrlKey = null
+	 * @param int $storeId = null
+	 * @return false|array
+	 */
+	public function getPageAndGroupIdByUrlKeys($pageUrlKey, $groupUrlKey = null, $storeId = null)
+	{
+		if (is_null($storeId)) {
+			$storeId = Mage::app()->getStore()->getId();
+		}
+		
+		$select = $this->_getReadAdapter()
+			->select()
+				->from(array('_index' => $this->getIndexTable()), 'page_id')
+				->where('store_id=?', $storeId);
+		
+		// Join page URL Key
+		$select->join(
+			array('_page' => $this->getMainTable()),
+			$this->_getReadAdapter()->quoteInto('_index.page_id=_page.page_id AND _page.url_key= ?', $pageUrlKey),	
+			''//array('page_url_key' => 'url_key')
+		);
+		
+		$select->where('_page.is_enabled=?', 1);
+
+		if (!is_null($groupUrlKey)) {
+			// Join Attribute and Option tables
+			$select->join(
+				array('_option' => $this->getTable('eav/attribute_option')),
+				'_page.option_id=_option.option_id',
+				''
+			)->join(
+				array('_attribute' => $this->getTable('eav/attribute')),
+				'_attribute.attribute_id=_option.attribute_id',
+				''
+			);
+		
+			// Join group URL Key
+			$select->join(
+				array('_group' => $this->getTable('attributeSplash/group')),
+				'_group.attribute_id=_attribute.attribute_id',
+				array('group_id')//array('group_url_key' => 'url_key', 'group_id')
+			);		
+			
+			// Remove results with no group URL key
+			$select->where('_group.url_key <> ?', '');
+		}
+		
+		if ($results = $this->_getReadAdapter()->fetchAll($select)) {
+			if (count($results) === 1) {
+				return array_shift($results);
+			}
+
+			echo $select . '<br/><br/>';
+			echo sprintf('<pre>%s</pre>', print_r($results, true));
+			exit('more than 1 result.');
+		}
+		
+		return false;
 	}
 }

@@ -73,7 +73,7 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 	 *
 	 * @return string
 	 */	
-	public function getUrlSuffix()
+	static public function getUrlSuffix()
 	{
 		return Mage::getStoreConfig('attributeSplash/seo/url_suffix');
 	}

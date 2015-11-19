@@ -54,4 +54,24 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 
 		return $this;
 	}
+	
+	/**
+	 * Get the URL suffix
+	 *
+	 * @return string
+	 */
+	public function getUrlSuffix()
+	{
+		return Mage::getStoreConfig('attributeSplash/seo/url_suffix');	
+	}
+	
+	/**
+	 * Determine whether the group URL key is used in the page URL
+	 *
+	 * @return bool
+	 */
+	public function includeGroupUrlKeyInPageUrl()
+	{
+		return Mage::getStoreConfigFlag('attributeSplash/page/include_group_url_key');
+	}
 }

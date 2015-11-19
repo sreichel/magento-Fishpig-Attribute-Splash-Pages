@@ -105,4 +105,65 @@ class Fishpig_AttributeSplash_Model_Observer
 		
 		return $this;
 	}
+	
+	public function fseoLayeredNavigationMatchEntityObserver(Varien_Event_Observer $observer)
+	{
+		$doubleBarrel = Mage::getStoreConfigFlag('attributeSplash/page/include_group_url_key');
+		
+		$urlKey = $observer->getEvent()->getRequestUri();	
+		$urlSuffix = Fishpig_AttributeSplash_Model_Page::getUrlSuffix();
+
+    	if ($urlSuffix && $urlSuffix !== '/') {
+			if (substr($urlKey, -strlen($urlSuffix)) !== $urlSuffix) {
+				return false;
+			}
+			
+			$urlKey = substr($urlKey, 0, -strlen($urlSuffix));
+    	}
+
+		$expectedSlashCount = 1 + (int)$doubleBarrel;
+
+    	if (substr_count($urlKey, '/') < $expectedSlashCount) {
+	    	return false;
+    	}
+		
+		if ($doubleBarrel) {
+			$baseUrlKey = substr($urlKey, 0, strpos($urlKey, '/', strpos($urlKey, '/')+1));
+			list($groupUrlKey, $pageUrlKey) = explode('/', $baseUrlKey);
+		}
+		else {
+	    	$baseUrlKey = substr($urlKey, 0, strpos($urlKey, '/'));
+	    	$groupUrlKey = null;
+	    	$pageUrlKey = null;
+	    }
+
+		$splashIds = Mage::getResourceModel('attributeSplash/page')->getPageAndGroupIdByUrlKeys($pageUrlKey, $groupUrlKey);
+		
+		if (!$splashIds) {
+			return false;
+		}
+		
+		list($pageId, $groupId) = array_values($splashIds);
+		
+		$tokens = explode('/', trim(substr($urlKey, strlen($baseUrlKey)), '/'));
+
+		$observer->getEvent()->getTransport()
+			->setEntityData(
+				new Varien_Object(array(
+					'entity_id' => $pageId,
+					'entity_type' => 'attributeSplash_page',
+					'entity_url_key' => $baseUrlKey,
+					'url_suffix' => $urlSuffix,
+					'tokens' => $tokens,
+					'module_name' => 'splash',
+					'controller_name' => 'page',
+					'action_name' => 'view',
+					'params' => array(
+						'id' => $pageId,
+						'group_id' => $groupId,
+					)
+				)));
+		
+		return $this;
+	}
 }

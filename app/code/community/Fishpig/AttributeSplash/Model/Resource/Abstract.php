@@ -207,7 +207,7 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 	 * @return $this
 	 */
 	public function reindexAllByStoreId($storeId)
-	{	
+	{
 		$this->_getWriteAdapter()->delete($this->getIndexTable(), $this->_getWriteAdapter()->quoteInto('store_id=?', $storeId));
 			
 		$subselect = $this->_getReadAdapter()

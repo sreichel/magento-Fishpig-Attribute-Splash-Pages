@@ -49,13 +49,19 @@ class Fishpig_AttributeSplash_PageController extends Mage_Core_Controller_Front_
 		}
 		
 		if ($breadBlock = $this->getLayout()->getBlock('breadcrumbs')) {
-			$breadBlock->addCrumb('home', array('label' => $this->__('Home'), 'title' => $this->__('Home'), 'link' => Mage::getUrl()));
-
-			if ($splashGroup = $splashPage->getSplashGroup()) {
-				$breadBlock->addCrumb('splash_group', array('label' => $splashGroup->getName(), 'title' => $splashGroup->getName(), 'link' => $splashGroup->getUrl()));
+			if (!$breadBlock->getSkipSplashPageHomeCrumb()) {
+				$breadBlock->addCrumb('home', array('label' => $this->__('Home'), 'title' => $this->__('Home'), 'link' => Mage::getUrl()));
 			}
 			
-			$breadBlock->addCrumb('splash_page', array('label' => $splashPage->getName(), 'title' => $splashPage->getName()));
+			if (!$breadBlock->getSkipSplashPageGroupCrumb()) {
+				if ($splashGroup = $splashPage->getSplashGroup()) {
+					$breadBlock->addCrumb('splash_group', array('label' => $splashGroup->getName(), 'title' => $splashGroup->getName(), 'link' => $splashGroup->getUrl()));
+				}
+			}
+
+			if (!$breadBlock->getSkipSplashPageCrumb()) {
+				$breadBlock->addCrumb('splash_page', array('label' => $splashPage->getName(), 'title' => $splashPage->getName()));
+			}
 		}	
 
 		$this->renderLayout();

@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>3.3.7.0</version>
+			<version>3.3.7.3</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -70,6 +70,14 @@
 					</attributeSplash>
 				</observers>
 			</catalog_prepare_price_select>
+			<fseo_layered_navigation_match_entity>
+				<observers>
+					<attributeSplash>
+						<class>attributeSplash/observer</class>
+						<method>fseoLayeredNavigationMatchEntityObserver</method>
+					</attributeSplash>
+				</observers>			
+			</fseo_layered_navigation_match_entity>
 		</events>
 		<index>
 			<indexer>

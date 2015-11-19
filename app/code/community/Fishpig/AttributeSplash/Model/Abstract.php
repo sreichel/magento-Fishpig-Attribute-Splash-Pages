@@ -34,9 +34,15 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 			'_store' => $this->getStoreId(),
 		));
 		
-		return $this->getStoreId() === 0 || Mage::getStoreConfigFlag('web/seo/use_rewrites')
-			? str_replace('/' . basename($_SERVER['SCRIPT_FILENAME']), '', $url)
-			: $url;
+		if ($this->getStoreId() === 0 || Mage::getStoreConfigFlag('web/seo/use_rewrites')) {
+			$url = str_replace('/' . basename($_SERVER['SCRIPT_FILENAME']), '', $url);
+		}
+		
+		if (Mage::getStoreConfigFlag('web/url/use_store') && $this->getStoreId() === 0) {
+			$url = str_replace('/admin/', '/', $url);			
+		}
+
+		return $url;
 	}
 
 	/**

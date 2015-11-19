@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
  * @category    Fishpig
  * @package     Fishpig_AttributeSplash
@@ -78,11 +78,11 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit_Tab_General extends Fis
 		else {
 			$fieldset->addField('store_ids_hidden', 'hidden', array(
 				'name' => 'store_ids[]',
-				'value' => Mage::app()->getStore(true)->getId(),
+				'value' => Mage::app()->getStore()->getId(),
 			));
 			
 			if (($group = Mage::registry('splash_group')) !== null) {
-				$group->setStoreId(Mage::app()->getStore(true)->getId());
+				$group->setStoreId(Mage::app()->getStore()->getId());
 			}
 		}
 

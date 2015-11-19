@@ -46,11 +46,11 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 		$this->_request = $request;
 		
 		$requestUri = $this->_preparePathInfo($request->getPathInfo());
-		
+
 		if ($requestUri === false) {
 			return false;
 		}
-		
+
 		if ($this->_match($requestUri) !== false) {
 			$request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $requestUri . Mage::getStoreConfig('attributeSplash/seo/url_suffix'));
 			
@@ -69,7 +69,7 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 	 */
 	protected function _match(&$requestUri)
 	{
-		Mage::dispatchEvent('attributeSplash_match_routes_before', array('router' => $this, 'request_uri' => $requestUri));
+		Mage::dispatchEvent('attributeSplash_match_routes_before', array('router' => $this, 'request_uri' => ltrim($requestUri, '/')));
 		
 		if ($this->getRequest()->getModuleName() === 'splash') {
 			return true;
@@ -135,12 +135,16 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 
 		if (($urlSuffix = rtrim(Mage::getStoreConfig('attributeSplash/seo/url_suffix'), '/')) !== '') {
 			if (substr($requestUri, -strlen($urlSuffix)) !== $urlSuffix) {
+				if (substr($pathInfo, -4) === '.xml') {
+					return $pathInfo;
+				}
+				
 				return false;
 			}
 			
 			$requestUri = substr($requestUri, 0, -strlen($urlSuffix));
 		}
-		
+
 		return $requestUri;
 	}
 		

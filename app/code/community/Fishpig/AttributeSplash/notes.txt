@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+27/05/2013 - 3.3.6.1
+- Fix for XmlSitemap add-on
+
 14/04/2013 - 3.3.6.0
 - Changed Image URLs so that secure URL is used when on an HTTPS page
 

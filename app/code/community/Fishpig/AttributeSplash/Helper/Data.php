@@ -21,18 +21,20 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 		
 		if (!$product->hasData($key)) {
 			$product->setData($key, false);
+
 			$collection = Mage::getResourceModel('attributeSplash/page_collection')
 				->addStoreFilter(Mage::app()->getStore())
 				->addAttributeCodeFilter($attributeCode)
-				->addProductFilter($product);
-			
-			$collection->load();
-			
-			if ($collection->count() >= 1) {
-				$splash = $collection->getFirstItem();
+				->addProductFilter($product)
+				->setPageSize(1)
+				->setCurPage(1)
+				->load();
+
+			if (count($collection) > 0) {
+				$page = $collection->getFirstItem();
 				
-				if ($splash->getId()) {
-					$product->setData($key, $splash);
+				if ($page->getId()) {
+					$product->setData($key, $page);
 				}
 			}
 		}

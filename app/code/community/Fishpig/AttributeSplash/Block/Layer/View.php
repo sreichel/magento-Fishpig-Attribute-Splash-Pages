@@ -17,4 +17,22 @@ class Fishpig_AttributeSplash_Block_Layer_View extends Mage_Catalog_Block_Layer_
 	{
 		return Mage::getSingleton('attributeSplash/layer');
 	}
+	
+	/**
+	 * Ensure the default Magento blocks are used
+	 *
+	 * @return $this
+	 */
+    protected function _initBlocks()
+    {
+    	parent::_initBlocks();
+    	
+        $this->_stateBlockName              = 'Mage_Catalog_Block_Layer_State';
+        $this->_categoryBlockName           = 'Mage_Catalog_Block_Layer_Filter_Category';
+        $this->_attributeFilterBlockName    = 'Mage_Catalog_Block_Layer_Filter_Attribute';
+        $this->_priceFilterBlockName        = 'Mage_Catalog_Block_Layer_Filter_Price';
+        $this->_decimalFilterBlockName      = 'Mage_Catalog_Block_Layer_Filter_Decimal';
+        
+        return $this;
+    }
 }

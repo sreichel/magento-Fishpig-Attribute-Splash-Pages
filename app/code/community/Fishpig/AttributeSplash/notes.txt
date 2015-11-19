@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+14/07/2013 - 3.3.7.0
+- Added better fix for setLayer fatal error
+
 06/06/2013 - 3.3.6.4
 - Added fix for Magento 1.9 rwd package
 

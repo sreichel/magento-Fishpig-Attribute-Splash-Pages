@@ -96,4 +96,16 @@ class Fishpig_AttributeSplash_Model_Resource_Page_Collection extends Fishpig_Att
 		
 		return $this;
 	}
+	
+	/**
+	 * After loading the collection, perform the afterLoad resource method on each item
+	 *
+	 * @return $this
+	 */
+	protected function _afterLoad()
+	{
+		$this->walk('afterLoad');
+		
+		return parent::_afterLoad();
+	}
 }

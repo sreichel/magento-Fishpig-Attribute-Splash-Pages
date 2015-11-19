@@ -131,7 +131,7 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 	 */
 	protected function _preparePathInfo($pathInfo)
 	{
-		$requestUri = ltrim($pathInfo, '/');
+		$requestUri = trim($pathInfo, '/');
 
 		if (($urlSuffix = rtrim(Mage::getStoreConfig('attributeSplash/seo/url_suffix'), '/')) !== '') {
 			if (substr($requestUri, -strlen($urlSuffix)) !== $urlSuffix) {

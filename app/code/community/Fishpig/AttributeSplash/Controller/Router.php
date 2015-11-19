@@ -117,8 +117,8 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 	 */
 	protected function _afterMatch()
 	{
-		Mage::getConfig()->setNode('mageworx_seo/seosuite/disable_layered_rewrites', true, true);
-		Mage::app()->getStore()->setConfig('mageworx_seo/seosuite/disable_layered_rewrites', true);
+#		Mage::getConfig()->setNode('mageworx_seo/seosuite/disable_layered_rewrites', true, true);
+#		Mage::app()->getStore()->setConfig('mageworx_seo/seosuite/disable_layered_rewrites', true);
 
 		return $this;
 	}

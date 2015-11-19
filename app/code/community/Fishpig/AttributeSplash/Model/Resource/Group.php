@@ -104,7 +104,7 @@ class Fishpig_AttributeSplash_Model_Resource_Group extends Fishpig_AttributeSpla
 	public function canDelete(Fishpig_AttributeSplash_Model_Group $group)
 	{
 		if (!$group->isGlobal()) {
-			return false;
+			return true;
 		}
 
 		$select = $this->_getReadAdapter()->select()

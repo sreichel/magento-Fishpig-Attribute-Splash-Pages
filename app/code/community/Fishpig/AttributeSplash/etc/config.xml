@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>3.3.4.0</version>
+			<version>3.3.5.0</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>

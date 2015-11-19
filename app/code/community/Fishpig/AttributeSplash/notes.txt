@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+21/03/2013 - 3.3.3.0
+- Added _afterMatch to Router
+
 19/03/2014 - v3.3.2.0
 - Fix that allows you to delete a group if it's not global or has no pages associated with it
 

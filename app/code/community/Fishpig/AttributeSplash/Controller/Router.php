@@ -53,7 +53,9 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 		
 		if ($this->_match($requestUri) !== false) {
 			$request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $requestUri . Mage::getStoreConfig('attributeSplash/seo/url_suffix'));
-
+			
+			$this->_afterMatch();
+		
 			return true;
 		}
 
@@ -108,6 +110,19 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 		return $this->_loadSplashGroup($requestUri);
 	}
 
+	/**
+	 * This code runs after a Splash match has been found
+	 *
+	 * @return $this
+	 */
+	protected function _afterMatch()
+	{
+		Mage::getConfig()->setNode('mageworx_seo/seosuite/disable_layered_rewrites', true, true);
+		Mage::app()->getStore()->setConfig('mageworx_seo/seosuite/disable_layered_rewrites', true);
+
+		return $this;
+	}
+	
 	/**
 	 * Prepare the path info variable
 	 *

@@ -42,7 +42,7 @@
 		<reference name="before_body_end">
 			<block type="attributeSplash/adminhtml_page_edit_js" name="splash_page.edit.js" />		
 			<block type="core/text" name="splash.tabs.content">
-				<action method="setText">
+				<action method="setText" ifconfig="attributeSplash/missing_addon/quickcreate">				
 					<text><![CDATA[
 						<style type="text/css">
 							#qc-go {font-size:110%;margin-top:-18px;padding:10px 0;text-align:right;}

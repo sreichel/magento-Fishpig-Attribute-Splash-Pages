@@ -79,4 +79,30 @@ class Fishpig_AttributeSplash_Model_Observer
 		
 		return true;
 	}
+
+	/**
+	 * Remove the e.visibility where part
+	 *
+	 * @param Varien_Event_Observer $observer
+	 * @return $this
+	 */
+	public function prepareCatalogPriceSelectObserver(Varien_Event_Observer $observer)
+	{
+		$select = $observer->getEvent()
+			->getSelect()
+				->getPart(Zend_Db_Select::WHERE);
+		
+		foreach($where as $key => $value) {
+			if (strpos($value, 'e.visibility') !== false) {
+				unset($where[$key]);
+				break;
+			}
+		}
+		
+		$observer->getEvent()
+			->getSelect()
+				->setPart(Zend_Db_Select::WHERE, $where);
+		
+		return $this;
+	}
 }

@@ -52,8 +52,6 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
  
 	/**
 	 * Retrieve a collection of products associated with the splash page
-	 * @thanks Flat catalog fix:
-	 *   http://www.xtreme-vision.net/magento/magento-fishpig-attribute-splash-pages-and-flat-catalog
 	 *
 	 * @return Mage_Catalog_Model_Resource_Eav_Resource_Product_Collection
 	 */	
@@ -78,7 +76,7 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 				. $this->_getReadAdapter()->quoteInto(" AND `{$alias}`.`value` = ?", $page->getOptionId()),
 				''
 			);
-			
+
 		if (!Mage::getStoreConfigFlag('cataloginventory/options/show_out_of_stock', $page->getStoreId())) {
 			Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($collection);
 		}

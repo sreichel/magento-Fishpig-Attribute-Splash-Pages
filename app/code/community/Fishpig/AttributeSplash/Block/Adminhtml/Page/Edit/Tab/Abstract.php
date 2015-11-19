@@ -36,6 +36,6 @@ abstract class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tab_Abstract ex
 			return $page->getData();
 		}
 		
-		return array('is_enabled' => 1, 'store_id' => array(0), 'include_in_menu' => 1);
+		return array('is_enabled' => 1, 'store_ids' => array(0), 'include_in_menu' => 1);
 	}
 }

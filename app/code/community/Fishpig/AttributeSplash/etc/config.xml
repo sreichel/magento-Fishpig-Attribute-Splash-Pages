@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_AttributeSplash>
-			<version>3.1.10.0</version>
+			<version>3.2.0.0</version>
 		</Fishpig_AttributeSplash>
 	</modules>
 	<global>
@@ -62,6 +62,14 @@
 					</attributeSplash>
 				</observers>
 			</controller_front_init_routers>
+			<catalog_prepare_price_select>
+				<observers>
+					<attributeSplash>
+						<class>attributeSplash/observer</class>
+						<method>prepareCatalogPriceSelectObserver</method>
+					</attributeSplash>
+				</observers>
+			</catalog_prepare_price_select>
 		</events>
 		<index>
 			<indexer>
@@ -134,6 +142,10 @@
 			<seo>
 				<url_suffix>.html</url_suffix>
 			</seo>
+			<missing_addon>
+				<quickcreate>1</quickcreate>
+				<xmlsitemap>1</xmlsitemap>
+			</missing_addon>
 		</attributeSplash>
 	</default>
 </config>

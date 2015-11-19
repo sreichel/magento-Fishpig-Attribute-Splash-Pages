@@ -6,6 +6,10 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+04/03/2014 - v3.2.0.0
+- Fixed e.visibility issue
+- Added default store_ids = 0 to Adminhtml forms for Splash Pages
+
 20/02/2014 - v3.1.10.0
 - Fix for URL's when using store codes
 

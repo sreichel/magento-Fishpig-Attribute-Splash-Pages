@@ -17,6 +17,22 @@ class Fishpig_AttributeSplash_Block_Page_View_Product_List extends Mage_Catalog_
 	{
 		if (is_null($this->_productCollection)) {
 			$this->_productCollection = Mage::getSingleton('attributeSplash/layer')->getProductCollection();
+
+			if ($orders = Mage::getSingleton('catalog/config')->getAttributeUsedForSortByArray()) {
+				if (isset($orders['position'])) {
+					unset($orders['position']);
+				}
+				
+				$this->setAvailableOrders($orders);
+
+				if (!$this->getSortBy()) {
+					$category = Mage::getModel('catalog/category')->setStoreId(
+						Mage::app()->getStore()->getId()
+					);
+
+					$this->setSortBy($category->getDefaultSortBy());
+				}
+			}
 		}
 		
 		return $this->_productCollection;

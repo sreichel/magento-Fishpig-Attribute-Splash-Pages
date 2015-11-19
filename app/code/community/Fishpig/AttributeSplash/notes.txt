@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+17/03/2014 - v3.2.3.0
+- Added fix for product sort by attributes
+
 17/03/2014 - v3.2.2.0
 - Display group in menu even if no splash pages are enabled for the menu
 

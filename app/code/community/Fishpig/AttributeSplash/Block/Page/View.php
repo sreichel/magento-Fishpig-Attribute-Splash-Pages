@@ -96,9 +96,7 @@ class Fishpig_AttributeSplash_Block_Page_View extends Mage_Core_Block_Template
 			if (!$block->hasColumnCount()) {
 				$block->setColumnCount($this->getSplashPageProductsPerRow());
 			}
-			
-			$block->setSortBy('name')->setDirection('asc');
-			
+
 			return $block;
 		}
 		

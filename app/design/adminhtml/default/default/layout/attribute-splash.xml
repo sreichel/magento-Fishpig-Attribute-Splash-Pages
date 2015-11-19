@@ -26,6 +26,19 @@
 			</block>
 		</reference>
 	</adminhtml_attributesplash_index>
+	
+	<adminhtml_attributesplash_pagegrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="attributeSplash/adminhtml_page_grid" name="splash.grid"/>
+		</block>
+	</adminhtml_attributesplash_pagegrid>
+	
+	<adminhtml_attributesplash_groupgrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="attributeSplash/adminhtml_group_grid" name="splash.grid"/>
+		</block>
+	</adminhtml_attributesplash_groupgrid>
+	
 	<!--
 	/**
 	 * Splash Page edit

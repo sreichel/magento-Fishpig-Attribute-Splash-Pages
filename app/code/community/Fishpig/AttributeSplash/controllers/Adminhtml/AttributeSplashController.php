@@ -30,10 +30,8 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplashController extends Mage_A
 	 */
 	public function groupGridAction()
 	{
-		$this->getResponse()
-			->setBody(
-				$this->getLayout()->createBlock('attributeSplash/adminhtml_group_grid')->toHtml()
-			);
+		$this->loadLayout();
+		$this->renderLayout();
 	}
 
 	/**
@@ -43,10 +41,8 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplashController extends Mage_A
 	 */
 	public function pageGridAction()
 	{
-		$this->getResponse()
-			->setBody(
-				$this->getLayout()->createBlock('attributeSplash/adminhtml_page_grid')->toHtml()
-			);
+		$this->loadLayout();
+		$this->renderLayout();
 	}
 	
 	/**

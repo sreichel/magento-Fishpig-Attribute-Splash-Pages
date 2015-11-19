@@ -74,4 +74,15 @@ class Fishpig_AttributeSplash_Helper_Data extends Mage_Core_Helper_Abstract
 	{
 		return Mage::getStoreConfigFlag('attributeSplash/page/include_group_url_key');
 	}
+	
+	/**
+	 * Determiner whether Fishpig_FSeo is installed
+	 *
+	 * @return bool
+	 */
+	public function isFishPigSeoInstalledAndActive()
+	{
+		return 'true' === (string)Mage::getConfig()->getNode('modules/Fishpig_FSeo/active')
+			&& Mage::helper('fseo/layer')->isEntityTypeEnabled('attributeSplash_page');
+	}
 }

@@ -62,7 +62,7 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplashController extends Mage_A
 			->setMedium('Add-On Tab')
 			->setTemplate('large.phtml')
 			->setLimit(4)
-			->setPreferred(array('Fishpig_AttributeSplash_Addon_QuickCreate', 'Fishpig_AttributeSplash_Addon_XmlSitemap', 'Fishpig_CrossLink', 'Fishpig_AttributeSplashPro', 'Fishpig_NoBots'));
+			->setPreferred(array('Fishpig_FSeo', 'Fishpig_AttributeSplash_Addon_QuickCreate', 'Fishpig_AttributeSplash_Addon_XmlSitemap', 'Fishpig_CrossLink', 'Fishpig_AttributeSplashPro', 'Fishpig_NoBots'));
 			
 		$this->getResponse()
 			->setBody(

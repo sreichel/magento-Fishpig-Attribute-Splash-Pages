@@ -9,6 +9,13 @@
 				<subtitle>Full Page Cache</subtitle>
 				<short_definition>Add enterprise level caching to Magento community with Bolt, Magento's fastest Full Page Cache extension.</short_definition>
 			</Fishpig_Bolt>	
+			<Fishpig_FSeo>
+				<url><![CDATA[magento/extensions/seo/]]></url>
+				<image>fseo.png</image>
+				<title>SEO</title>
+				<subtitle>Layered Navigation</subtitle>
+				<short_definition>Add SEO URLs to your layered navigation for Magento Categories and Splash Pages</short_definition>
+			</Fishpig_FSeo>
 			<Fishpig_NoBots>
 				<url><![CDATA[magento/extensions/block-robots-stop-spam/]]></url>
 				<image>nobots.png</image>

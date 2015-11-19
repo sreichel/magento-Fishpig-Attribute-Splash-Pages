@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+30/07/2013 - 3.3.8.0
+- Added support for FishPig SEO (http://fishpig.co.uk/magento/extensions/seo/)
+
 22/07/2013 - 3.3.7.3
 - Getting ready for the new FishPig SEO extension and adding support for the layered navigation features.
 

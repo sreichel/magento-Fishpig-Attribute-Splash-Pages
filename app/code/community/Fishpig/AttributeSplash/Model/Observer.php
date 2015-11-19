@@ -108,6 +108,10 @@ class Fishpig_AttributeSplash_Model_Observer
 	
 	public function fseoLayeredNavigationMatchEntityObserver(Varien_Event_Observer $observer)
 	{
+		if (!Mage::helper('fseo/layer')->isEntityTypeEnabled('attributeSplash_page')) {
+			return $this;
+		}
+	
 		$doubleBarrel = Mage::getStoreConfigFlag('attributeSplash/page/include_group_url_key');
 		
 		$urlKey = $observer->getEvent()->getRequestUri();	

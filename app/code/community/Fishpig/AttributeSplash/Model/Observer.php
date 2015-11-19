@@ -88,7 +88,7 @@ class Fishpig_AttributeSplash_Model_Observer
 	 */
 	public function prepareCatalogPriceSelectObserver(Varien_Event_Observer $observer)
 	{
-		$select = $observer->getEvent()
+		$where = $observer->getEvent()
 			->getSelect()
 				->getPart(Zend_Db_Select::WHERE);
 		

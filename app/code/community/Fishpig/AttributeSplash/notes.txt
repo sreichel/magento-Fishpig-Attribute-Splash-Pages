@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+14/04/2013 - 3.3.6.0
+- Changed Image URLs so that secure URL is used when on an HTTPS page
+
 22/03/2013 - 3.3.4.0
 - Fixed bug that stopped store scoped groups from being created
 

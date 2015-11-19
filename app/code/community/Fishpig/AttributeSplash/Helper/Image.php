@@ -52,7 +52,7 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 	 */
 	public function getBaseImageUrl()
 	{
-		return Mage::getBaseUrl('media') . self::IMAGE_FOLDER . '/';
+		return Mage::getBaseUrl('media', Mage::app()->getStore()->isCurrentlySecure()) . self::IMAGE_FOLDER . '/';
 	}
 	
 	/**

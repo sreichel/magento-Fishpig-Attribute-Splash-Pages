@@ -64,7 +64,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 	 * @param array $pref = array()
 	 * @return false|array
 	 */
-	public function getExtensions($count = 0, array $pref = array())
+	public function getExtensions($count = 0, array $pref = array(), $rand = false)
 	{
 		if (!isset($pref[0])) {
 			$pref = array_keys($pref);
@@ -79,8 +79,20 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 					unset($pool[$code]);
 				}
 				
-				if ($count > 0 && count($winners) >= $count) {
+				if (!$rand && $count > 0 && count($winners) >= $count) {
 					break;
+				}
+			}
+			
+			if ($rand) {
+				$winners = $this->shuffleArray($winners);
+
+				if ($count > 0 && count($winners) > $count) {
+					$xcount = count($winners);
+
+					while($xcount-- > $count) {
+						array_pop($winners);
+					}
 				}
 			}
 			
@@ -418,6 +430,27 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
     		? parent::fetchView($fileName)
     		: '';
     }
+    
+    /**
+     * Shuffle an array and preserve the keys
+     *
+     * @param array $a
+     * @return array
+     */
+	public function shuffleArray(array $a)
+	{
+		$keys = array_keys($a); 
+		
+		shuffle($keys); 
+
+		$random = array(); 
+		
+		foreach ($keys as $key) { 
+			$random[$key] = $a[$key]; 
+		}
+		
+		return $random; 
+	} 
 }
 
 	// End of compilation fix

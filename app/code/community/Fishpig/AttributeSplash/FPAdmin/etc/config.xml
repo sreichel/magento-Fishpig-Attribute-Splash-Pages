@@ -61,6 +61,14 @@
 				<short_definition>Manage multiple blogs from a single WordPress Admin and integrate each blog with a different Magento store view</short_definition>
 				<require_multistore>0</require_multistore>
 			</Fishpig_Wordpress>
+			<Fishpig_Wordpress_Addon_CS>
+				<url><![CDATA[magento/wordpress-integration/customer-synchronisation/]]></url>
+				<image>cs.png</image>
+				<title>Customer Synchronisation</title>
+				<subtitle>Single Sign-on</subtitle>
+				<short_definition>Synchronise WordPress users and Magento customers and provide a single login for your customers.</short_definition>
+				<depends><Fishpig_Wordpress /></depends>
+			</Fishpig_Wordpress_Addon_CS>
 			<Fishpig_Wordpress_Addon_Facebook>
 				<url><![CDATA[magento/wordpress-integration/facebook/]]></url>
 				<image>facebook.png</image>

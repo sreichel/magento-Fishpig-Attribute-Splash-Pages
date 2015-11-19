@@ -8,6 +8,16 @@
 
 class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplash_Model_Resource_Abstract
 {
+	/**
+	 * Fields to be serialized before saving
+	 * This applies to the filter fields
+	 *
+	 * @var array
+	 */
+     protected $_serializableFields = array(
+     	'other' => array('a:0:{}', array()),
+     );
+     
 	public function _construct()
 	{
 		$this->_init('attributeSplash/page', 'page_id');
@@ -100,7 +110,6 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 			$object->getAttributeModel();
 
 			$object->unsetData('attribute_id');
-#			$object->unsetData('option_id');
 		}
 
 		if (!$this->_pageIsUniqueToStores($object)) {
@@ -211,6 +220,27 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 			: false;
 	}
 
+	/**
+	 * After loading object get other values
+	 *
+	 * @param Mage_Core_Model_Abstract $object
+	 * @return $this
+	 */
+	protected function _afterLoad(Mage_Core_Model_Abstract $object)
+	{
+		parent::_afterLoad($object);
+		
+		if ($other = $object->getOther()) {
+			foreach($other as $key => $value) {
+				if (!$object->hasData($key)) {
+					$object->setData($key, $value);
+				}
+			}
+		}
+
+		return $this;
+	}
+	
 	/**
 	 * Get the index table for pags
 	 *

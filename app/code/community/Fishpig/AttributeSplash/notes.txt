@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+02/06/2013 - 3.3.6.3
+- Added 'others' field to pages to allow custom add-ons to add fields to pages easily
+
 27/05/2013 - 3.3.6.1
 - Fix for XmlSitemap add-on
 

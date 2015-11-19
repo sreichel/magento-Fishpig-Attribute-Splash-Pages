@@ -45,6 +45,8 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tabs extends Mage_Adminh
 			));
 		}
 		
+		Mage::dispatchEvent('attributesplash_adminhtml_page_edit_tabs', array('tabs' => $this));
+		
 		return parent::_beforeToHtml();
 	}
 }

@@ -132,8 +132,14 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 			->from(array('main_table' => $this->getMainTable()), 'page_id')
 			->join(array('_store' => $this->getStoreTable()), 'main_table.page_id = _store.page_id', '')
 			->where('option_id=?', $object->getOptionId())
-			->where('_store.store_id IN (?)', $stores)
 			->limit(1);
+			
+		if (count($stores) === 1) {
+			$select->where('_store.store_id = ?', array_shift($stores));
+		}
+		else {
+			$select->where('_store.store_id IN (?)', $stores);
+		}
 
 		if ($object->getId()) {
 			$select->where('main_table.page_id <> ?', $object->getId());

@@ -155,10 +155,12 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplash_PageController extends M
 				try {
 					foreach ($pageIds as $pageId) {
 						$page = Mage::getSingleton('attributeSplash/page')->load($pageId);
+						
+						if ($page->getId()) {
+							Mage::dispatchEvent('attributeSplash_controller_page_delete', array('splash_page' => $page, 'page' => $page));
 	
-						Mage::dispatchEvent('attributeSplash_controller_page_delete', array('splash_page' => $page, 'page' => $page));
-	
-						$page->delete();
+							$page->delete();
+						}
 					}
 					
 					$this->_getSession()->addSuccess($this->__('Total of %d record(s) have been deleted.', count($pageIds)));
@@ -169,7 +171,7 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplash_PageController extends M
 			}
 		}
 		
-		$this->_redirect('*/*/index');
+		$this->_redirect('*/attributeSplash');
 	}
 	
 	/**

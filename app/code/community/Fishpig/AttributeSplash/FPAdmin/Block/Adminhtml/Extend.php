@@ -405,6 +405,19 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface
 		
 		return '#';
 	}
+	
+	/**
+	 * Legacy fix that stops the HTML output from displaying
+	 *
+	 * @param string $fileName
+	 * @return string
+	 */
+    public function fetchView($fileName)
+    {
+    	return is_file($fileName)
+    		? parent::fetchView($fileName)
+    		: '';
+    }
 }
 
 	// End of compilation fix

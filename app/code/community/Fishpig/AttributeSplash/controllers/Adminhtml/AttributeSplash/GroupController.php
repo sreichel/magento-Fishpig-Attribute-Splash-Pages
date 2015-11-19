@@ -106,7 +106,6 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplash_GroupController extends 
 	}
 	
 	/**
-	 * Thank you Michael!
 	 *
 	 */
 	public function deleteAction($id)

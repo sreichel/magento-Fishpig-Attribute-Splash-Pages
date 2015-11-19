@@ -23,8 +23,8 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Group_Edit  extends Mage_Adminhtml
 		));
 
 		if ($group = Mage::registry('splash_group')) {
-			if ($group->isGlobal()) {
-				$this->_removeButton('delete');
+			if ($group->getId() && $group->canDelete()) {
+#				$this->_removeButton('delete');
 			}
 		}
 	}

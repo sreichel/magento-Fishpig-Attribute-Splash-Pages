@@ -120,4 +120,14 @@ class Fishpig_AttributeSplash_Model_Group extends Fishpig_AttributeSplash_Model_
 		
 		return '';
 	}
+	
+	/**
+	 * Determine whether it's possible to delete the group
+	 *
+	 * @return bool
+	 */
+	public function canDelete()
+	{
+		return $this->getResource()->canDelete($this);
+	}
 }

@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+19/03/2014 - v3.3.2.0
+- Fix that allows you to delete a group if it's not global or has no pages associated with it
+
 18/03/2014 - v3.3.0.0
 - Added support for LayeredNavBridge add-on (http://fishpig.co.uk/magento/extensions/attribute-splash-pages/layered-navigation/)
 

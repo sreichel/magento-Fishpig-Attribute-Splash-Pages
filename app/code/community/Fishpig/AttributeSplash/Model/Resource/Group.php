@@ -94,4 +94,29 @@ class Fishpig_AttributeSplash_Model_Resource_Group extends Fishpig_AttributeSpla
 	{
 		return $this->getTable('attributeSplash/group_index');
 	}
+	
+	/**
+	 * Determine whether the group can be deleted
+	 *
+	 * @param Fishpig_AttributeSplash_Model_Group $group
+	 * @return bool
+	 */
+	public function canDelete(Fishpig_AttributeSplash_Model_Group $group)
+	{
+		if (!$group->isGlobal()) {
+			return false;
+		}
+
+		$select = $this->_getReadAdapter()->select()
+			->from(array('main_table' => $this->getTable('eav/attribute_option')), 'option_id')
+			->join(
+				array('_splash' => $this->getTable('attributeSplash/page')),
+				'_splash.option_id = main_table.option_id'
+			)
+			->where('main_table.attribute_id=?', $group->getAttributeModel()->getId())
+			->limit(1);
+			
+			
+		return $this->_getReadAdapter()->fetchOne($select) === false;
+	}
 }

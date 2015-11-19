@@ -106,28 +106,20 @@ class Fishpig_AttributeSplash_Adminhtml_AttributeSplash_GroupController extends 
 	}
 	
 	/**
+	 * Attempt to delete the group model
 	 *
 	 */
-	public function deleteAction($id)
+	public function deleteAction()
 	{
-		if ($id = $this->getRequest()->getParam('id')) {
-			$group = Mage::getModel('attributeSplash/group')->load($id);
+		$group = Mage::getModel('attributeSplash/group')->load($this->getRequest()->getParam('id'));
 
-			if ($group->getId()) {
-				try {
-					$storeIds = $group->getData('store_id');
-					
-					if (count($storeIds) === 1 && $storeIds[0] === '0') {
-						throw new Exception('Unable to delete group.');
-					}
-
-					$group->delete();
-	
-					$this->_getSession()->addSuccess($this->__('Group was deleted'));
-				}
-				catch (Exception $e) {
-					$this->_getSession()->addError($this->__($e->getMessage()));
-				}
+		if ($group->getId() && $group->canDelete()) {
+			try {
+				$group->delete();
+				$this->_getSession()->addSuccess($this->__('Group was deleted'));
+			}
+			catch (Exception $e) {
+				$this->_getSession()->addError($this->__($e->getMessage()));
 			}
 		}
 

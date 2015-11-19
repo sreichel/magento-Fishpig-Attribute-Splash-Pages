@@ -55,6 +55,8 @@ class Fishpig_AttributeSplash_Controller_Router extends Mage_Core_Controller_Var
 				$requestUri . Mage::getStoreConfig('attributeSplash/seo/url_suffix')
 			);
 
+			Mage::helper('attributeSplash')->clearLayerRewrites();
+			
 			return true;
 		}
 

@@ -168,6 +168,8 @@ class Fishpig_AttributeSplash_Model_Observer
 					)
 				)));
 		
+		Mage::helper('attributeSplash')->clearLayerRewrites();
+		
 		return $this;
 	}
 }

@@ -47,7 +47,7 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tabs extends Mage_Adminh
 		
 		if ($page = Mage::registry('splash_page')) {
 			if ($page->hasAvailableCustomFields()) {
-				$this->addTab($alias, array(
+				$this->addTab('custom_fields', array(
 					'label' => $this->__('Custom Fields'),
 					'title' => $this->__('Custom Fields'),
 					'content' => $this->getLayout()->createBlock('attributeSplash/adminhtml_page_edit_tab_customfields')->toHtml(),

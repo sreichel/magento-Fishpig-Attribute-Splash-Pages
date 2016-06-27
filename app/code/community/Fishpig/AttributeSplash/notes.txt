@@ -6,7 +6,7 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
-27/07/2015 - 3.3.8.8
+30/07/2015 - 3.3.8.9
 - Another fix for the ACL permissions issue.
 
 10/07/2015 - 3.3.8.7

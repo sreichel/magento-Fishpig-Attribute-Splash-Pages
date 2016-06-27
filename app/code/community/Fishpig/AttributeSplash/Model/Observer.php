@@ -153,6 +153,10 @@ class Fishpig_AttributeSplash_Model_Observer
 			return false;
 		}
 		
+		if (count($splashIds)) {
+			$splashIds[] = null;
+		}
+
 		list($pageId, $groupId) = array_values($splashIds);
 		
 		$tokens = explode('/', trim(substr($urlKey, strlen($baseUrlKey)), '/'));

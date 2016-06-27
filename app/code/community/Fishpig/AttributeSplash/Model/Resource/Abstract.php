@@ -118,6 +118,23 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 			$object->setCreatedAt(now());
 		}
 		
+		if (is_array($object->getCustomFields())) {
+			$customFields = array();
+			
+			foreach($object->getCustomFields() as $field => $value) {
+				if (trim($value) !== '') {
+					$customFields[$field] = $value;
+				}
+			}
+			
+			if (count($customFields) > 0) {
+				$object->setCustomFields(serialize($customFields));
+			}
+			else {
+				$object->setCustomFIelds('');
+			}
+		}
+		
 		return parent::_beforeSave($object);
 	}
 
@@ -178,6 +195,16 @@ abstract class Fishpig_AttributeSplash_Model_Resource_Abstract extends Mage_Core
 			
 			if (!$this->isAdmin()) {
 				$object->setStoreId(Mage::app()->getStore(true)->getId());
+			}
+
+			if ($object->getCustomFields()) {
+				$customFields = @unserialize($object->getCustomFields());
+				
+				if (is_array($customFields)) {
+					foreach($customFields as $field => $value) {
+						$object->setData($field, $value);	
+					}
+				}
 			}
 		}
 		

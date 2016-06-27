@@ -114,6 +114,24 @@
             			</enabled>
             		</fields>
             	</navigation>
+            	<custom_fields>
+            		<label>Custom Fields</label>
+            		<sort_order>999</sort_order>
+            		<show_in_default>1</show_in_default>
+            		<show_in_website>1</show_in_website>
+            		<show_in_store>1</show_in_store>
+            		<fields>
+            			<page>
+            				<label>Page Fields</label>
+            				<comment>Enter the name of each field on a new line<br/>(eg. some_field)</comment>
+            				<frontend_type>editor</frontend_type>
+            				<sort_order>1</sort_order>
+            				<show_in_default>1</show_in_default>
+            				<show_in_website>1</show_in_website>
+            				<show_in_store>1</show_in_store>
+            			</page>
+            		</fields>
+            	</custom_fields>
             </groups>
         </attributeSplash>
     </sections>

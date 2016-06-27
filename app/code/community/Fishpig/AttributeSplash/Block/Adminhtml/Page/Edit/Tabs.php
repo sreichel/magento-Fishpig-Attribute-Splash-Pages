@@ -45,6 +45,16 @@ class Fishpig_AttributeSplash_Block_Adminhtml_Page_Edit_Tabs extends Mage_Adminh
 			));
 		}
 		
+		if ($page = Mage::registry('splash_page')) {
+			if ($page->hasAvailableCustomFields()) {
+				$this->addTab($alias, array(
+					'label' => $this->__('Custom Fields'),
+					'title' => $this->__('Custom Fields'),
+					'content' => $this->getLayout()->createBlock('attributeSplash/adminhtml_page_edit_tab_customfields')->toHtml(),
+				));
+			}
+		}
+		
 		Mage::dispatchEvent('attributesplash_adminhtml_page_edit_tabs', array('tabs' => $this));
 		
 		return parent::_beforeToHtml();

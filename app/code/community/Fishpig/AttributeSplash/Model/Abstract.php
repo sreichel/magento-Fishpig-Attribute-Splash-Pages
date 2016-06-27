@@ -8,6 +8,8 @@
 
 abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Abstract
 {
+	static protected $_customFields = array();
+	
 	/**
 	 * Retrieve the name of the splash page
 	 * If display name isn't set, option value label will be returned
@@ -222,4 +224,44 @@ abstract class Fishpig_AttributeSplash_Model_Abstract extends Mage_Core_Model_Ab
 		
 		return $this->_getData('category');
 	}	
+	
+	/**
+	 * Determine whether custom fields are available
+	 *
+	 * @return bool
+	 */
+	public function hasAvailableCustomFields()
+	{
+		return count($this->getAllAvailableCustomFields()) > 0;
+	}
+	
+	/**
+	 * Get an array of all custom fields
+	 *
+	 * @return array
+	 */
+	public function getAllAvailableCustomFields()
+	{
+		$type = $this instanceof Fishpig_AttributeSplash_Model_Page ? 'page' : 'group';
+
+		if (isset(self::$_customFields[$type])) {
+			return self::$_customFields[$type];
+		}
+		
+		self::$_customFields[$type] = array();
+		
+		$cfString = trim(Mage::getStoreConfig('attributeSplash/custom_fields/' . $type));
+		
+		if (!$cfString) {
+			return false;
+		}
+
+		foreach(explode("\n", $cfString) as $customField) {
+			if (($customField = trim($customField)) !== '') {
+				self::$_customFields[$type][$customField] = ucwords(str_replace('_', ' ', $customField));
+			}
+		}
+		
+		return self::$_customFields[$type];
+	}
 }

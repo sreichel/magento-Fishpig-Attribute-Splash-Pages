@@ -38,6 +38,7 @@ class Fishpig_AttributeSplash_Block_Layer_View extends Mage_Catalog_Block_Layer_
 			$this->_attributeFilterBlockName = 'Fishpig_FSeo_Block_Catalog_Layer_Filter_Attribute';
 			$this->_priceFilterBlockName = 'Fishpig_FSeo_Block_Catalog_Layer_Filter_Price';
 			$this->_decimalFilterBlockName = 'Fishpig_FSeo_Block_Catalog_Layer_Filter_Decimal';
+			$this->_stateBlockName = 'Fishpig_FSeo_Block_Catalog_Layer_State';
 		}
 
         return $this;

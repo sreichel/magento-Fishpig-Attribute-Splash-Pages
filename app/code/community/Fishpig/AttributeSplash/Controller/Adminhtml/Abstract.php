@@ -17,6 +17,9 @@ abstract class Fishpig_AttributeSplash_Controller_Adminhtml_Abstract extends Mag
 	{
 		return Mage::getSingleton('admin/session')->isAllowed(
 			'attributeSplash/dashboard'
+		)
+		|| Mage::getSingleton('admin/session')->isAllowed(
+			'attributesplash/dashboard'
 		);
 	}
 }

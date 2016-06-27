@@ -1,0 +1,6 @@
+app/code/community/Fishpig/AttributeSplash                      app/code/community/Fishpig/AttributeSplash/
+app/design/adminhtml/default/default/layout/*                   app/design/adminhtml/default/default/layout/
+app/design/frontend/base/default/layout/*                       app/design/frontend/base/default/layout/
+app/design/frontend/base/default/template/attribute-splash      app/design/frontend/base/default/template/attribute-splash
+app/etc/modules/*                                               app/etc/modules/
+skin/frontend/base/default/css/*                                skin/frontend/base/default/css/

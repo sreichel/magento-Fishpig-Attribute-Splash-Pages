@@ -1,0 +1,17 @@
+{
+    "name": "fishpig/attribute-splash",
+    "type": "magento-module",
+    "description": "Create SEO landing pages for your product attributes.",
+    "homepage": "http://fishpig.co.uk/magento/extensions/attribute-splash-pages",
+    "license": "FishPig EULA",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "authors": [
+        {
+            "name": "fishpig",
+            "email": "ben@fishpig.co.uk",
+            "role": "Author/Maintainer"
+        }
+    ]
+}

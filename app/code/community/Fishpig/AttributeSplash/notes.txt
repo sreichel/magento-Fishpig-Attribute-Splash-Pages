@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+09/07/2015 - 3.3.8.5
+- Added support for Magento CE 1.9.2.0. If you still have errors after installing this update, please reindex all of the indexes in the Magento Admin.
+
 07/03/2015 - 3.3.8.4
 - Fixed FishPig_FSeo issue
 

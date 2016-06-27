@@ -68,14 +68,9 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 	public function getProductCollection(Fishpig_AttributeSplash_Model_Page $page)
 	{	
 		$collection = Mage::getResourceModel('catalog/product_collection')
-			->setStoreId($page->getStoreId())
-			->addAttributeToFilter('status', 1)
-			->addAttributeToFilter('visibility', array('in' => array(
-				Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG,
-				Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH
-			)));
+			->setStoreId($page->getStoreId());
 
-		$alias = $page->getAttributeCode().'_index';
+		$alias = $page->getAttributeCode() . '_index';
 
 		$collection->getSelect()
 			->join(
@@ -86,10 +81,6 @@ class Fishpig_AttributeSplash_Model_Resource_Page extends Fishpig_AttributeSplas
 				. $this->_getReadAdapter()->quoteInto(" AND `{$alias}`.`value` = ?", $page->getOptionId()),
 				''
 			);
-
-		if (!Mage::getStoreConfigFlag('cataloginventory/options/show_out_of_stock', $page->getStoreId())) {
-			Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($collection);
-		}
 
 		return $collection;
 	}

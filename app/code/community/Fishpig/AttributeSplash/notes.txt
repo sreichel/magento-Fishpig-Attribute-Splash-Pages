@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+01/01/2016 - 3.3.8.14
+- Added option to have a pager on the group page. To do this, add a pager block as a child block to the 'attributeSplash.view.group' block with an alias of 'pager'. Then add <?php echo $this->getPagerHtml() ?> to the attribute-splash/group/view.phtml template.
+
 02/09/2015 - 3.3.8.10
 - Fixed system.log entry for undefined index.
 

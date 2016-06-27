@@ -104,10 +104,41 @@ class Fishpig_AttributeSplash_Block_Group_View extends Mage_Core_Block_Template
 			: Mage::getStoreConfig('attributeSplash/group/column_count');
 	}
 	
+	/**
+	 * Get the Thumbnail URL for $page
+	 *
+	 * @return int
+	 */
 	public function getThumbnailUrl($page)
 	{
 		return $this->helper('attributeSplash/image')->init($page, 'thumbnail')
 			->keepFrame($page->thumbnailShouldKeepFrame())
 			->resize($page->getThumbnailWidth(), $page->getThumbnailHeight());
+	}
+	
+	/**
+	 * If a child block with an alias of 'pager' is set then setup the pager
+	 *
+	 * @return $this
+	 **/
+	protected function _beforeToHtml()
+	{
+		if ($pagerBlock = $this->getChild('pager')) {
+			$this->setPagerBlock($pagerBlock);
+			
+			$this->getPagerBlock()->setCollection($this->getSplashPages());
+		}
+
+		return parent::_beforeToHtml();
+	}
+	
+	/**
+	 * Get the pager HTML if a pager is present
+	 *
+	 * @return string|null
+	 **/
+	public function getPagerHtml()
+	{
+		return $this->hasPagerBlock() ? $this->getPagerBlock()->toHtml() : null;
 	}
 }

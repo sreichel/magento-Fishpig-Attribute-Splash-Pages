@@ -47,6 +47,9 @@
 				<?php endif ?>
 			<?php endforeach ?>
 	        <script type="text/javascript">decorateGeneric($$('ul.splash-group-grid'), ['odd','even','first','last'])</script>
+	        <?php if ($this->hasPagerBlock()): ?>
+	        	<?php echo $this->getPagerHtml() ?>
+	        <?php endif; ?>
 		</div>
 	<?php endif; ?>
 <?php endif; ?>

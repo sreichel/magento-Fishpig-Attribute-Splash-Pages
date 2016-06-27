@@ -6,6 +6,9 @@
 # Documentation:	http://fishpig.co.uk/magento/extensions/attribute-splash-pages/
 ##
 
+10/07/2015 - 3.3.8.6
+- Fixed ACL issue caused by Magento 1.9.2.0 upgrade. This update allows you to continue using restricted Admin user accounts that have access to the Attribute Splash Pages section.
+
 09/07/2015 - 3.3.8.5
 - Added support for Magento CE 1.9.2.0. If you still have errors after installing this update, please reindex all of the indexes in the Magento Admin.
 

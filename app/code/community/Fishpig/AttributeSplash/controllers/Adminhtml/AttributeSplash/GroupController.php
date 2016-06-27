@@ -6,7 +6,7 @@
  * @author      Ben Tideswell <help@fishpig.co.uk>
  */
 
-class Fishpig_AttributeSplash_Adminhtml_AttributeSplash_GroupController extends Mage_Adminhtml_Controller_Action
+class Fishpig_AttributeSplash_Adminhtml_AttributeSplash_GroupController extends Fishpig_AttributeSplash_Controller_Adminhtml_Abstract
 {
 	/**
 	 * Forward the request to the dashboard

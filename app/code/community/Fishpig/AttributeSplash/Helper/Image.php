@@ -329,9 +329,14 @@ class Fishpig_AttributeSplash_Helper_Image extends Mage_Core_Helper_Abstract
 	public function uploadImage($fileKey, $filename = null)
 	{
 		try {
-			$uploader = new Varien_File_Uploader($fileKey);
+            $uploader = new Mage_Core_Model_File_Uploader($fileKey);
 			$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
 			$uploader->setAllowRenameFiles(true);
+            $uploader->addValidateCallback(
+                Mage_Core_Model_File_Validator_Image::NAME,
+                Mage::getModel('core/file_validator_image'),
+                'validate'
+            );
 			$result = $uploader->save($this->getBaseImagePath());
 			
 			return $result['file'];
